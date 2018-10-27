@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
+
+import GlobalStyle from './globalStyle';
+import HomePage from './containers/Homepage';
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-
+      <div className={'container'}>
+        <GlobalStyle />
+        <HomePage />
       </div>
     );
   }
