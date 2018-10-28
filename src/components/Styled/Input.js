@@ -1,21 +1,31 @@
 import React from 'react';
-import styled  from 'styled-components';
+
+import styled from 'styled-components';
 
 const StyledInput = styled.input`
-  border: 2px solid var(--color-blue-light-2);  
-  padding: .4rem .6rem;
-  color: var(--color-primary);
+  border: 1.5px solid ${props => props.borderColor};
+  padding: 0.5rem 0.7rem;
+  color: inherit;
   font: inherit;
+  border-radius: 5px;
+  transition: all .4s;
 
-  &:hover {
-    border: 2px solid var(--color-blue-light-2);  
+  &:focus {
+    outline: none;
+    border: 1.5px solid ${props => props.hoverColor};
   }
 `;
 
-const input = props => (
-  <StyledInput>
-     { props.children }
-  </StyledInput>
-)
+const input = props => {
+  return (
+    <StyledInput
+      type={props.type}
+      placeholder={props.placeHolder}
+      borderColor={props.borderColor}
+      hoverColor={props.hoverColor}>
+      {props.children}
+    </StyledInput>
+  );
+};
 
 export default input;

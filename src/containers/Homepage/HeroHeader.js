@@ -5,13 +5,13 @@ import cameraImage from '../../assets/camera-cctv-equipment-430208.jpg';
 
 const Header = styled.header`
   background-image: linear-gradient(
-      90deg,
-      rgba(82, 101, 143, 0.6),
-      rgba(82, 101, 143, 0.4)
+      45deg,
+      rgba(82, 101, 143, 0.8),
+      rgba(82, 101, 143, 0.2)
     ),
     url(${cameraImage});
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -19,6 +19,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Heading = styled.h1`
@@ -27,15 +28,20 @@ const Heading = styled.h1`
   letter-spacing: 1px;
   font-size: 2.8em;
   text-align: center;
+  margin-bottom: 40rem;
+`;
+
+const ScrollDown = styled.a`
+    position: absolute;
+    color: #fff;
+    bottom: 15%;
 `;
 
 const heroHeader = props => (
   <Header>
     <Heading>Video Analytics for Security</Heading>
+    <ScrollDown >Not working Scroll Down</ScrollDown>
   </Header>
 );
-
-// @media screen and (max-width: 1024px) { /* Specific to this particular image */
-// }
 
 export default heroHeader;
