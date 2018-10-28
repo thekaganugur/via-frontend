@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { media } from '../../styles/';
 
 const Footer = styled.footer`
-  font-size: 0.8em;
   color: #755c21;
   background-color: #fffbde;
   padding: 4rem 5rem;
@@ -13,7 +12,7 @@ const Footer = styled.footer`
   align-items: center;
 
   a {
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-weight: 700;
     text-decoration: none;
     color: inherit;
@@ -27,6 +26,7 @@ const Footer = styled.footer`
   }
 
   ${media.tablet`padding: 2rem 1rem;`} .devs {
+    font-size: 0.9em;
     flex-shrink: 0;
     list-style: none;
     margin-left: 1rem;
@@ -41,8 +41,7 @@ const footer = props => {
   return (
     <Footer>
       <p>
-        Developed under graduation project at Başkent
-        University.
+        Developed under graduation project at Başkent University.
         <span className="advisor">
           Advisor:{' '}
           <a href="https://www.baskent.edu.tr/~msert/">
