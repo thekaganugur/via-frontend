@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {media} from '../../styles/';
+import { media } from '../../styles/';
 
 const Footer = styled.footer`
-  font-size: 0.85em;
+  font-size: 0.8em;
   color: #755c21;
   background-color: #fffbde;
   padding: 4rem 5rem;
@@ -12,19 +12,24 @@ const Footer = styled.footer`
   justify-content: space-between;
   align-items: center;
 
-  ${media.tablet`padding: 2rem 0;`}
-
-  .devs {
-    font-size: 0.9em;
-    list-style: none;
-    margin-left:1rem;
-    a {
-      text-decoration: none;
-      color: inherit;
-      &:hover {
-        color: #c49a37;
-      }
+  a {
+    font-size: 0.8em;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      color: #c49a37;
     }
+  }
+
+  .advisor {
+    display: block;
+  }
+
+  ${media.tablet`padding: 2rem 1rem;`} .devs {
+    flex-shrink: 0;
+    list-style: none;
+    margin-left: 1rem;
   }
 `;
 
@@ -35,7 +40,16 @@ const footer = props => {
 
   return (
     <Footer>
-      This project is developed under graduation project at Başkent University.
+      <p>
+        Developed under graduation project at Başkent
+        University.
+        <span className="advisor">
+          Advisor:{' '}
+          <a href="https://www.baskent.edu.tr/~msert/">
+            <FontAwesomeIcon icon="glasses" /> Mustafa Sert
+          </a>
+        </span>
+      </p>
       <ul className="devs">
         <li>
           <a rel="noopener noreferrer" target="_blank" href={`${baseGitUrl}`}>
@@ -64,7 +78,10 @@ const footer = props => {
           </a>
         </li>
         <li>
-          <a rel="noopener noreferrer" target="_blank" href={`${baseGitUrl}`}>
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href={`${baseGitUrl}hamit-zor`}>
             {gitIcon} Hamit Zor
           </a>
         </li>
