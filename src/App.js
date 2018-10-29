@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 
 import { GlobalStyle } from './styles';
-import HomePage from './containers/Homepage';
+import LandingPage from './containers/LandingPage';
+import MainPage from './containers/MainPage';
+
+let auth = true;
 
 class App extends Component {
   render() {
     return (
       <div>
         <GlobalStyle />
-        <HomePage />
+        {auth ? <LandingPage /> : <MainPage />}
       </div>
     );
   }

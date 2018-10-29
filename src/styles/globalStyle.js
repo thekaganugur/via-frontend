@@ -44,7 +44,7 @@ export const GlobalStyle = createGlobalStyle`
     } 
   }
 
-  h1, h2, h3, h4 nav {
+  h1, h2, h3, h4, nav {
     font-family: 'Coda', sans-serif;
     color: var(--color-primary-dark);
     line-height: 1.2em;

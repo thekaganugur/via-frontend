@@ -39,7 +39,7 @@ const ScrollDown = styled.a`
 const heroHeader = props => (
   <Header>
     <Heading>Video Analytics for Security</Heading>
-    <ScrollDown>Not working Scroll Down Button</ScrollDown>
+    <ScrollDown>**Not working** Scroll Down To Login </ScrollDown>
   </Header>
 );
 

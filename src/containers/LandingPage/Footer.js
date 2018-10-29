@@ -11,6 +11,8 @@ const Footer = styled.footer`
   justify-content: space-between;
   align-items: center;
 
+  ${media.tablet`padding: 2rem 1rem;`};
+
   a {
     font-size: 0.9em;
     font-weight: 700;
@@ -25,7 +27,7 @@ const Footer = styled.footer`
     display: block;
   }
 
-  ${media.tablet`padding: 2rem 1rem;`} .devs {
+  .devs {
     font-size: 0.9em;
     flex-shrink: 0;
     list-style: none;
