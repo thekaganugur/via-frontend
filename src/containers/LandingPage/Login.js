@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Button from '../../components/Styled/Button';
@@ -65,20 +65,39 @@ const LoginContainer = styled.div`
   }
 `;
 
-const homepage = () => (
-  <LoginContainer>
-    <h2>Sign in to VIA.</h2>
-    <div className="loginPanel">
-      <form>
-        <Input type={'text'} placeHolder="Username" />
-        <Input type={'password'} placeHolder="Password" />
-        <Button>Submit</Button>
-      </form>
-      <span className="new">
-        New to Via? <a href="#section-2">Create an account.</a>
-      </span>
-    </div>
-  </LoginContainer>
-);
+class Homepage extends Component {
+  state = {
+    userNameTerm: '',
+    passwordTerm: ''
+  };
 
-export default homepage;
+  render() {
+    return (
+      <LoginContainer>
+        <h2>Sign in to VIA.</h2>
+        <div className="loginPanel">
+          <form>
+            <Input
+              changed={e => this.setState({ userNameTerm: e.target.value })}
+              value={this.state.userNameTerm}
+              type={'text'}
+              placeHolder="Username"
+            />
+            <Input
+              changed={e => this.setState({ passwordTerm: e.target.value })}
+              value={this.state.passwordTerm}
+              type={'password'}
+              placeHolder="Password"
+            />
+            <Button>Submit</Button>
+          </form>
+          <span className="new">
+            New to Via? <a href="#section-2">Create an account.</a>
+          </span>
+        </div>
+      </LoginContainer>
+    );
+  }
+}
+
+export default Homepage;

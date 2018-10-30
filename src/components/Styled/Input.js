@@ -9,7 +9,7 @@ const StyledInput = styled.input`
   color: inherit;
   font: inherit;
   border-radius: 5px;
-  transition: border .4s;
+  transition: border 0.4s;
 
   &:focus {
     outline: none;
@@ -20,6 +20,8 @@ const StyledInput = styled.input`
 const input = props => {
   return (
     <StyledInput
+      onChange={props.changed}
+      value={props.value}
       type={props.type}
       placeholder={props.placeHolder}
       borderColor={props.borderColor || secondaryColorLight}
