@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styled from 'styled-components';
 import cameraImage from '../../assets/camera-cctv-equipment-430208.jpg';
@@ -20,6 +21,12 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
   position: relative;
+
+  .down {
+    position: absolute;
+    color: #fff;
+    bottom: 15%;
+  }
 `;
 
 const Heading = styled.h1`
@@ -30,16 +37,10 @@ const Heading = styled.h1`
   text-align: center;
 `;
 
-const ScrollDown = styled.a`
-  position: absolute;
-  color: #fff;
-  bottom: 15%;
-`;
-
 const heroHeader = props => (
   <Header>
     <Heading>Video Analytics for Security</Heading>
-    <ScrollDown>**Not working** Scroll Down To Login </ScrollDown>
+    <FontAwesomeIcon className="down" icon="angle-double-down" size="2x" />
   </Header>
 );
 
