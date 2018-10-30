@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { secondaryColor, secondaryColorLight, greyColor } from '../../styles';
+import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledInput = styled.input`
   border: 1.5px solid ${props => props.borderColor};

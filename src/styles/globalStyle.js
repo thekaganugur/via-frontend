@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     line-height: 1.4em;
     color: var(--color-primary);
-    background: #ffff;
+    background: #fafafa;
     min-height: 100vh; 
   }
 
