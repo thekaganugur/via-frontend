@@ -9,7 +9,7 @@ const StyledSelect = styled.select`
   color: inherit;
   font: inherit;
   border-radius: 5px;
-  transition: border .4s;
+  transition: border 0.4s;
   background-color: inherit;
 
   &:focus {
@@ -18,13 +18,17 @@ const StyledSelect = styled.select`
   }
 `;
 
-const input = props => {
+const input = (props) => {
+  const {
+    name, borderColor, focusColor, children,
+  } = props;
   return (
     <StyledSelect
-      name={props.name}
-      borderColor={props.borderColor || secondaryColorLight}
-      focusColor={props.focusColor || secondaryColor}>
-      {props.children}
+      name={name}
+      borderColor={borderColor || secondaryColorLight}
+      focusColor={focusColor || secondaryColor}
+    >
+      {children}
     </StyledSelect>
   );
 };

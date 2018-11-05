@@ -10,12 +10,11 @@ const FormContainer = styled.form`
   width: 100%;
 `;
 
-const vidSearchForm = props => (
+const vidSearchForm = () => (
   <div>
     <FormContainer>
       <Input type="text" />
-      <Select 
-      name="searchObject">
+      <Select name="searchObject">
         <option value="human">Human</option>
         <option value="vehicle">Vehicle</option>
       </Select>

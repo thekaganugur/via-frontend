@@ -57,5 +57,3 @@ export const GlobalStyle = createGlobalStyle`
   }
 
 `;
-
-

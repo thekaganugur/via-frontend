@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { media } from '../../styles/';
+import { media } from '../../styles';
 
 const Footer = styled.footer`
   color: #755c21;
@@ -35,8 +35,8 @@ const Footer = styled.footer`
   }
 `;
 
-/**rel="noopener noreferrer" -> Is for security */
-const footer = props => {
+/** rel="noopener noreferrer" -> Is for security */
+const footer = () => {
   const gitIcon = <FontAwesomeIcon icon={['fab', 'github']} />;
   const baseGitUrl = 'https://github.com/';
 
@@ -45,45 +45,61 @@ const footer = props => {
       <p>
         Developed under graduation project at Başkent University.
         <span className="advisor">
-          Advisor:{' '}
+          Advisor:
+          {' '}
           <a href="https://www.baskent.edu.tr/~msert/">
-            <FontAwesomeIcon icon="glasses" /> Mustafa Sert
+            <FontAwesomeIcon icon="glasses" />
+            {' '}
+Mustafa Sert
           </a>
         </span>
       </p>
       <ul className="devs">
         <li>
           <a rel="noopener noreferrer" target="_blank" href={`${baseGitUrl}`}>
-            {gitIcon} Arifcan Bilici
+            {gitIcon}
+            {' '}
+Arifcan Bilici
           </a>
         </li>
         <li>
           <a rel="noopener noreferrer" target="_blank" href={`${baseGitUrl}`}>
-            {gitIcon} Doğuhan Babur
+            {gitIcon}
+            {' '}
+Doğuhan Babur
           </a>
         </li>
         <li>
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`${baseGitUrl}Zeromika`}>
-            {gitIcon} Göksen Umut Güler
+            href={`${baseGitUrl}Zeromika`}
+          >
+            {gitIcon}
+            {' '}
+Göksen Umut Güler
           </a>
         </li>
         <li>
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`${baseGitUrl}kgnugur`}>
-            {gitIcon} Mehmet Kağan Uğur
+            href={`${baseGitUrl}kgnugur`}
+          >
+            {gitIcon}
+            {' '}
+Mehmet Kağan Uğur
           </a>
         </li>
         <li>
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`${baseGitUrl}hamit-zor`}>
-            {gitIcon} Hamit Zor
+            href={`${baseGitUrl}hamit-zor`}
+          >
+            {gitIcon}
+            {' '}
+Hamit Zor
           </a>
         </li>
       </ul>

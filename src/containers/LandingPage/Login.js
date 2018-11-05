@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 import Button from '../../components/Styled/Button';
 import Input from '../../components/Styled/Input';
-import { greyColor } from '../../styles';
-import { media } from '../../styles/';
+import { greyColor, media } from '../../styles';
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -68,10 +67,11 @@ const LoginContainer = styled.div`
 class Homepage extends Component {
   state = {
     userNameTerm: '',
-    passwordTerm: ''
+    passwordTerm: '',
   };
 
   render() {
+    const { userNameTerm, passwordTerm } = this.state;
     return (
       <LoginContainer>
         <h2>Sign in to VIA.</h2>
@@ -79,20 +79,22 @@ class Homepage extends Component {
           <form>
             <Input
               changed={e => this.setState({ userNameTerm: e.target.value })}
-              value={this.state.userNameTerm}
-              type={'text'}
+              value={userNameTerm}
+              type="text"
               placeHolder="Username"
             />
             <Input
               changed={e => this.setState({ passwordTerm: e.target.value })}
-              value={this.state.passwordTerm}
-              type={'password'}
+              value={passwordTerm}
+              type="password"
               placeHolder="Password"
             />
             <Button>Submit</Button>
           </form>
           <span className="new">
-            New to Via? <a href="#section-2">Create an account.</a>
+            New to Via?
+            {' '}
+            <a href="#section-2">Create an account.</a>
           </span>
         </div>
       </LoginContainer>

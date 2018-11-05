@@ -4,8 +4,9 @@ import { GlobalStyle } from './styles';
 import LandingPage from './containers/LandingPage';
 import MainPage from './containers/MainPage';
 
-let auth = true;
+const auth = true;
 
+// eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   render() {
     return (

@@ -17,16 +17,20 @@ const StyledInput = styled.input`
   }
 `;
 
-const input = props => {
+const input = (props) => {
+  const {
+    changed, value, type, placeHolder, borderColor, focusColor, children,
+  } = props;
   return (
     <StyledInput
-      onChange={props.changed}
-      value={props.value}
-      type={props.type}
-      placeholder={props.placeHolder}
-      borderColor={props.borderColor || secondaryColorLight}
-      focusColor={props.focusColor || secondaryColor}>
-      {props.children}
+      onChange={changed}
+      value={value}
+      type={type}
+      placeholder={placeHolder}
+      borderColor={borderColor || secondaryColorLight}
+      focusColor={focusColor || secondaryColor}
+    >
+      {children}
     </StyledInput>
   );
 };

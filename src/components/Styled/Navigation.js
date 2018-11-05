@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { primaryColor, primaryColorDark } from '../../styles/';
+import { primaryColor, primaryColorDark } from '../../styles';
 
 const Navigation = styled.nav`
   background-color: ${primaryColor};
@@ -50,7 +50,7 @@ const Navigation = styled.nav`
   }
 `;
 
-const navigation = props => (
+const navigation = () => (
   <Navigation>
     <p className="header">Via.</p>
     <a href="" className="vidSearch">

@@ -6,7 +6,7 @@ export const secondaryColor = '#828a95';
 export const secondaryColorLight = '#b0b5bc';
 
 export const ternaryColor = '#f3f0d9';
-//export const ternaryColor = '#F7F5E6';
+// export const ternaryColor = '#F7F5E6';
 
 export const blueColor = '#268bd2';
 

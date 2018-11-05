@@ -5,7 +5,7 @@ const sizes = {
   desktop: 992,
   tablet: 768,
   phone: 480,
-  smPhone: 320
+  smPhone: 320,
 };
 
 // taken from: https://github.com/styled-components/styled-components/blob/master/docs/tips-and-tricks.md#media-templates

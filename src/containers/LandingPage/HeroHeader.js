@@ -37,7 +37,7 @@ const Heading = styled.h1`
   text-align: center;
 `;
 
-const heroHeader = props => (
+const heroHeader = () => (
   <Header>
     <Heading>Video Analytics for Security</Heading>
     <FontAwesomeIcon className="down" icon="angle-double-down" size="2x" />
