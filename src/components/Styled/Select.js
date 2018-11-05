@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledSelect = styled.select`
-  border: 1.5px solid ${props => props.borderColor};
+  border: 1px solid ${props => props.borderColor};
   padding: 0.5rem 0.7rem;
   color: inherit;
   font: inherit;
@@ -14,7 +14,7 @@ const StyledSelect = styled.select`
 
   &:focus {
     outline: none;
-    border: 1.5px solid ${props => props.hoverColor};
+    border: 1px solid ${props => props.focusColor};
   }
 `;
 

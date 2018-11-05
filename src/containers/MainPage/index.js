@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Cell } from 'styled-css-grid';
 
-import Navigation from '../../components/Styled/Navigation';
-import VidSearchForm from '../../components/VidSearchForm';
+import Navigation from './Navigation';
+import VidSearchForm from './VidSearchForm';
 
 const mainPage = () => (
   <Grid

@@ -29,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: normal;
     line-height: 1.4em;
     color: var(--color-primary);
@@ -55,5 +55,4 @@ export const GlobalStyle = createGlobalStyle`
   h2 {
     font-size: 1.5em;
   }
-
 `;

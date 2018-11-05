@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavLink } from 'react-router-dom';
 
 import { primaryColor, primaryColorDark } from '../../styles';
 
@@ -16,7 +17,7 @@ const Navigation = styled.nav`
     font-size: 1.3em;
     letter-spacing: 0.4rem;
     text-transform: uppercase;
-    margin-right: 2rem;
+    margin-right: 4rem;
     user-select: none;
   }
 
@@ -27,13 +28,13 @@ const Navigation = styled.nav`
     height: 100%;
     display: flex;
     align-items: center;
-    transition: background-color .4s;
+    transition: background-color 0.4s;
     &:hover {
       background-color: ${primaryColorDark};
     }
   }
 
-  .vidSearch {
+  .last {
     margin-right: auto;
   }
 
@@ -50,14 +51,22 @@ const Navigation = styled.nav`
   }
 `;
 
+
 const navigation = () => (
   <Navigation>
     <p className="header">Via.</p>
-    <a href="" className="vidSearch">
-      Video Search
+
+    <a
+      href="#"
+      className="vidSearch"
+    >
+      Search by id or object
+    </a>
+    <a href="#" className="vidSearch last">
+      Search by example
     </a>
     {/* <span className="userName">Logged in as Kağan</span> */}
-    <a href="" className="signOut">
+    <a href="#" className="signOut">
       <span>Sing Out</span>
       <FontAwesomeIcon icon="sign-out-alt" />
     </a>

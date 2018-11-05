@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
 import { GlobalStyle } from './styles';
 import LandingPage from './containers/LandingPage';
@@ -12,6 +13,9 @@ class App extends Component {
     return (
       <div>
         <GlobalStyle />
+        <Route path="/landing" compoment={LandingPage} />
+        <Route path="/search/byidandnobj" compoment={MainPage} />
+        <Route path="/search/byexample" compoment={MainPage} />
         {auth ? <LandingPage /> : <MainPage />}
       </div>
     );
