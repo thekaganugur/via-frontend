@@ -51,25 +51,21 @@ const Navigation = styled.nav`
   }
 `;
 
-
 const navigation = () => (
   <Navigation>
     <p className="header">Via.</p>
 
-    <a
-      href="#"
-      className="vidSearch"
-    >
+    <NavLink to="/search/byidandnobj" className="vidSearch">
       Search by id or object
-    </a>
-    <a href="#" className="vidSearch last">
+    </NavLink>
+    <NavLink to="/search/byexample" className="vidSearch last">
       Search by example
-    </a>
+    </NavLink>
     {/* <span className="userName">Logged in as Kağan</span> */}
-    <a href="#" className="signOut">
+    <NavLink to="/" className="signOut">
       <span>Sing Out</span>
       <FontAwesomeIcon icon="sign-out-alt" />
-    </a>
+    </NavLink>
   </Navigation>
 );
 

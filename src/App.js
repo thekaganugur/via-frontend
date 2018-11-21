@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { GlobalStyle } from './styles';
 import LandingPage from './containers/LandingPage';
 import MainPage from './containers/MainPage';
-
-const auth = true;
+import Player from './components/Player';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   render() {
+    console.log(this.props);
     return (
       <div>
         <GlobalStyle />
-        <Route path="/landing" compoment={LandingPage} />
-        <Route path="/search/byidandnobj" compoment={MainPage} />
-        <Route path="/search/byexample" compoment={MainPage} />
-        {auth ? <LandingPage /> : <MainPage />}
+        <Switch>
+          <Route path="/search/byidandnobj/:id" component={Player} />
+          <Route path="/search/byidandnobj" component={MainPage} />
+          <Route path="/search/byexample" component={MainPage} />
+          <Route path="/" component={LandingPage} />
+        </Switch>
       </div>
     );
   }

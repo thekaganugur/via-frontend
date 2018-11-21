@@ -18,10 +18,8 @@ const StyledSelect = styled.select`
   }
 `;
 
-const input = (props) => {
-  const {
-    name, borderColor, focusColor, children,
-  } = props;
+const input = props => {
+  const { name, borderColor, focusColor, children } = props;
   return (
     <StyledSelect
       name={name}

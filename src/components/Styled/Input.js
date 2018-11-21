@@ -17,22 +17,22 @@ const StyledInput = styled.input`
   }
 `;
 
-const input = (props) => {
+const input = props => {
   const {
     changed,
     value,
     type,
-    placeholder,
+    placeHolder,
     borderColor,
     focusColor,
-    children,
+    children
   } = props;
   return (
     <StyledInput
       onChange={changed}
       value={value}
       type={type}
-      placeholder={placeholder}
+      placeholder={placeHolder}
       borderColor={borderColor || secondaryColorLight}
       focusColor={focusColor || secondaryColor}
     >

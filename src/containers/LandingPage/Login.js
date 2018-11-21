@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import Button from '../../components/Styled/Button';
 import Input from '../../components/Styled/Input';
 import { greyColor, media } from '../../styles';
 
@@ -28,6 +28,21 @@ const LoginContainer = styled.div`
     justify-items: center;
     flex-direction: column;
     border-radius: 5px;
+
+    .loginButton {
+      text-decoration: none;
+      border: none;
+      font: inherit;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 5px;
+      background-color: #268bd2;
+      transition: background-color 0.4s;
+
+      &:hover {
+        background-color: #3e9bdc;
+      }
+    }
 
     ${media.phone`
     width: 80%;
@@ -67,7 +82,7 @@ const LoginContainer = styled.div`
 class Homepage extends Component {
   state = {
     userNameTerm: '',
-    passwordTerm: '',
+    passwordTerm: ''
   };
 
   render() {
@@ -89,12 +104,12 @@ class Homepage extends Component {
               type="password"
               placeHolder="Password"
             />
-            <Button>Submit</Button>
+            <Link className="loginButton" to="/search/byidandnobj">
+              Submit
+            </Link>
           </form>
           <span className="new">
-            New to Via?
-            {' '}
-            <a href="#section-2">Create an account.</a>
+            New to Via? <a href="#section-2">Create an account.</a>
           </span>
         </div>
       </LoginContainer>
