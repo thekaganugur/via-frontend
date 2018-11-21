@@ -1,12 +1,14 @@
 {
-  "main.js": "/via-app/static/js/main.f8479feb.chunk.js",
-  "main.js.map": "/via-app/static/js/main.f8479feb.chunk.js.map",
-  "static/js/1.e59d461d.chunk.js": "/via-app/static/js/1.e59d461d.chunk.js",
-  "static/js/1.e59d461d.chunk.js.map": "/via-app/static/js/1.e59d461d.chunk.js.map",
+  "main.js": "/via-app/static/js/main.96dae9f0.chunk.js",
+  "main.js.map": "/via-app/static/js/main.96dae9f0.chunk.js.map",
+  "static/css/1.048bb1c8.chunk.css": "/via-app/static/css/1.048bb1c8.chunk.css",
+  "static/js/1.3c2c1b88.chunk.js": "/via-app/static/js/1.3c2c1b88.chunk.js",
+  "static/js/1.3c2c1b88.chunk.js.map": "/via-app/static/js/1.3c2c1b88.chunk.js.map",
   "runtime~main.js": "/via-app/static/js/runtime~main.a4629b6a.js",
   "runtime~main.js.map": "/via-app/static/js/runtime~main.a4629b6a.js.map",
   "static/media/camera-cctv-equipment-430208.jpg": "/via-app/static/media/camera-cctv-equipment-430208.71ff1256.jpg",
+  "static/css/1.048bb1c8.chunk.css.map": "/via-app/static/css/1.048bb1c8.chunk.css.map",
   "index.html": "/via-app/index.html",
-  "precache-manifest.f2592dc890c0bd56efa6754377affa04.js": "/via-app/precache-manifest.f2592dc890c0bd56efa6754377affa04.js",
+  "precache-manifest.851db9e380bfc17ab669475fa6125bb8.js": "/via-app/precache-manifest.851db9e380bfc17ab669475fa6125bb8.js",
   "service-worker.js": "/via-app/service-worker.js"
 }
