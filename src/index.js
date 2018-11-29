@@ -15,7 +15,7 @@ import App from './App';
 library.add(faGithub, faGlasses, faSignOutAlt, faAngleDoubleDown);
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/via-app/">
     <App />
   </BrowserRouter>,
   document.getElementById('root')

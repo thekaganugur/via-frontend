@@ -61,6 +61,7 @@ const navigation = () => (
     <NavLink to="/search/byexample" className="vidSearch last">
       Search by example
     </NavLink>
+    <NavLink to="/search/byidandnobj/asd">Video</NavLink>
     {/* <span className="userName">Logged in as Kağan</span> */}
     <NavLink to="/" className="signOut">
       <span>Sing Out</span>
