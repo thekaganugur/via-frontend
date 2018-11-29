@@ -31,7 +31,16 @@ class VidPlayer extends Component {
     player.play();
 
     ctx.strokeStyle = 'red';
+    ctx.fillStyle = 'red';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+
     // Draw a box - (x, y, width, height)
+    ctx.fillText(
+      'Hello World',
+      this.props.x + this.props.width / 2,
+      this.props.y - 5
+    );
     ctx.strokeRect(
       this.props.x,
       this.props.y,
@@ -45,6 +54,12 @@ class VidPlayer extends Component {
     const ctx = canvas.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillText(
+      'Hello World',
+      this.props.x + this.props.width / 2,
+      this.props.y - 5
+    );
     ctx.strokeRect(
       this.props.x,
       this.props.y,
