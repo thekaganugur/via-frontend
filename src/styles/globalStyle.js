@@ -50,6 +50,7 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.2em;
     -webkit-font-smoothing: antialiased;
     font-weight: normal;
+    margin-bottom: 1em;
   }
 
   h2 {

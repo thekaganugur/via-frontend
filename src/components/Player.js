@@ -67,6 +67,8 @@ class VidPlayer extends Component {
   }
 
   componentDidUpdate() {
+    const player = this.refs.player;
+    player.seek(20);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
 
@@ -89,14 +91,14 @@ class VidPlayer extends Component {
     return (
       <Container>
         <Player ref="player" fluid={false} width={800} height={600}>
-          <div id="canvas" width={800} height={600} />
           <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
+          <canvas ref="canvas" width={800} height={600} />
+          {/* <div id="canvas" /> */}
           <BigPlayButton position="center" />
           <ControlBar>
             <FullscreenToggle disabled />
           </ControlBar>
         </Player>
-        <canvas ref="canvas" width={800} height={600} />
       </Container>
     );
   }

@@ -1,5 +1,50 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import Player from '../../components/Player';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 3rem;
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .lists {
+      display: flex;
+      justify-content: space-between;
+      width: 70%;
+      padding: 2rem;
+
+      .list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 45%;
+
+        ul {
+          width: 100%;
+          height: 300px;
+          overflow: hidden;
+          overflow-y: scroll;
+
+          li {
+            height: 2.5em;
+          }
+        }
+      }
+
+      &-objects {
+      }
+      &-anormalities {
+      }
+    }
+  }
+`;
 
 class VideoPage extends Component {
   state = {
@@ -20,15 +65,34 @@ class VideoPage extends Component {
 
   render() {
     return (
-      <>
+      <Container>
         <h1>{this.state.videoTitle}</h1>
-        <Player
-          x={this.state.x}
-          y={this.state.y}
-          width={this.state.width}
-          height={this.state.height}
-          text={this.state.text}
-        />
+        <div className="main">
+          <Player
+            x={this.state.x}
+            y={this.state.y}
+            width={this.state.width}
+            height={this.state.height}
+            text={this.state.text}
+          />
+          <div className="lists">
+            <div className="list lists-objects">
+              <h2>Objects</h2>
+              <ul>
+                <li>
+                  asd <button>0.23</button>
+                </li>
+                <li>Asd</li>
+                <li>asd</li>
+                <li>asd</li>
+                <li>asd</li>
+              </ul>
+            </div>
+            <div className="list lists-anormalities">
+              <h2>Anormalities</h2>
+            </div>
+          </div>
+        </div>
 
         {/* ---------- */}
         {/* Testing buttons and coordinates */}
@@ -51,7 +115,7 @@ class VideoPage extends Component {
           width: {this.state.width} / height: {this.state.height}
         </div>
         {/* ---------- */}
-      </>
+      </Container>
     );
   }
 }
