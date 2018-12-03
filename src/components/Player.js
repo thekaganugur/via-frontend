@@ -19,6 +19,9 @@ const Container = styled.div`
     pointer-events: none;
   }
 
+  .positionCanvas {
+    position: relative;
+  }
   /* #canvas {
     width: 800px;
     height: 600px;
@@ -90,15 +93,17 @@ class VidPlayer extends Component {
   render() {
     return (
       <Container>
-        <Player ref="player" fluid={false} width={800} height={600}>
-          <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
+        <div className="positionCanvas">
           <canvas ref="canvas" width={800} height={600} />
-          {/* <div id="canvas" /> */}
-          <BigPlayButton position="center" />
-          <ControlBar>
-            <FullscreenToggle disabled />
-          </ControlBar>
-        </Player>
+          <Player ref="player" fluid={false} width={800} height={600}>
+            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
+            {/* <div id="canvas" /> */}
+            <BigPlayButton position="center" />
+            <ControlBar>
+              <FullscreenToggle disabled />
+            </ControlBar>
+          </Player>
+        </div>
       </Container>
     );
   }

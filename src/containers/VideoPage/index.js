@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+
 import Player from '../../components/Player';
+import Button from '../../components/Styled/Button';
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +18,7 @@ const Container = styled.div`
 
     .lists {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       width: 70%;
       padding: 2rem;
 
@@ -24,7 +26,7 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 45%;
+        width: 40%;
 
         ul {
           width: 100%;
@@ -34,13 +36,25 @@ const Container = styled.div`
 
           li {
             height: 2.5em;
+            padding: 0.2rem 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &:not(:last-of-type) {
+              border-bottom: 1px solid #e0e0e0;
+            }
+
+            button {
+              padding: 0.2rem 0.8rem;
+            }
           }
         }
       }
 
       &-objects {
       }
-      &-anormalities {
+      &-anomalies {
       }
     }
   }
@@ -80,7 +94,7 @@ class VideoPage extends Component {
               <h2>Objects</h2>
               <ul>
                 <li>
-                  asd <button>0.23</button>
+                  asd <Button onClick={() => console.log('asd')}>0.23</Button>
                 </li>
                 <li>Asd</li>
                 <li>asd</li>
@@ -88,8 +102,8 @@ class VideoPage extends Component {
                 <li>asd</li>
               </ul>
             </div>
-            <div className="list lists-anormalities">
-              <h2>Anormalities</h2>
+            <div className="list lists-anomalies">
+              <h2>Anomalies</h2>
             </div>
           </div>
         </div>
