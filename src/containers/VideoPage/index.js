@@ -3,10 +3,12 @@ import Player from '../../components/Player';
 
 class VideoPage extends Component {
   state = {
+    videoTitle: 'Sample Video',
     x: 100,
     y: 200,
     width: 200,
-    height: 200
+    height: 200,
+    text: 'Hello'
   };
 
   generateCoordinates(mv) {
@@ -19,11 +21,13 @@ class VideoPage extends Component {
   render() {
     return (
       <>
+        <h1>{this.state.videoTitle}</h1>
         <Player
           x={this.state.x}
           y={this.state.y}
           width={this.state.width}
           height={this.state.height}
+          text={this.state.text}
         />
 
         {/* ---------- */}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { initDraw } from './drawBox';
 import {
   Player,
   BigPlayButton,
@@ -17,10 +18,26 @@ const Container = styled.div`
     /* For disabling clicks on canvas */
     pointer-events: none;
   }
+
+  /* #canvas {
+    width: 800px;
+    height: 600px;
+    border: 10px solid transparent;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+  }
+
+  .rectangle {
+    border: 1px solid #ff0000;
+    position: absolute;
+  } */
 `;
 
 class VidPlayer extends Component {
   componentDidMount() {
+    // console.log(initDraw(document.getElementById('canvas')));
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     const player = this.refs.player;
@@ -37,7 +54,7 @@ class VidPlayer extends Component {
 
     // Draw a box - (x, y, width, height)
     ctx.fillText(
-      'Hello World',
+      this.props.text,
       this.props.x + this.props.width / 2,
       this.props.y - 5
     );
@@ -56,7 +73,7 @@ class VidPlayer extends Component {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillText(
-      'Hello World',
+      this.props.text,
       this.props.x + this.props.width / 2,
       this.props.y - 5
     );
@@ -72,6 +89,7 @@ class VidPlayer extends Component {
     return (
       <Container>
         <Player ref="player" fluid={false} width={800} height={600}>
+          <div id="canvas" width={800} height={600} />
           <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
           <BigPlayButton position="center" />
           <ControlBar>
