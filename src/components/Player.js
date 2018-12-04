@@ -48,7 +48,6 @@ class VidPlayer extends Component {
     this.refs.player.actions.toggleFullscreen = () => {
       console.log('prevent full screen video');
     };
-    player.play();
 
     ctx.strokeStyle = 'red';
     ctx.fillStyle = 'red';
@@ -90,14 +89,24 @@ class VidPlayer extends Component {
     );
   }
 
+  pause() {
+    this.refs.player.pause();
+  }
+
   render() {
     return (
       <Container>
         <div className="positionCanvas">
           <canvas ref="canvas" width={800} height={600} />
-          <Player ref="player" fluid={false} width={800} height={600}>
+          {/* <div id="canvas" /> */}
+          <Player
+            ref="player"
+            autoPlay={true}
+            fluid={false}
+            width={800}
+            height={600}
+          >
             <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
-            {/* <div id="canvas" /> */}
             <BigPlayButton position="center" />
             <ControlBar>
               <FullscreenToggle disabled />

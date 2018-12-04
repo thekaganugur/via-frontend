@@ -51,11 +51,6 @@ const Container = styled.div`
           }
         }
       }
-
-      &-objects {
-      }
-      &-anomalies {
-      }
     }
   }
 `;
@@ -78,11 +73,13 @@ class VideoPage extends Component {
   }
 
   render() {
+    const player = this.refs.player;
     return (
       <Container>
         <h1>{this.state.videoTitle}</h1>
         <div className="main">
           <Player
+            ref="player"
             x={this.state.x}
             y={this.state.y}
             width={this.state.width}
@@ -90,20 +87,39 @@ class VideoPage extends Component {
             text={this.state.text}
           />
           <div className="lists">
-            <div className="list lists-objects">
+            <div className="list">
               <h2>Objects</h2>
               <ul>
                 <li>
-                  asd <Button onClick={() => console.log('asd')}>0.23</Button>
+                  asd{' '}
+                  <Button
+                    onClick={() => {
+                      player.pause();
+                    }}
+                  >
+                    0.23
+                  </Button>
                 </li>
-                <li>Asd</li>
                 <li>asd</li>
                 <li>asd</li>
                 <li>asd</li>
               </ul>
             </div>
-            <div className="list lists-anomalies">
+            <div className="list">
               <h2>Anomalies</h2>
+              <ul>
+                <li>
+                  asd{' '}
+                  <Button
+                    onClick={() => {
+                      player.pause();
+                    }}
+                  >
+                    0.23
+                  </Button>
+                </li>
+                <li>asd</li>
+              </ul>
             </div>
           </div>
         </div>

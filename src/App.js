@@ -6,10 +6,8 @@ import LandingPage from './containers/LandingPage';
 import MainPage from './containers/MainPage';
 import VideoPage from './containers/VideoPage';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   render() {
-    console.log(this.props);
     return (
       <div>
         <GlobalStyle />
