@@ -1,0 +1,29 @@
+  generateCoordinates(mv) {
+    if (mv === 'l') this.setState({ x: this.state.x - 5 });
+    if (mv === 'r') this.setState({ x: this.state.x + 5 });
+    if (mv === 'u') this.setState({ y: this.state.y - 5 });
+    if (mv === 'd') this.setState({ y: this.state.y + 5 });
+  }
+
+
+        {/* ---------- */}
+        {/* Testing buttons and coordinates */}
+        <button onClick={() => this.generateCoordinates('l')}>
+          Shift Left
+        </button>
+        <button onClick={() => this.generateCoordinates('r')}>
+          Shift Right
+        </button>
+        <button onClick={() => this.generateCoordinates('d')}>
+          Shift Down
+        </button>
+        <button onClick={() => this.generateCoordinates('u')}>Shift Up</button>
+        <br />
+        <br />
+        <div>
+          x: {this.state.x} / y: {this.state.y}
+        </div>
+        <div>
+          width: {this.state.width} / height: {this.state.height}
+        </div>
+        {/* ---------- */}
