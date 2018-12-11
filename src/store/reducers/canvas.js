@@ -1,11 +1,11 @@
 import { UPDATE_CANVAS } from '../actions/actionTypes';
 
 const initialState = {
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
-  text: ''
+  x: 100,
+  y: 200,
+  width: 200,
+  height: 200,
+  text: 'Hello'
 };
 
 const canvas = (state = initialState, action) => {

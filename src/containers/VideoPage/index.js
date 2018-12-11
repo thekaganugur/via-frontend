@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Player from '../../components/Player';
 import Button from '../../components/Styled/Button';
@@ -57,63 +58,42 @@ const Container = styled.div`
 `;
 
 class VideoPage extends Component {
-  state = {
-    videoTitle: 'Sample Video',
-    x: 100,
-    y: 200,
-    width: 200,
-    height: 200,
-    text: 'Hello'
-  };
+  list(listType, player) {
+    return listType.map((listItem, i) => (
+      <li key={i}>
+        {listItem.name}
+        <Button
+          clicked={() => {
+            console.log('asd' + player.currentTime);
+          }}>
+          {listItem.time}
+        </Button>
+      </li>
+    ));
+  }
 
   render() {
     const player = this.refs.player;
     return (
       <Container>
-        <h1>{this.state.videoTitle}</h1>
+        <h1>{this.props.vTitle}</h1>
         <div className="main">
           <Player
-            ref="player"
-            x={this.state.x}
-            y={this.state.y}
-            width={this.state.width}
-            height={this.state.height}
-            text={this.state.text}
+            x={this.props.cX}
+            y={this.props.cY}
+            width={this.props.cWidth}
+            height={this.props.cHeight}
+            text={this.props.cText}
           />
+
           <div className="lists">
             <div className="list">
               <h2>Objects</h2>
-              <ul>
-                <li>
-                  asd{' '}
-                  <Button
-                    onClick={() => {
-                      player.pause();
-                    }}
-                  >
-                    0.23
-                  </Button>
-                </li>
-                <li>asd</li>
-                <li>asd</li>
-                <li>asd</li>
-              </ul>
+              <ul>{this.list(this.props.detectedAnomalies, player)}</ul>
             </div>
             <div className="list">
               <h2>Anomalies</h2>
-              <ul>
-                <li>
-                  asd{' '}
-                  <Button
-                    onClick={() => {
-                      player.pause();
-                    }}
-                  >
-                    0.23
-                  </Button>
-                </li>
-                <li>asd</li>
-              </ul>
+              <ul>{this.list(this.props.detectedObjects, player)}</ul>
             </div>
           </div>
         </div>
@@ -121,4 +101,27 @@ class VideoPage extends Component {
     );
   }
 }
-export default VideoPage;
+
+const mapStateToProps = state => ({
+  detectedAnomalies: state.detectedAnomalies,
+  detectedObjects: state.detectedObjects,
+  //canvas
+  cX: state.canvas.x,
+  cY: state.canvas.y,
+  cWidth: state.canvas.width,
+  cHeight: state.canvas.height,
+  cText: state.canvas.text,
+  //video
+  vTitle: state.video.videoTitle,
+  vWidth: state.canvas.width,
+  vHeight: state.canvas.height
+});
+
+const mapDispatchToProps = dispatch => ({
+  setPaused: () => dispatch(true)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VideoPage);
