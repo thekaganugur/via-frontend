@@ -7,8 +7,6 @@ import { INIT_VIDEO, UPDATE_VIDEO } from '../actions/actionTypes';
 
 const initialState = {
   videoTitle: 'Sample Video',
-  currentTime: 0,
-  paused: false,
   currentSrc: 'https://media.w3.org/2010/05/sintel/trailer_hd.mp4',
   width: 800,
   height: 600

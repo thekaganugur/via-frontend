@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import {
+  Player,
+  BigPlayButton,
+  ControlBar,
+  FullscreenToggle
+} from 'video-react';
 
-import Player from '../../components/Player';
+import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 
 const Container = styled.div`
+  canvas {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .positionCanvas {
+    position: relative;
+  }
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,18 +76,65 @@ const Container = styled.div`
 `;
 
 class VideoPage extends Component {
+  drawBox(isClear) {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+
+    if (isClear) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    ctx.fillText(
+      this.props.cText,
+      this.props.cX + this.props.cWidth / 2,
+      this.props.cY - 5
+    );
+    ctx.strokeRect(
+      this.props.cX,
+      this.props.cY,
+      this.props.cWidth,
+      this.props.cHeight
+    );
+  }
+
   list(listType, player) {
     return listType.map((listItem, i) => (
       <li key={i}>
         {listItem.name}
         <Button
           clicked={() => {
-            console.log('asd' + player.currentTime);
+            this.refs.player.seek(listItem.time);
           }}>
-          {listItem.time}
+          Time: {listItem.time}
         </Button>
       </li>
     ));
+  }
+
+  componentDidMount() {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = 'red';
+    ctx.fillStyle = 'red';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    this.drawBox(false);
+
+    this.refs.player.actions.toggleFullscreen = () => {
+      console.log('prevent full screen video');
+    };
+    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
+  }
+
+  handleStateChange(state, prevState) {
+    // copy player state to this component's state
+    this.setState({
+      player: state
+    });
+  }
+
+  componentDidUpdate() {
+    this.drawBox(true);
   }
 
   render() {
@@ -78,14 +143,25 @@ class VideoPage extends Component {
       <Container>
         <h1>{this.props.vTitle}</h1>
         <div className="main">
-          <Player
-            x={this.props.cX}
-            y={this.props.cY}
-            width={this.props.cWidth}
-            height={this.props.cHeight}
-            text={this.props.cText}
-          />
-
+          <div className="positionCanvas">
+            <canvas
+              ref="canvas"
+              width={this.props.vWidth}
+              height={this.props.vHeight}
+            />
+            <Player
+              ref="player"
+              autoPlay={true}
+              fluid={false}
+              width={this.props.vWidth}
+              height={this.props.vHeight}>
+              <source src={this.props.vSrc} />
+              <BigPlayButton position="center" />
+              <ControlBar>
+                <FullscreenToggle disabled />
+              </ControlBar>
+            </Player>
+          </div>
           <div className="lists">
             <div className="list">
               <h2>Objects</h2>
@@ -113,13 +189,12 @@ const mapStateToProps = state => ({
   cText: state.canvas.text,
   //video
   vTitle: state.video.videoTitle,
-  vWidth: state.canvas.width,
-  vHeight: state.canvas.height
+  vSrc: state.video.currentSrc,
+  vWidth: state.video.width,
+  vHeight: state.video.height
 });
 
-const mapDispatchToProps = dispatch => ({
-  setPaused: () => dispatch(true)
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
   mapStateToProps,
