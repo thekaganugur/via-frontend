@@ -10,6 +10,7 @@ import {
 
 import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
+import drawTrackingRect from './drawTrackingRect';
 
 const Container = styled.div`
   canvas {
@@ -137,49 +138,6 @@ class VideoPage extends Component {
     this.drawBox(true);
   }
 
-  drawTrackingRect() {
-    var canvas = document.getElementById('canvas1'),
-      ctx = canvas.getContext('2d'),
-      rect = {},
-      drag = false;
-
-    function init() {
-      canvas.addEventListener('mousedown', mouseDown, false);
-      canvas.addEventListener('mouseup', mouseUp, false);
-      canvas.addEventListener('mousemove', mouseMove, false);
-      canvas.style.pointerEvents = 'auto';
-    }
-
-    function mouseDown(e) {
-      var bounds = e.target.getBoundingClientRect();
-      rect.startX = e.pageX - bounds.left;
-      rect.startY = e.pageY - bounds.top;
-      drag = true;
-    }
-
-    function mouseUp() {
-      drag = false;
-      console.log([rect.startX, rect.startY, rect.w, rect.h]);
-    }
-    function mouseMove(e) {
-      var bounds = e.target.getBoundingClientRect();
-      if (drag) {
-        rect.w = e.pageX - bounds.left - rect.startX;
-        rect.h = e.pageY - bounds.top - rect.startY;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        draw();
-      }
-    }
-
-    function draw() {
-      ctx.setLineDash([6]);
-      ctx.strokeStyle = 'red';
-      ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
-    }
-
-    init();
-  }
-
   render() {
     const player = this.refs.player;
     return (
@@ -195,7 +153,7 @@ class VideoPage extends Component {
                 height={this.props.vHeight}
               />
               <canvas
-                id="canvas1"
+                id="trackingCanvas"
                 width={this.props.vWidth}
                 height={this.props.vHeight}
               />
@@ -212,9 +170,7 @@ class VideoPage extends Component {
                 </ControlBar>
               </Player>
             </div>
-            <Button clicked={() => this.drawTrackingRect()}>
-              Start tracking
-            </Button>
+            <Button clicked={() => drawTrackingRect()}>Start tracking</Button>
             <div className="lists">
               <div className="list">
                 <h2>Objects</h2>
