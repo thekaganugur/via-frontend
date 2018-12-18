@@ -56,7 +56,7 @@ const navigation = () => (
     <p className="header">Via.</p>
 
     <NavLink to="/search/byidandnobj" className="vidSearch">
-      Search by id or object
+      Search by title or object
     </NavLink>
     <NavLink to="/search/byexample" className="vidSearch last">
       Search by example

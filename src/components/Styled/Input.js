@@ -34,8 +34,7 @@ const input = props => {
       type={type}
       placeholder={placeHolder}
       borderColor={borderColor || secondaryColorLight}
-      focusColor={focusColor || secondaryColor}
-    >
+      focusColor={focusColor || secondaryColor}>
       {children}
     </StyledInput>
   );

@@ -137,43 +137,97 @@ class VideoPage extends Component {
     this.drawBox(true);
   }
 
+  drawTrackingRect() {
+    var canvas = document.getElementById('canvas1'),
+      ctx = canvas.getContext('2d'),
+      rect = {},
+      drag = false;
+
+    function init() {
+      canvas.addEventListener('mousedown', mouseDown, false);
+      canvas.addEventListener('mouseup', mouseUp, false);
+      canvas.addEventListener('mousemove', mouseMove, false);
+      canvas.style.pointerEvents = 'auto';
+    }
+
+    function mouseDown(e) {
+      var bounds = e.target.getBoundingClientRect();
+      rect.startX = e.pageX - bounds.left;
+      rect.startY = e.pageY - bounds.top;
+      drag = true;
+    }
+
+    function mouseUp() {
+      drag = false;
+      console.log([rect.startX, rect.startY, rect.w, rect.h]);
+    }
+    function mouseMove(e) {
+      var bounds = e.target.getBoundingClientRect();
+      if (drag) {
+        rect.w = e.pageX - bounds.left - rect.startX;
+        rect.h = e.pageY - bounds.top - rect.startY;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        draw();
+      }
+    }
+
+    function draw() {
+      ctx.setLineDash([6]);
+      ctx.strokeStyle = 'red';
+      ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+    }
+
+    init();
+  }
+
   render() {
     const player = this.refs.player;
     return (
-      <Container>
-        <h1>{this.props.vTitle}</h1>
-        <div className="main">
-          <div className="positionCanvas">
-            <canvas
-              ref="canvas"
-              width={this.props.vWidth}
-              height={this.props.vHeight}
-            />
-            <Player
-              ref="player"
-              autoPlay={true}
-              fluid={false}
-              width={this.props.vWidth}
-              height={this.props.vHeight}>
-              <source src={this.props.vSrc} />
-              <BigPlayButton position="center" />
-              <ControlBar>
-                <FullscreenToggle disabled />
-              </ControlBar>
-            </Player>
-          </div>
-          <div className="lists">
-            <div className="list">
-              <h2>Objects</h2>
-              <ul>{this.list(this.props.detectedAnomalies, player)}</ul>
+      <div>
+        <Container>
+          <h1>{this.props.vTitle}</h1>
+          <div className="main">
+            <div className="positionCanvas">
+              <canvas
+                id="canvas"
+                ref="canvas"
+                width={this.props.vWidth}
+                height={this.props.vHeight}
+              />
+              <canvas
+                id="canvas1"
+                width={this.props.vWidth}
+                height={this.props.vHeight}
+              />
+              <Player
+                ref="player"
+                autoPlay={true}
+                fluid={false}
+                width={this.props.vWidth}
+                height={this.props.vHeight}>
+                <source src={this.props.vSrc} />
+                <BigPlayButton position="center" />
+                <ControlBar>
+                  <FullscreenToggle disabled />
+                </ControlBar>
+              </Player>
             </div>
-            <div className="list">
-              <h2>Anomalies</h2>
-              <ul>{this.list(this.props.detectedObjects, player)}</ul>
+            <Button clicked={() => this.drawTrackingRect()}>
+              Start tracking
+            </Button>
+            <div className="lists">
+              <div className="list">
+                <h2>Objects</h2>
+                <ul>{this.list(this.props.detectedAnomalies, player)}</ul>
+              </div>
+              <div className="list">
+                <h2>Anomalies</h2>
+                <ul>{this.list(this.props.detectedObjects, player)}</ul>
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     );
   }
 }
@@ -192,6 +246,7 @@ const mapStateToProps = state => ({
   vSrc: state.video.currentSrc,
   vWidth: state.video.width,
   vHeight: state.video.height
+  //Start Tracking Coordinates
 });
 
 const mapDispatchToProps = dispatch => ({});

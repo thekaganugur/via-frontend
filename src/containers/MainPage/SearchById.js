@@ -29,9 +29,11 @@ const searchById = props => {
 
   return (
     <Container>
-      <p>Type to search videos by id, select an object to filter the list.</p>
+      <p>
+        Type to search videos by title, select an object to filter the list.
+      </p>
       <FormContainer>
-        <Input type="text" placeholder="Search by id" />
+        <Input type="text" placeHolder="Search by title" />
         <Select name="searchObject">
           <option value="object" defaultValue>
             Object
