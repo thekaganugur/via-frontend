@@ -54,9 +54,8 @@ const Navigation = styled.nav`
 const navigation = () => (
   <Navigation>
     <p className="header">Via.</p>
-
     <NavLink to="/search/byidandnobj" className="vidSearch">
-      Search by title or object
+      Search video
     </NavLink>
     <NavLink to="/search/byexample" className="vidSearch last">
       Search by example

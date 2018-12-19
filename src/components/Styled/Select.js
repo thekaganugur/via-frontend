@@ -24,8 +24,7 @@ const input = props => {
     <StyledSelect
       name={name}
       borderColor={borderColor || secondaryColorLight}
-      focusColor={focusColor || secondaryColor}
-    >
+      focusColor={focusColor || secondaryColor}>
       {children}
     </StyledSelect>
   );

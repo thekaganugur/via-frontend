@@ -147,13 +147,13 @@ class VideoPage extends Component {
           <div className="main">
             <div className="positionCanvas">
               <canvas
-                id="canvas"
-                ref="canvas"
+                id="trackingCanvas"
                 width={this.props.vWidth}
                 height={this.props.vHeight}
               />
               <canvas
-                id="trackingCanvas"
+                id="canvas"
+                ref="canvas"
                 width={this.props.vWidth}
                 height={this.props.vHeight}
               />
