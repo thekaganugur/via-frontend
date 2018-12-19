@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../../components/Styled/Button';
 
 const Container = styled.div`
   padding: 4rem 0 2rem 0;
@@ -12,6 +13,10 @@ const searchByEx = props => {
   return (
     <Container>
       <p>Upload an video to search by video sample.</p>
+      <form action="/action_page.php">
+        <input type="file" name="pic" accept="image/*" />
+        <input type="submit" />
+      </form>
     </Container>
   );
 };

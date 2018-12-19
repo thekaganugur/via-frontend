@@ -11,6 +11,7 @@ export default function() {
     canvas.addEventListener('mouseup', mouseUp, false);
     canvas.addEventListener('mousemove', mouseMove, false);
     canvas.style.pointerEvents = 'auto';
+    canvas.style.cursor = 'crosshair';
   }
 
   function mouseDown(e) {
