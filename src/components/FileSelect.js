@@ -8,16 +8,18 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 
   .dropArea {
     display: flex;
     justify-content: center;
     width: 35rem;
-    height: 15rem;
+    height: 10rem;
     padding: 1rem;
     border: 2px ${primaryColorLight} solid;
     border-radius: 10px;
     cursor: pointer;
+    margin-bottom: 2rem;
 
     #icon_hand {
       color: inherit;
@@ -26,6 +28,7 @@ const Container = styled.section`
   }
 
   h4 {
+    font-size: 1.1em;
   }
 `;
 
@@ -58,9 +61,10 @@ class fileSelect extends React.Component {
       <Container>
         <Dropzone
           onDrop={this.onDrop.bind(this)}
-          onFileDialogCancel={this.onCancel.bind(this)}>
+          onFileDialogCancel={this.onCancel.bind(this)}
+        >
           {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()} class="dropArea">
+            <div {...getRootProps()} className="dropArea">
               <input {...getInputProps()} />
               <p>
                 Drop files here, or click to select files
@@ -70,7 +74,7 @@ class fileSelect extends React.Component {
           )}
         </Dropzone>
         <aside>
-          {files.length !== 0 ? <h4>Selected files</h4> : <h4 />}
+          {files.length !== 0 ? <h4>Selected files</h4> : null}
           <ul>{files}</ul>
         </aside>
       </Container>

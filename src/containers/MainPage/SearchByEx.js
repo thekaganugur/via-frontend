@@ -1,8 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Input from '../../components/Styled/Input.js';
-import { secondaryColor, secondaryColorLight } from '../../styles';
-import Dropzone from 'react-dropzone';
 import FileSelect from '../../components/FileSelect.js';
 
 const Container = styled.div`

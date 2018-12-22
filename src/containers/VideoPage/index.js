@@ -11,6 +11,8 @@ import {
 import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
+import FileSelect from '../../components/FileSelect';
+import ToggleSwitch from '../../components/Styled/ToggleSwitch';
 
 const Container = styled.div`
   canvas {
@@ -77,6 +79,10 @@ const Container = styled.div`
 `;
 
 class VideoPage extends Component {
+  state = {
+    isSearchByExample: false
+  };
+
   drawBox(isClear) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
@@ -105,7 +111,8 @@ class VideoPage extends Component {
         <Button
           clicked={() => {
             this.refs.player.seek(listItem.time);
-          }}>
+          }}
+        >
           Time: {listItem.time}
         </Button>
       </li>
@@ -162,7 +169,8 @@ class VideoPage extends Component {
                 autoPlay={true}
                 fluid={false}
                 width={this.props.vWidth}
-                height={this.props.vHeight}>
+                height={this.props.vHeight}
+              >
                 <source src={this.props.vSrc} />
                 <BigPlayButton position="center" />
                 <ControlBar>
@@ -170,7 +178,20 @@ class VideoPage extends Component {
                 </ControlBar>
               </Player>
             </div>
-            <Button clicked={() => drawTrackingRect()}>Start tracking</Button>
+            <span>
+              <Button clicked={() => drawTrackingRect()}>Start tracking</Button>
+              <ToggleSwitch
+                changed={() =>
+                  this.setState({
+                    isSearchByExample: !this.state.isSearchByExample
+                  })
+                }
+                checked={this.state.isSearchByExample}
+              >
+                Search by example
+              </ToggleSwitch>
+            </span>
+            {this.state.isSearchByExample ? <FileSelect /> : null}
             <div className="lists">
               <div className="list">
                 <h2>Objects</h2>

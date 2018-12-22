@@ -9,7 +9,6 @@ const GridVideo = styled.div`
 
 const gridVideo = props => (
   <GridVideo>
-    <img />
     <h3>Video Title</h3>
     <div className="metadata">
       <div>Detected Ano.</div>
