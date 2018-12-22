@@ -18,7 +18,7 @@ const Container = styled.div`
     margin-bottom: 2rem;
   }
 
-  .loginPanel {
+  .signupPanel {
     width: 50rem;
     padding: 8rem 4rem;
     border: 1px solid ${greyColor};
@@ -29,7 +29,7 @@ const Container = styled.div`
     flex-direction: column;
     border-radius: 5px;
 
-    .loginButton {
+    .signupButton {
       text-decoration: none;
       border: none;
       font: inherit;
@@ -65,7 +65,7 @@ const Container = styled.div`
     width: 90%;
   }
 
-  .new {
+  .login {
     font-size: 0.9em;
     margin-top: 3rem;
 
@@ -79,7 +79,7 @@ const Container = styled.div`
   }
 `;
 
-class login extends Component {
+class signup extends Component {
   state = {
     userNameTerm: '',
     passwordTerm: ''
@@ -90,7 +90,7 @@ class login extends Component {
     return (
       <Container>
         <h2>Sign in to VIA.</h2>
-        <div className="loginPanel">
+        <div className="signupPanel">
           <form>
             <Input
               changed={e => this.setState({ userNameTerm: e.target.value })}
@@ -104,12 +104,12 @@ class login extends Component {
               type="password"
               placeHolder="Password"
             />
-            <Link className="loginButton" to="/search/byidandnobj">
+            <Link className="signupButton" to="/search/byidandnobj">
               Submit
             </Link>
           </form>
-          <span className="new">
-            New to Via? <a href="#section-2">Create an account.</a>
+          <span className="login">
+            Already have an account?<a href="#section-2">Login.</a>
           </span>
         </div>
       </Container>
@@ -117,4 +117,4 @@ class login extends Component {
   }
 }
 
-export default login;
+export default signup;
