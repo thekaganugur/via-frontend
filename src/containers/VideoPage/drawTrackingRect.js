@@ -16,21 +16,21 @@ export default function() {
 
   function mouseDown(e) {
     var bounds = e.target.getBoundingClientRect();
-    rect.startX = e.clientX - bounds.left;
-    rect.startY = e.clientY - bounds.top;
+    rect.startLeftX = e.clientX - bounds.left;
+    rect.startTopY = e.clientY - bounds.top;
     drag = true;
   }
 
   function mouseUp() {
     drag = false;
     canvas.style.pointerEvents = 'none';
-    console.log([rect.startX, rect.startY, rect.w, rect.h]);
+    console.log([rect.startLeftX, rect.startTopY, rect.width, rect.height]);
   }
   function mouseMove(e) {
     var bounds = e.target.getBoundingClientRect();
     if (drag) {
-      rect.w = e.clientX - bounds.left - rect.startX;
-      rect.h = e.clientY - bounds.top - rect.startY;
+      rect.width = e.clientX - bounds.left - rect.startLeftX;
+      rect.height = e.clientY - bounds.top - rect.startTopY;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       draw();
     }
@@ -39,7 +39,7 @@ export default function() {
   function draw() {
     ctx.setLineDash([6]);
     ctx.strokeStyle = 'red';
-    ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+    ctx.strokeRect(rect.startLeftX, rect.startTopY, rect.width, rect.height);
   }
 
   init();

@@ -96,15 +96,15 @@ class VideoPage extends Component {
     }
 
     ctx.fillText(
-      this.props.cText,
-      this.props.cX + this.props.cWidth / 2,
-      this.props.cY - 5
+      this.props.boxText,
+      this.props.boxLeftX + this.props.boxWidth / 2,
+      this.props.boxTopY - 5
     );
     ctx.strokeRect(
-      this.props.cX,
-      this.props.cY,
-      this.props.cWidth,
-      this.props.cHeight
+      this.props.boxLeftX,
+      this.props.boxTopY,
+      this.props.boxWidth,
+      this.props.boxHeight
     );
   }
 
@@ -225,11 +225,11 @@ const mapStateToProps = state => ({
   detectedAnomalies: state.detectedAnomalies,
   detectedObjects: state.detectedObjects,
   //canvas
-  cX: state.canvas.x,
-  cY: state.canvas.y,
-  cWidth: state.canvas.width,
-  cHeight: state.canvas.height,
-  cText: state.canvas.text,
+  boxLeftX: state.boundingBox.left_x,
+  boxTopY: state.boundingBox.top_y,
+  boxWidth: state.boundingBox.width,
+  boxHeight: state.boundingBox.height,
+  boxText: state.boundingBox.text,
   //video
   vTitle: state.video.videoTitle,
   vSrc: state.video.currentSrc,
