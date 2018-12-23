@@ -89,7 +89,7 @@ class login extends Component {
     const { userNameTerm, passwordTerm } = this.state;
     return (
       <Container>
-        <h2>Sign in to VIA.</h2>
+        <h2>Login to VIA.</h2>
         <div className="loginPanel">
           <form>
             <Input
@@ -109,7 +109,7 @@ class login extends Component {
             </Link>
           </form>
           <span className="new">
-            New to Via? <a href="#section-2">Create an account.</a>
+            New to Via? <Link to="/signup">Create an account.</Link>
           </span>
         </div>
       </Container>

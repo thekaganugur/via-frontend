@@ -81,26 +81,32 @@ const Container = styled.div`
 
 class signup extends Component {
   state = {
+    emailTerm: '',
     userNameTerm: '',
     passwordTerm: ''
   };
 
   render() {
-    const { userNameTerm, passwordTerm } = this.state;
     return (
       <Container>
-        <h2>Sign in to VIA.</h2>
+        <h2>Signup to VIA.</h2>
         <div className="signupPanel">
           <form>
             <Input
               changed={e => this.setState({ userNameTerm: e.target.value })}
-              value={userNameTerm}
+              value={this.state.emailTerm}
+              type="email"
+              placeHolder="Email"
+            />
+            <Input
+              changed={e => this.setState({ userNameTerm: e.target.value })}
+              value={this.state.userNameTerm}
               type="text"
               placeHolder="Username"
             />
             <Input
               changed={e => this.setState({ passwordTerm: e.target.value })}
-              value={passwordTerm}
+              value={this.state.passwordTerm}
               type="password"
               placeHolder="Password"
             />
@@ -109,7 +115,7 @@ class signup extends Component {
             </Link>
           </form>
           <span className="login">
-            Already have an account?<a href="#section-2">Login.</a>
+            Already have an account?<Link to="/"> Login.</Link>
           </span>
         </div>
       </Container>

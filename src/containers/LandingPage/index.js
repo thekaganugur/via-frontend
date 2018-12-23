@@ -4,9 +4,10 @@ import { Grid, Cell } from 'styled-css-grid';
 import HeroHeader from './HeroHeader';
 import Login from './Login';
 import Footer from './Footer';
+import Signup from './Signup';
 
 /** Holy Grail Layout using styled-css-grid */
-const homepage = () => (
+const homepage = props => (
   <Grid
     columns="minmax(0 , 1fr) minmax(30rem, 120rem) minmax(0 , 1fr)"
     rows="100vh 1fr minmax(45px,auto)"
@@ -17,7 +18,7 @@ const homepage = () => (
     </Cell>
     <Cell />
     <Cell id="section-2">
-      <Login />
+      {props.location.pathname === '/signup' ? <Signup /> : <Login />}
     </Cell>
     <Cell />
     <Cell width={3}>

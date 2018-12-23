@@ -51,6 +51,10 @@ const Container = styled.div`
         align-items: center;
         width: 40%;
 
+        &-itemName {
+          cursor: pointer;
+        }
+
         ul {
           width: 100%;
           height: 30rem;
@@ -104,10 +108,17 @@ class VideoPage extends Component {
     );
   }
 
-  list(listType, player) {
+  renderList(listType, player) {
     return listType.map((listItem, i) => (
       <li key={i}>
-        {listItem.name}
+        <div
+          className="list-itemName"
+          onClick={() => {
+            this.refs.player.seek(listItem.time);
+          }}
+        >
+          {listItem.name}
+        </div>
         <Button
           clicked={() => {
             this.refs.player.seek(listItem.time);
@@ -195,11 +206,11 @@ class VideoPage extends Component {
             <div className="lists">
               <div className="list">
                 <h2>Objects</h2>
-                <ul>{this.list(this.props.detectedAnomalies, player)}</ul>
+                <ul>{this.renderList(this.props.detectedAnomalies, player)}</ul>
               </div>
               <div className="list">
                 <h2>Anomalies</h2>
-                <ul>{this.list(this.props.detectedObjects, player)}</ul>
+                <ul>{this.renderList(this.props.detectedObjects, player)}</ul>
               </div>
             </div>
           </div>
