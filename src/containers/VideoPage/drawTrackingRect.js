@@ -1,5 +1,4 @@
 // trackingCanvas will stay after drawing, update it with incoming data.
-// doesnt work if scroll is at the top
 
 export default function() {
   var canvas = document.getElementById('trackingCanvas'),

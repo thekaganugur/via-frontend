@@ -108,13 +108,14 @@ class VideoPage extends Component {
     );
   }
 
-  renderList(listType, player) {
+  renderList(listType) {
     return listType.map((listItem, i) => (
       <li key={i}>
         <div
           className="list-itemName"
           onClick={() => {
             this.refs.player.seek(listItem.time);
+            this.refs.player.play();
           }}
         >
           {listItem.name}
@@ -122,6 +123,7 @@ class VideoPage extends Component {
         <Button
           clicked={() => {
             this.refs.player.seek(listItem.time);
+            this.refs.player.play();
           }}
         >
           Time: {listItem.time}
@@ -157,7 +159,6 @@ class VideoPage extends Component {
   }
 
   render() {
-    const player = this.refs.player;
     return (
       <div>
         <Container>
@@ -206,11 +207,11 @@ class VideoPage extends Component {
             <div className="lists">
               <div className="list">
                 <h2>Objects</h2>
-                <ul>{this.renderList(this.props.detectedAnomalies, player)}</ul>
+                <ul>{this.renderList(this.props.detectedAnomalies)}</ul>
               </div>
               <div className="list">
                 <h2>Anomalies</h2>
-                <ul>{this.renderList(this.props.detectedObjects, player)}</ul>
+                <ul>{this.renderList(this.props.detectedObjects)}</ul>
               </div>
             </div>
           </div>
