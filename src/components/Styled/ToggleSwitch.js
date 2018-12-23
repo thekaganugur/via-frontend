@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { blueColor } from '../../styles';
+
 const Container = styled.label`
   position: relative;
   display: inline-block;
@@ -38,11 +40,11 @@ const Container = styled.label`
   }
 
   input:checked + .slider {
-    background-color: #2196f3;
+    background-color: ${blueColor};
   }
 
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
+    box-shadow: 0 0 1px ${blueColor};
   }
 
   input:checked + .slider:before {

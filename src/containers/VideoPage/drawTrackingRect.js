@@ -17,8 +17,8 @@ export default function() {
 
   function mouseDown(e) {
     var bounds = e.target.getBoundingClientRect();
-    rect.startX = e.pageX - bounds.left;
-    rect.startY = e.pageY - bounds.top;
+    rect.startX = e.clientX - bounds.left;
+    rect.startY = e.clientY - bounds.top;
     drag = true;
   }
 
@@ -30,8 +30,8 @@ export default function() {
   function mouseMove(e) {
     var bounds = e.target.getBoundingClientRect();
     if (drag) {
-      rect.w = e.pageX - bounds.left - rect.startX;
-      rect.h = e.pageY - bounds.top - rect.startY;
+      rect.w = e.clientX - bounds.left - rect.startX;
+      rect.h = e.clientY - bounds.top - rect.startY;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       draw();
     }
