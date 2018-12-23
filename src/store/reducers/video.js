@@ -3,7 +3,7 @@
 // https://video-react.js.org/components/player/#getState
 // !!
 
-import { INIT_VIDEO, UPDATE_VIDEO } from '../actions/actionTypes';
+import { INIT_VIDEO } from '../actions/actionTypes';
 
 const initialState = {
   videoTitle: 'Sample Video',
@@ -19,12 +19,6 @@ const video = (state = initialState, action) => {
         ...state,
         videoTitle: action.payload.videoTitle,
         currentSrc: action.payload.currentSrc
-      };
-    case UPDATE_VIDEO:
-      return {
-        ...state,
-        currentTime: action.payload.currentTime,
-        paused: action.payload.paused
       };
     default:
       return state;

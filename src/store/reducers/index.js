@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import boundingBox from './boundingBox';
+import boundingBoxes from './boundingBoxes';
 import detectedAnomalies from './detectedAnomalies';
 import detectedObjects from './detectedObjects';
 import video from './video';
 
 export default combineReducers({
-  boundingBox,
+  boundingBoxes,
   detectedAnomalies,
   detectedObjects,
   video
