@@ -7,7 +7,7 @@ const initialState = [
     width: 67,
     height: 91,
     text: 'Car',
-    time: 2
+    time: 1
   },
   {
     left_x: 185,
@@ -15,7 +15,7 @@ const initialState = [
     width: 67,
     height: 91,
     text: 'Car',
-    time: 3
+    time: 2
   },
   {
     left_x: 199,
@@ -24,6 +24,14 @@ const initialState = [
     height: 91,
     text: 'Cer',
     time: 4
+  },
+  {
+    left_x: 199,
+    top_y: 519,
+    width: 67,
+    height: 91,
+    text: 'Cer',
+    time: 5
   }
 ];
 

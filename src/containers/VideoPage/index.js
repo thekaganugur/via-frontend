@@ -97,7 +97,6 @@ class VideoPage extends Component {
         this.state.player &&
         obj.time === parseInt(this.state.player.currentTime)
       ) {
-        console.log(obj.time, parseInt(this.state.player.currentTime));
         ctx.fillText(obj.text, obj.left_x + obj.width / 2, obj.top_y - 5);
         ctx.strokeRect(obj.left_x, obj.top_y, obj.width, obj.height);
 
@@ -105,11 +104,13 @@ class VideoPage extends Component {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           isClear = false;
         }
+        console.log(this.props.boundingBoxes[i + 1]);
 
         if (
           this.props.boundingBoxes[i + 1] &&
           obj.text === this.props.boundingBoxes[i + 1].text
         ) {
+          isClear = true;
         }
       }
     });
@@ -162,7 +163,8 @@ class VideoPage extends Component {
   }
 
   componentDidUpdate() {
-    this.drawBox(true);
+    // Filter unneeded draws.
+    this.drawBox(false);
   }
 
   render() {
