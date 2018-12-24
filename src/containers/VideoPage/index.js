@@ -13,7 +13,6 @@ import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import FileSelect from '../../components/FileSelect';
 import ToggleSwitch from '../../components/Styled/ToggleSwitch';
-import { updateBoundingBox } from '../../store/actions/index';
 
 const Container = styled.div`
   canvas {
@@ -85,35 +84,21 @@ const Container = styled.div`
 
 class VideoPage extends Component {
   state = {
-    isSearchByExample: false
+    isSearchByExample: false,
+    renderedBoxes: [],
+    time: 0
   };
 
-  drawBox(isClear) {
+  drawBox(obj, isClear) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
 
-    this.props.boundingBoxes.forEach((obj, i) => {
-      if (
-        this.state.player &&
-        obj.time === parseInt(this.state.player.currentTime)
-      ) {
-        ctx.fillText(obj.text, obj.left_x + obj.width / 2, obj.top_y - 5);
-        ctx.strokeRect(obj.left_x, obj.top_y, obj.width, obj.height);
+    if (isClear) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 
-        if (isClear) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          isClear = false;
-        }
-        console.log(this.props.boundingBoxes[i + 1]);
-
-        if (
-          this.props.boundingBoxes[i + 1] &&
-          obj.text === this.props.boundingBoxes[i + 1].text
-        ) {
-          isClear = true;
-        }
-      }
-    });
+    ctx.strokeRect(obj.left_x, obj.top_y, obj.width, obj.height);
+    ctx.fillText(obj.text, obj.left_x + obj.width / 2, obj.top_y - 5);
   }
 
   renderList(listType) {
@@ -140,21 +125,6 @@ class VideoPage extends Component {
     ));
   }
 
-  componentDidMount() {
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = 'red';
-    ctx.fillStyle = 'red';
-    ctx.font = '20px Arial';
-    ctx.textAlign = 'center';
-    this.drawBox(false);
-
-    this.refs.player.actions.toggleFullscreen = () => {
-      console.log('prevent full screen video');
-    };
-    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
-  }
-
   handleStateChange(state, prevState) {
     // copy player state to this component's state
     this.setState({
@@ -162,9 +132,50 @@ class VideoPage extends Component {
     });
   }
 
+  componentDidMount() {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = 'red';
+    ctx.fillStyle = 'red';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    //this.drawBox(false);
+
+    this.refs.player.actions.toggleFullscreen = () => {
+      console.log('prevent full screen video');
+    };
+    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
+  }
+
   componentDidUpdate() {
-    // Filter unneeded draws.
-    this.drawBox(false);
+    // TODO: Filter unneeded draws.
+    const { renderedBoxes } = this.state;
+    this.props.boundingBoxes.forEach((obj, i) => {
+      if (
+        this.state.player &&
+        obj.time === parseFloat(this.state.player.currentTime.toFixed(1))
+      ) {
+        console.log('X');
+        this.drawBox(obj, true);
+
+        let renderedBoxIndex = renderedBoxes.findIndex(
+          last => last.text === obj.text
+        );
+
+        // If box is rendered before
+        // Meaning it is in the renderedBoxes[]
+        // if (renderedBoxIndex !== -1) {
+        //   renderedBoxes.splice(renderedBoxIndex, 1);
+        //   this.drawBox(obj, true);
+        // }
+        // // If box is not rendered before
+        // // Meaning it is not in the renderedBoxes[]
+        // else {
+        //   renderedBoxes.push(obj);
+        //   this.drawBox(obj, false);
+        // }
+      }
+    });
   }
 
   render() {

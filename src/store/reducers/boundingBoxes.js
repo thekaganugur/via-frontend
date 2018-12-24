@@ -10,28 +10,36 @@ const initialState = [
     time: 1
   },
   {
-    left_x: 185,
+    left_x: 289,
+    top_y: 299,
+    width: 67,
+    height: 91,
+    text: 'Cer',
+    time: 1.4
+  },
+  {
+    left_x: 385,
     top_y: 297,
     width: 67,
     height: 91,
     text: 'Car',
-    time: 2
+    time: 1.8
+  },
+  {
+    left_x: 499,
+    top_y: 299,
+    width: 67,
+    height: 91,
+    text: 'Car',
+    time: 2.2
   },
   {
     left_x: 199,
-    top_y: 499,
+    top_y: 289,
     width: 67,
     height: 91,
-    text: 'Cer',
-    time: 4
-  },
-  {
-    left_x: 199,
-    top_y: 519,
-    width: 67,
-    height: 91,
-    text: 'Cer',
-    time: 5
+    text: 'Car',
+    time: 2.6
   }
 ];
 
