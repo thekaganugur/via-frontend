@@ -10,7 +10,8 @@ import {
   faGlasses,
   faSignOutAlt,
   faAngleDoubleDown,
-  faHandPointer
+  faHandPointer,
+  faPlay
 } from '@fortawesome/free-solid-svg-icons';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
@@ -21,7 +22,8 @@ library.add(
   faGithub,
   faGlasses,
   faSignOutAlt,
-  faAngleDoubleDown
+  faAngleDoubleDown,
+  faPlay
 );
 const store = createStore(
   rootReducer,

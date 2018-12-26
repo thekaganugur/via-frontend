@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
@@ -10,6 +11,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 2rem 0;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 const FormContainer = styled.form`
@@ -24,6 +30,21 @@ const FormContainer = styled.form`
 
   select {
     margin-right: 1rem;
+  }
+`;
+
+const GridContainer = styled.div`
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  .grid-item {
+    margin: 0 2rem 2rem 0;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -47,7 +68,18 @@ const searchById = props => {
           <option value="vehicle">Something</option>
         </Select>
       </FormContainer>
-      <GridVideo />
+      <Link to="/search/byidandnobj/asd">
+        <GridContainer>
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+        </GridContainer>
+      </Link>
     </Container>
   );
 };
