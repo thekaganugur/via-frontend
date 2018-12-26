@@ -20,11 +20,11 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: 62.5%;
   }
-  
+
   @media only screen and (max-width: 68.75em) {
     html {
-      font-size: 50%; 
-    } 
+      font-size: 50%;
+    }
   }
 
   body {
@@ -34,14 +34,14 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.4em;
     color: var(--color-primary);
     background: #fafafa;
-    min-height: 100vh; 
+    min-height: 100vh;
   }
 
   @media only screen and (max-width: 75em) {
     .container {
       margin: 0;
-      max-width: 100%; 
-    } 
+      max-width: 100%;
+    }
   }
 
   h1, h2, h3, h4, nav {
@@ -49,11 +49,7 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--color-primary-dark);
     line-height: 1.2em;
     -webkit-font-smoothing: antialiased;
-    font-weight: normal;
+    font-weight: 600;
     margin-bottom: 1em;
-  }
-
-  h2 {
-    font-size: 1.5em;
   }
 `;

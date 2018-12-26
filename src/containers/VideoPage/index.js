@@ -13,24 +13,22 @@ import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import FileSelect from '../../components/FileSelect';
 import ToggleSwitch from '../../components/Styled/ToggleSwitch';
+import Navigation from '../../components/Navigation';
 
 const Container = styled.div`
-  canvas {
-    position: absolute;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
-
-  .positionCanvas {
-    position: relative;
-  }
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+
+  nav {
+    width: 100%;
+    height: 4.5rem;
+  }
+
+  h1 {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
 
   .main {
     max-width: 100rem;
@@ -39,29 +37,47 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
 
+    .videoContainer {
+      position: relative;
+      margin-bottom: 2rem;
+
+      canvas {
+        position: absolute;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+    }
+
+    .funcContainer {
+      display: flex;
+      align-items: center;
+
+      &-tracking {
+        margin-right: 2rem;
+      }
+    }
+
     .lists {
       display: flex;
       justify-content: space-between;
       width: 100%;
       padding: 4rem 0;
 
-      .list {
+      .listContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 40%;
 
-        &-itemName {
-          cursor: pointer;
-        }
-
-        ul {
+        .list {
           width: 100%;
           height: 30rem;
           overflow: hidden;
           overflow-y: scroll;
 
-          li {
+          &-item {
             height: 2.5em;
             padding: 0.2rem 0.4rem;
             display: flex;
@@ -70,6 +86,10 @@ const Container = styled.div`
 
             &:not(:last-of-type) {
               border-bottom: 1px solid #e0e0e0;
+            }
+
+            &-name {
+              cursor: pointer;
             }
 
             button {
@@ -88,49 +108,6 @@ class VideoPage extends Component {
     renderedBoxes: [],
     time: 0
   };
-
-  drawBox(obj, isClear) {
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext('2d');
-
-    if (isClear) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    ctx.strokeRect(obj.left_x, obj.top_y, obj.width, obj.height);
-    ctx.fillText(obj.text, obj.left_x + obj.width / 2, obj.top_y - 5);
-  }
-
-  renderList(listType) {
-    return listType.map((listItem, i) => (
-      <li key={i}>
-        <div
-          className="list-itemName"
-          onClick={() => {
-            this.refs.player.seek(listItem.time);
-            this.refs.player.play();
-          }}
-        >
-          {listItem.name}
-        </div>
-        <Button
-          clicked={() => {
-            this.refs.player.seek(listItem.time);
-            this.refs.player.play();
-          }}
-        >
-          Time: {listItem.time}
-        </Button>
-      </li>
-    ));
-  }
-
-  handleStateChange(state, prevState) {
-    // copy player state to this component's state
-    this.setState({
-      player: state
-    });
-  }
 
   componentDidMount() {
     const canvas = this.refs.canvas;
@@ -178,65 +155,116 @@ class VideoPage extends Component {
     });
   }
 
+  handleStateChange(state, prevState) {
+    // copy player state to this component's state
+    this.setState({
+      player: state
+    });
+  }
+
+  drawBox(obj, isClear) {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+
+    if (isClear) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    ctx.strokeRect(obj.left_x, obj.top_y, obj.width, obj.height);
+    ctx.fillText(obj.text, obj.left_x + obj.width / 2, obj.top_y - 5);
+  }
+
+  renderList(listType) {
+    return listType.map((listItem, i) => (
+      <li key={i} className="list-item">
+        <div
+          className="list-item-name"
+          onClick={() => {
+            this.refs.player.seek(listItem.time);
+            this.refs.player.play();
+          }}
+        >
+          {listItem.name}
+        </div>
+        <Button
+          clicked={() => {
+            this.refs.player.seek(listItem.time);
+            this.refs.player.play();
+          }}
+        >
+          Time: {listItem.time}
+        </Button>
+      </li>
+    ));
+  }
+
   render() {
     return (
-      <div>
-        <Container>
-          <h1>{this.props.vTitle}</h1>
-          <div className="main">
-            <div className="positionCanvas">
-              <canvas
-                id="trackingCanvas"
-                width={this.props.vWidth}
-                height={this.props.vHeight}
-              />
-              <canvas
-                id="canvas"
-                ref="canvas"
-                width={this.props.vWidth}
-                height={this.props.vHeight}
-              />
-              <Player
-                ref="player"
-                autoPlay={true}
-                fluid={false}
-                width={this.props.vWidth}
-                height={this.props.vHeight}
-              >
-                <source src={this.props.vSrc} />
-                <BigPlayButton position="center" />
-                <ControlBar>
-                  <FullscreenToggle disabled />
-                </ControlBar>
-              </Player>
+      <Container>
+        <Navigation />
+        <h1>{this.props.vTitle}</h1>
+        <div className="main">
+          <div className="videoContainer">
+            <canvas
+              id="trackingCanvas"
+              width={this.props.vWidth}
+              height={this.props.vHeight}
+            />
+            <canvas
+              ref="canvas"
+              width={this.props.vWidth}
+              height={this.props.vHeight}
+            />
+            <Player
+              ref="player"
+              autoPlay={true}
+              fluid={false}
+              width={this.props.vWidth}
+              height={this.props.vHeight}
+            >
+              <source src={this.props.vSrc} />
+              <BigPlayButton position="center" />
+              <ControlBar>
+                <FullscreenToggle disabled />
+              </ControlBar>
+            </Player>
+          </div>
+          <span className="funcContainer">
+            <Button
+              className="funcContainer-tracking"
+              clicked={() => drawTrackingRect()}
+            >
+              Start tracking
+            </Button>
+            <ToggleSwitch
+              className="funcContainer-searchByExample"
+              changed={() =>
+                this.setState({
+                  isSearchByExample: !this.state.isSearchByExample
+                })
+              }
+              checked={this.state.isSearchByExample}
+            >
+              Search by example
+            </ToggleSwitch>
+          </span>
+          {this.state.isSearchByExample ? <FileSelect /> : null}
+          <div className="lists">
+            <div className="listContainer">
+              <h2>Objects</h2>
+              <ul className="list">
+                {this.renderList(this.props.detectedAnomalies)}
+              </ul>
             </div>
-            <span>
-              <Button clicked={() => drawTrackingRect()}>Start tracking</Button>
-              <ToggleSwitch
-                changed={() =>
-                  this.setState({
-                    isSearchByExample: !this.state.isSearchByExample
-                  })
-                }
-                checked={this.state.isSearchByExample}
-              >
-                Search by example
-              </ToggleSwitch>
-            </span>
-            {this.state.isSearchByExample ? <FileSelect /> : null}
-            <div className="lists">
-              <div className="list">
-                <h2>Objects</h2>
-                <ul>{this.renderList(this.props.detectedAnomalies)}</ul>
-              </div>
-              <div className="list">
-                <h2>Anomalies</h2>
-                <ul>{this.renderList(this.props.detectedObjects)}</ul>
-              </div>
+            <div className="listContainer">
+              <h2>Anomalies</h2>
+              <ul className="list">
+                {this.renderList(this.props.detectedObjects)}
+              </ul>
             </div>
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     );
   }
 }

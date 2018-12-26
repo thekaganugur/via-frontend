@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Thumbnail from '../assets/sintel1.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const GridVideo = styled.div`
   font-size: 0.9em;
@@ -51,17 +52,19 @@ const GridVideo = styled.div`
 
 const gridVideo = ({ className }) => (
   <GridVideo className={className}>
-    <div className="thumbnail">
-      <div className="filter" />
-      <img src={Thumbnail} />
-      <span>2:02</span>
-      <FontAwesomeIcon icon="play" size="2x" />
-    </div>
-    <div className="metadata">
-      <h3>Sintel - Sample</h3>
-      <div>Car, Man, Bycle</div>
-      <div>Line crossing, Something</div>
-    </div>
+    <Link to="/search/byidandnobj/asd">
+      <div className="thumbnail">
+        <div className="filter" />
+        <img src={Thumbnail} />
+        <span>2:02</span>
+        <FontAwesomeIcon icon="play" size="2x" />
+      </div>
+      <div className="metadata">
+        <h3>Sintel - Sample</h3>
+        <div>Car, Man, Bycle</div>
+        <div>Line crossing, Something</div>
+      </div>
+    </Link>
   </GridVideo>
 );
 

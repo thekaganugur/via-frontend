@@ -16,7 +16,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const button = props => (
-  <StyledButton onClick={props.clicked}>{props.children}</StyledButton>
+const button = ({ className, clicked, children }) => (
+  <StyledButton className={className} onClick={clicked}>
+    {children}
+  </StyledButton>
 );
 export default button;

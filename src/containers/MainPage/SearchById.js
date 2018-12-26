@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
@@ -68,18 +67,16 @@ const searchById = props => {
           <option value="vehicle">Something</option>
         </Select>
       </FormContainer>
-      <Link to="/search/byidandnobj/asd">
-        <GridContainer>
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-        </GridContainer>
-      </Link>
+      <GridContainer>
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+        <GridVideo className="grid-item" />
+      </GridContainer>
     </Container>
   );
 };

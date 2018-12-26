@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 
-import { primaryColor, primaryColorDark } from '../../styles';
+import { primaryColor, primaryColorDark } from '../styles';
 
 const Navigation = styled.nav`
   background-color: ${primaryColor};
@@ -60,8 +60,6 @@ const navigation = () => (
     <NavLink to="/search/byexample" className="vidSearch last">
       Search by example
     </NavLink>
-    <NavLink to="/search/byidandnobj/asd">Video</NavLink>
-    {/* <span className="userName">Logged in as Kağan</span> */}
     <NavLink to="/" className="signOut">
       <span>Sing Out</span>
       <FontAwesomeIcon icon="sign-out-alt" />
