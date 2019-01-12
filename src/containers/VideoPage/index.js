@@ -126,7 +126,7 @@ class VideoPage extends Component {
 
   componentDidUpdate() {
     // TODO: Filter unneeded draws.
-    const { renderedBoxes } = this.state;
+    // const { renderedBoxes } = this.state;
     this.props.boundingBoxes.forEach((obj, i) => {
       if (
         this.state.player &&
@@ -135,9 +135,9 @@ class VideoPage extends Component {
         console.log('X');
         this.drawBox(obj, true);
 
-        let renderedBoxIndex = renderedBoxes.findIndex(
-          last => last.text === obj.text
-        );
+        // let renderedBoxIndex = renderedBoxes.findIndex(
+        //   last => last.text === obj.text
+        // );
 
         // If box is rendered before
         // Meaning it is in the renderedBoxes[]

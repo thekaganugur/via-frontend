@@ -39,10 +39,9 @@ const GridVideo = styled.div`
       opacity: 0;
       transition: opacity 0.4s;
     }
-
-    &:hover svg {
-      opacity: 0.8;
-    }
+  }
+  &:hover svg {
+    opacity: 0.8;
   }
 
   .metadata {
@@ -55,7 +54,7 @@ const gridVideo = ({ className }) => (
     <Link to="/search/byidandnobj/asd">
       <div className="thumbnail">
         <div className="filter" />
-        <img src={Thumbnail} />
+        <img alt="thumbnail" src={Thumbnail} />
         <span>2:02</span>
         <FontAwesomeIcon icon="play" size="2x" />
       </div>
