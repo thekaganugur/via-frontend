@@ -6,15 +6,23 @@ const initialState = [
     top_y: 293,
     width: 67,
     height: 91,
-    text: 'Car',
+    text: 'Object',
+    time: 1
+  },
+  {
+    left_x: 282,
+    top_y: 393,
+    width: 67,
+    height: 91,
+    text: 'Diffrent Object',
     time: 1
   },
   {
     left_x: 289,
-    top_y: 299,
+    top_y: 399,
     width: 67,
     height: 91,
-    text: 'Cer',
+    text: 'Diffrent Object',
     time: 1.5
   },
   {
@@ -22,7 +30,15 @@ const initialState = [
     top_y: 297,
     width: 67,
     height: 91,
-    text: 'Car',
+    text: 'Object',
+    time: 2
+  },
+  {
+    left_x: 289,
+    top_y: 319,
+    width: 67,
+    height: 91,
+    text: 'Diffrent Object',
     time: 2
   },
   {
@@ -30,7 +46,7 @@ const initialState = [
     top_y: 299,
     width: 67,
     height: 91,
-    text: 'Car',
+    text: 'Object',
     time: 2.5
   },
   {
@@ -38,7 +54,7 @@ const initialState = [
     top_y: 289,
     width: 67,
     height: 91,
-    text: 'Car',
+    text: 'Object',
     time: 3
   }
 ];

@@ -125,32 +125,32 @@ class VideoPage extends Component {
   }
 
   componentDidUpdate() {
-    // TODO: Filter unneeded draws.
-    // const { renderedBoxes } = this.state;
+    const { renderedBoxes } = this.state;
+
     this.props.boundingBoxes.forEach((obj, i) => {
       if (
         this.state.player &&
         obj.time === parseFloat(this.state.player.currentTime.toFixed(1))
       ) {
-        console.log('X');
-        this.drawBox(obj, true);
+        //this.drawBox(obj, true); /*Render and clear no matter what*/
 
-        // let renderedBoxIndex = renderedBoxes.findIndex(
-        //   last => last.text === obj.text
-        // );
+        // Look if to be rendered object is already rendered on the screen if so we are going to clear it.
+        let renderedBoxIndex = renderedBoxes.findIndex(
+          last => last.text === obj.text
+        );
 
         // If box is rendered before
         // Meaning it is in the renderedBoxes[]
-        // if (renderedBoxIndex !== -1) {
-        //   renderedBoxes.splice(renderedBoxIndex, 1);
-        //   this.drawBox(obj, true);
-        // }
-        // // If box is not rendered before
-        // // Meaning it is not in the renderedBoxes[]
-        // else {
-        //   renderedBoxes.push(obj);
-        //   this.drawBox(obj, false);
-        // }
+        if (renderedBoxIndex !== -1) {
+          renderedBoxes.splice(renderedBoxIndex, 1);
+          this.drawBox(obj, true);
+        }
+        // If box is not rendered before
+        // Meaning it is not in the renderedBoxes[]
+        else {
+          renderedBoxes.push(obj);
+          this.drawBox(obj, false);
+        }
       }
     });
   }
