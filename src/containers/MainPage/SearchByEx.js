@@ -16,7 +16,7 @@ const Container = styled.div`
 const searchByEx = props => {
   return (
     <Container>
-      <p id="explainer">Upload an video to search by video sample.</p>
+      <p id="explainer">Upload an photo to search by photo sample.</p>
       <FileSelect />
     </Container>
   );

@@ -1,4 +1,5 @@
 // trackingCanvas will stay after drawing, update it with incoming data.
+// or clear it after delay?
 
 export default function() {
   var canvas = document.getElementById('trackingCanvas'),
@@ -24,7 +25,11 @@ export default function() {
   function mouseUp() {
     drag = false;
     canvas.style.pointerEvents = 'none';
-    console.log([rect.startLeftX, rect.startTopY, rect.width, rect.height]);
+    console.log(
+      `X:${rect.startLeftX} Y:${rect.startTopY} W:${rect.width} H:${
+        rect.height
+      }`
+    );
   }
   function mouseMove(e) {
     var bounds = e.target.getBoundingClientRect();

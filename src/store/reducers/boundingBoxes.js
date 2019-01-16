@@ -55,7 +55,7 @@ const initialState = [
     width: 67,
     height: 91,
     text: 'Object',
-    time: 3
+    time: 4
   }
 ];
 

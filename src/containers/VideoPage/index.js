@@ -55,7 +55,10 @@ const Container = styled.div`
       align-items: center;
 
       &-tracking {
-        margin-right: 2rem;
+        margin-right: 3rem;
+      }
+      &-searchByExample--text {
+        margin-right: 1rem;
       }
     }
 
@@ -236,6 +239,9 @@ class VideoPage extends Component {
             >
               Start tracking
             </Button>
+            <div className="funcContainer-searchByExample--text">
+              Search by ex:
+            </div>
             <ToggleSwitch
               className="funcContainer-searchByExample"
               changed={() =>
@@ -244,9 +250,7 @@ class VideoPage extends Component {
                 })
               }
               checked={this.state.isSearchByExample}
-            >
-              Search by example
-            </ToggleSwitch>
+            />
           </span>
           {this.state.isSearchByExample ? <FileSelect /> : null}
           <div className="lists">
