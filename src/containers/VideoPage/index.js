@@ -255,13 +255,13 @@ class VideoPage extends Component {
           {this.state.isSearchByExample ? <FileSelect /> : null}
           <div className="lists">
             <div className="listContainer">
-              <h2>Objects</h2>
+              <h2>Anomalies</h2>
               <ul className="list">
                 {this.renderList(this.props.detectedAnomalies)}
               </ul>
             </div>
             <div className="listContainer">
-              <h2>Anomalies</h2>
+              <h2>Objects</h2>
               <ul className="list">
                 {this.renderList(this.props.detectedObjects)}
               </ul>

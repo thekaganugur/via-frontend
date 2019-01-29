@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 
 import { primaryColor, primaryColorDark } from '../styles';
+import { media } from '../styles';
 
 const Navigation = styled.nav`
   background-color: ${primaryColor};
@@ -19,6 +20,9 @@ const Navigation = styled.nav`
     text-transform: uppercase;
     margin-right: 4rem;
     user-select: none;
+    ${media.phone`
+      margin-right: 1rem;
+    `};
   }
 
   a {

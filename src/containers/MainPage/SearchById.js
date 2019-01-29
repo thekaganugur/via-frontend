@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
 import GridVideo from '../../components/GridVideo';
+import { media } from '../../styles';
 
 const Container = styled.div`
   display: flex;
@@ -30,12 +31,25 @@ const FormContainer = styled.form`
   select {
     margin-right: 1rem;
   }
+
+  ${media.phone`
+    flex-direction: column;
+
+    input {
+      margin: 0rem 1rem 1rem 1rem;
+    }
+
+    select {
+      margin: 0rem 1rem .75rem 1rem;
+    }
+  `};
 `;
 
 const GridContainer = styled.div`
   margin-top: 3rem;
-  width: 100%;
+  padding: 1rem;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 
   .grid-item {
