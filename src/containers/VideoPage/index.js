@@ -62,6 +62,10 @@ const Container = styled.div`
       }
     }
 
+    .dropArea {
+      margin-top: 3rem;
+    }
+
     .lists {
       display: flex;
       justify-content: space-between;
@@ -240,7 +244,7 @@ class VideoPage extends Component {
               Start tracking
             </Button>
             <div className="funcContainer-searchByExample--text">
-              Search by ex:
+              Search by example:
             </div>
             <ToggleSwitch
               className="funcContainer-searchByExample"

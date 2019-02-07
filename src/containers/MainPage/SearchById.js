@@ -18,7 +18,7 @@ const Container = styled.div`
   }
 `;
 
-const FormContainer = styled.form`
+const Form = styled.form`
   padding: 1rem;
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@ const FormContainer = styled.form`
   `};
 `;
 
-const GridContainer = styled.div`
+const Grid = styled.div`
   margin-top: 3rem;
   padding: 1rem;
   display: flex;
@@ -64,7 +64,7 @@ const GridContainer = styled.div`
 const searchById = props => {
   return (
     <Container>
-      <FormContainer>
+      <Form>
         <Input type="text" placeHolder="Search by title" />
         <Select name="filterObject">
           <option value="object" defaultValue>
@@ -74,14 +74,21 @@ const searchById = props => {
           <option value="vehicle">Vehicle</option>
         </Select>
         <Select name="filterObject">
+          <option value="before">Before</option>
+          <option value="during" defaultValue>
+            During
+          </option>
+          <option value="after">After</option>
+        </Select>
+        <Select name="filterObject">
           <option value="anomality" defaultValue>
             Anomality
           </option>
           <option value="human">Line Crosing</option>
           <option value="vehicle">Something</option>
         </Select>
-      </FormContainer>
-      <GridContainer>
+      </Form>
+      <Grid>
         <GridVideo className="grid-item" />
         <GridVideo className="grid-item" />
         <GridVideo className="grid-item" />
@@ -90,7 +97,7 @@ const searchById = props => {
         <GridVideo className="grid-item" />
         <GridVideo className="grid-item" />
         <GridVideo className="grid-item" />
-      </GridContainer>
+      </Grid>
     </Container>
   );
 };
