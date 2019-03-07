@@ -5,6 +5,7 @@ import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
 import GridVideo from '../../components/GridVideo';
 import { media } from '../../styles';
+import ButtonPlus from '../../components/Styled/ButtonPlus';
 
 const Container = styled.div`
   display: flex;
@@ -19,13 +20,22 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  padding: 1rem;
   display: flex;
   justify-content: center;
+  justify-items: center;
+  flex-flow: row wrap;
+  padding: 1rem;
   width: 100%;
 
   input {
-    margin-right: 3rem;
+    width: 450px;
+    margin-bottom: 1rem;
+    page-break-after: always; /* CSS 2.1 syntax */
+    break-after: always; /* New syntax */
+  }
+
+  button {
+    margin-right: 1rem;
   }
 
   select {
@@ -33,14 +43,22 @@ const Form = styled.form`
   }
 
   ${media.phone`
+    flex-flow: nowrap;
     flex-direction: column;
+    width: 95%;
 
     input {
-      margin: 0rem 1rem 1rem 1rem;
+      width: 100%;
+      margin: 0 0 2rem 0;
+    }
+
+    button {
+      margin: 0 0 1rem 0;
+      align-self:center;
     }
 
     select {
-      margin: 0rem 1rem .75rem 1rem;
+      margin: 0 0 1rem 0;
     }
   `};
 `;
@@ -55,6 +73,14 @@ const Grid = styled.div`
   .grid-item {
     margin: 0 2rem 2rem 0;
 
+    ${media.phone`
+      &:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
+      padding: 1rem 0.5rem;
+      margin: 0 0 1rem 0;
+    `};
+
     &:hover {
       cursor: pointer;
     }
@@ -66,6 +92,7 @@ const searchById = props => {
     <Container>
       <Form>
         <Input type="text" placeHolder="Search by title" />
+        <ButtonPlus />
         <Select name="filterObject">
           <option value="object" defaultValue>
             Object
@@ -87,6 +114,7 @@ const searchById = props => {
           <option value="human">Line Crosing</option>
           <option value="vehicle">Something</option>
         </Select>
+        <ButtonPlus />
       </Form>
       <Grid>
         <GridVideo className="grid-item" />

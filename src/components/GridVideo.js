@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import Thumbnail from '../assets/sintel1.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { media } from '../styles';
 
 const GridVideo = styled.div`
   font-size: 0.9em;
+
   h3 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
@@ -18,6 +20,11 @@ const GridVideo = styled.div`
     img {
       width: 210px;
       height: 118px;
+
+      ${media.phone`
+        width: 100%;
+        height: auto;
+      `};
     }
 
     span {
