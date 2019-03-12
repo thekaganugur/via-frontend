@@ -8,8 +8,17 @@ import { media } from '../../styles';
 import ButtonPlus from '../../components/Styled/ButtonPlus';
 import Button from '../../components/Styled/Button';
 
+const LOGICAL_VALUES = ['Or', 'And'];
 const RELATIONAL_VALUES = ['Before', 'During', 'After'];
-const LOGICAL_VALUES = ['or', 'and'];
+const OBJECT_VALUES = ['Human', 'Car', 'Cat', 'Dog'];
+const ANOMALITY_VALUES = ['Line crossing', 'Fighting', 'Car chrash'];
+const TYPE_CHOOSER_VALUES = [
+  'Choose',
+  'Logical',
+  'Relational',
+  'Object',
+  'Anomality'
+];
 
 const Container = styled.div`
   display: flex;
@@ -94,16 +103,17 @@ const Grid = styled.div`
 class SearchById extends Component {
   state = {
     queryElements: [
-      { type: 'object', value: 'human' },
-      { type: 'relational', value: 'before' },
-      { type: 'anomality', value: 'line crossing' },
-      { type: 'logical', value: 'or' },
-      { type: 'object', value: 'car' }
+      // { type: 'Object', value: 'Human' },
+      // { type: 'Relational', value: 'Hefore' },
+      // { type: 'Anomality', value: 'Line crossing' },
+      // { type: 'Logical', value: 'Or' },
+      // { type: 'Object', value: 'Car' }
     ]
   };
 
-  handleChange(event, e, i) {
+  handleSelectChange(event, e, i) {
     var value = event.target.value;
+    console.log(value, e.type);
     this.setState(({ queryElements }) => ({
       queryElements: [
         ...queryElements.slice(0, i),
@@ -114,26 +124,82 @@ class SearchById extends Component {
         ...queryElements.slice(i + 1)
       ]
     }));
+
+    if (e.type === 'typeChooser') {
+      switch (value) {
+        case 'Logical':
+          this.setState(({ queryElements }) => ({
+            queryElements: [
+              ...queryElements.slice(0, i),
+              {
+                type: value,
+                value: value
+              },
+              ...queryElements.slice(i + 1)
+            ]
+          }));
+
+        case 'Relational':
+          this.setState(({ queryElements }) => ({
+            queryElements: [
+              ...queryElements.slice(0, i),
+              {
+                type: value,
+                value: value
+              },
+              ...queryElements.slice(i + 1)
+            ]
+          }));
+        case 'Object':
+          this.setState(({ queryElements }) => ({
+            queryElements: [
+              ...queryElements.slice(0, i),
+              {
+                type: value,
+                value: value
+              },
+              ...queryElements.slice(i + 1)
+            ]
+          }));
+        case 'Anomality':
+          this.setState(({ queryElements }) => ({
+            queryElements: [
+              ...queryElements.slice(0, i),
+              {
+                type: value,
+                value: value
+              },
+              ...queryElements.slice(i + 1)
+            ]
+          }));
+      }
+    }
   }
 
   renderQueryElements = () =>
     this.state.queryElements.map((e, i) => {
       return (
-        <select
+        <Select
           value={e.value}
-          onChange={event => this.handleChange(event, e, i)}
+          changed={event => this.handleSelectChange(event, e, i)}
         >
           {this.renderQueryElementOptions(e.type, e.value)}
-        </select>
+        </Select>
       );
     });
 
-  renderQueryElementOptions = (type, value) => {
+  renderQueryElementOptions = type => {
     switch (type) {
-      case 'logical':
+      case 'Logical':
         return LOGICAL_VALUES.map(val => <option>{val}</option>);
-      case 'relational':
+      case 'Relational':
         return RELATIONAL_VALUES.map(val => <option>{val}</option>);
+      case 'Object':
+        return OBJECT_VALUES.map(val => <option>{val}</option>);
+      case 'Anomality':
+        return ANOMALITY_VALUES.map(val => <option>{val}</option>);
+      case 'typeChooser':
+        return TYPE_CHOOSER_VALUES.map(val => <option>{val}</option>);
     }
   };
 
@@ -141,19 +207,19 @@ class SearchById extends Component {
     this.setState({
       queryElements: [
         ...this.state.queryElements,
-        { type: 'object', value: 'carrr' }
+        { type: 'typeChooser', value: TYPE_CHOOSER_VALUES[0] }
       ]
     });
 
   render() {
     return (
       <Container>
-        {/* <Form> */}
-        <Input type="text" placeHolder="Search by title" />
-        <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
-        <div>{this.renderQueryElements()}</div>
-        <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
-        {/* </Form> */}
+        <Form>
+          <Input type="text" placeHolder="Search by title" />
+          <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
+          <div>{this.renderQueryElements()}</div>
+          <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
+        </Form>
         <Grid>
           <GridVideo className="grid-item" />
           <GridVideo className="grid-item" />

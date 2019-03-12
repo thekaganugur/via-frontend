@@ -19,12 +19,15 @@ const StyledSelect = styled.select`
 `;
 
 const input = props => {
-  const { name, borderColor, focusColor, children } = props;
+  const { name, borderColor, focusColor, children, value, changed } = props;
   return (
     <StyledSelect
+      value={value}
+      onChange={changed}
       name={name}
       borderColor={borderColor || secondaryColorLight}
-      focusColor={focusColor || secondaryColor}>
+      focusColor={focusColor || secondaryColor}
+    >
       {children}
     </StyledSelect>
   );
