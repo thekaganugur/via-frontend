@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Input from '../../components/Styled/Input';
@@ -6,6 +6,10 @@ import Select from '../../components/Styled/Select';
 import GridVideo from '../../components/GridVideo';
 import { media } from '../../styles';
 import ButtonPlus from '../../components/Styled/ButtonPlus';
+import Button from '../../components/Styled/Button';
+
+const RELATIONAL_VALUES = ['Before', 'During', 'After'];
+const LOGICAL_VALUES = ['or', 'and'];
 
 const Container = styled.div`
   display: flex;
@@ -87,47 +91,82 @@ const Grid = styled.div`
   }
 `;
 
-const searchById = props => {
-  return (
-    <Container>
-      <Form>
-        <Input type="text" placeHolder="Search by title" />
-        <ButtonPlus />
-        <Select name="filterObject">
-          <option value="object" defaultValue>
-            Object
-          </option>
-          <option value="human">Human</option>
-          <option value="vehicle">Vehicle</option>
-        </Select>
-        <Select name="filterObject">
-          <option value="before">Before</option>
-          <option value="during" defaultValue>
-            During
-          </option>
-          <option value="after">After</option>
-        </Select>
-        <Select name="filterObject">
-          <option value="anomality" defaultValue>
-            Anomality
-          </option>
-          <option value="human">Line Crosing</option>
-          <option value="vehicle">Something</option>
-        </Select>
-        <ButtonPlus />
-      </Form>
-      <Grid>
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-        <GridVideo className="grid-item" />
-      </Grid>
-    </Container>
-  );
-};
+class SearchById extends Component {
+  state = {
+    queryElements: [
+      { type: 'object', value: 'human' },
+      { type: 'relational', value: 'before' },
+      { type: 'anomality', value: 'line crossing' },
+      { type: 'logical', value: 'or' },
+      { type: 'object', value: 'car' }
+    ]
+  };
 
-export default searchById;
+  handleChange(event, e, i) {
+    var value = event.target.value;
+    this.setState(({ queryElements }) => ({
+      queryElements: [
+        ...queryElements.slice(0, i),
+        {
+          type: e.type,
+          value: value
+        },
+        ...queryElements.slice(i + 1)
+      ]
+    }));
+  }
+
+  renderQueryElements = () =>
+    this.state.queryElements.map((e, i) => {
+      return (
+        <select
+          value={e.value}
+          onChange={event => this.handleChange(event, e, i)}
+        >
+          {this.renderQueryElementOptions(e.type, e.value)}
+        </select>
+      );
+    });
+
+  renderQueryElementOptions = (type, value) => {
+    switch (type) {
+      case 'logical':
+        return LOGICAL_VALUES.map(val => <option>{val}</option>);
+      case 'relational':
+        return RELATIONAL_VALUES.map(val => <option>{val}</option>);
+    }
+  };
+
+  handlePlusButton = () =>
+    this.setState({
+      queryElements: [
+        ...this.state.queryElements,
+        { type: 'object', value: 'carrr' }
+      ]
+    });
+
+  render() {
+    return (
+      <Container>
+        {/* <Form> */}
+        <Input type="text" placeHolder="Search by title" />
+        <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
+        <div>{this.renderQueryElements()}</div>
+        <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
+        {/* </Form> */}
+        <Grid>
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+          <GridVideo className="grid-item" />
+        </Grid>
+      </Container>
+    );
+  }
+}
+
+export default SearchById;

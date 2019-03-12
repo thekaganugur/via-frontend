@@ -2,7 +2,7 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Codes/via-app
+cd ~/Codes/via-frontend
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -12,7 +12,7 @@ badd +9 src/App.js
 argglobal
 silent! argdel *
 $argadd .
-edit ~/Codes/via-app
+edit ~/Codes/via-frontend
 set splitbelow splitright
 wincmd _ | wincmd |
 split
@@ -38,7 +38,7 @@ exe s:l
 normal! zt
 5
 normal! 0
-lcd ~/Codes/via-app
+lcd ~/Codes/via-frontend
 wincmd w
 argglobal
 if bufexists('term://.//21302:npm\ start') | buffer term://.//21302:npm\ start | else | edit term://.//21302:npm\ start | endif
@@ -56,7 +56,7 @@ exe s:l
 normal! zt
 101
 normal! 0
-lcd ~/Codes/via-app
+lcd ~/Codes/via-frontend
 wincmd w
 exe '1resize ' . ((&lines * 37 + 22) / 44)
 exe '2resize ' . ((&lines * 5 + 22) / 44)
