@@ -5,7 +5,7 @@ import { secondaryColor, secondaryColorLight } from '../../styles';
 const StyledButton = styled.button`
   border: 2px solid ${secondaryColorLight};
   background-color: transparent;
-  font-size: 16px;
+  font-size: 15px;
   height: 2.5em;
   width: 2.5em;
   border-radius: 999px;

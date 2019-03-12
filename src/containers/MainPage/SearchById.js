@@ -48,10 +48,10 @@ const Form = styled.form`
   }
 
   button {
-    margin-right: 1rem;
+    margin: 0 2rem;
   }
 
-  select {
+  select:not(:last-child) {
     margin-right: 1rem;
   }
 
@@ -138,6 +138,7 @@ class SearchById extends Component {
               ...queryElements.slice(i + 1)
             ]
           }));
+          break;
 
         case 'Relational':
           this.setState(({ queryElements }) => ({
@@ -150,6 +151,8 @@ class SearchById extends Component {
               ...queryElements.slice(i + 1)
             ]
           }));
+          break;
+
         case 'Object':
           this.setState(({ queryElements }) => ({
             queryElements: [
@@ -161,6 +164,8 @@ class SearchById extends Component {
               ...queryElements.slice(i + 1)
             ]
           }));
+          break;
+
         case 'Anomality':
           this.setState(({ queryElements }) => ({
             queryElements: [
@@ -172,6 +177,7 @@ class SearchById extends Component {
               ...queryElements.slice(i + 1)
             ]
           }));
+          break;
       }
     }
   }
@@ -220,6 +226,7 @@ class SearchById extends Component {
           <div>{this.renderQueryElements()}</div>
           <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
         </Form>
+        <Button>Submit</Button>
         <Grid>
           <GridVideo className="grid-item" />
           <GridVideo className="grid-item" />
