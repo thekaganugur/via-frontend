@@ -1,15 +1,15 @@
 {
-  "main.js": "/via-app/static/js/main.35106ab1.chunk.js",
-  "main.js.map": "/via-app/static/js/main.35106ab1.chunk.js.map",
-  "static/css/1.032ff994.chunk.css": "/via-app/static/css/1.032ff994.chunk.css",
-  "static/js/1.38c9239b.chunk.js": "/via-app/static/js/1.38c9239b.chunk.js",
-  "static/js/1.38c9239b.chunk.js.map": "/via-app/static/js/1.38c9239b.chunk.js.map",
-  "runtime~main.js": "/via-app/static/js/runtime~main.a4629b6a.js",
-  "runtime~main.js.map": "/via-app/static/js/runtime~main.a4629b6a.js.map",
-  "static/media/camera-cctv-equipment-430208.jpg": "/via-app/static/media/camera-cctv-equipment-430208.71ff1256.jpg",
-  "static/media/sintel1.png": "/via-app/static/media/sintel1.5c53ce82.png",
-  "static/css/1.032ff994.chunk.css.map": "/via-app/static/css/1.032ff994.chunk.css.map",
+  "main.js": "/via-app/static/js/main.3795071c.chunk.js",
+  "main.js.map": "/via-app/static/js/main.3795071c.chunk.js.map",
+  "runtime~main.js": "/via-app/static/js/runtime~main.d2d210b0.js",
+  "runtime~main.js.map": "/via-app/static/js/runtime~main.d2d210b0.js.map",
+  "static/css/2.15c9a460.chunk.css": "/via-app/static/css/2.15c9a460.chunk.css",
+  "static/js/2.b2611ae8.chunk.js": "/via-app/static/js/2.b2611ae8.chunk.js",
+  "static/js/2.b2611ae8.chunk.js.map": "/via-app/static/js/2.b2611ae8.chunk.js.map",
   "index.html": "/via-app/index.html",
-  "precache-manifest.a69db4b6fd3318050c66fc8fca917b78.js": "/via-app/precache-manifest.a69db4b6fd3318050c66fc8fca917b78.js",
-  "service-worker.js": "/via-app/service-worker.js"
+  "precache-manifest.b2054a6b303ec29d41b86ebdf75052da.js": "/via-app/precache-manifest.b2054a6b303ec29d41b86ebdf75052da.js",
+  "service-worker.js": "/via-app/service-worker.js",
+  "static/css/2.15c9a460.chunk.css.map": "/via-app/static/css/2.15c9a460.chunk.css.map",
+  "static/media/camera-cctv-equipment-430208.jpg": "/via-app/static/media/camera-cctv-equipment-430208.71ff1256.jpg",
+  "static/media/sintel1.png": "/via-app/static/media/sintel1.5c53ce82.png"
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
@@ -102,81 +103,46 @@ const Grid = styled.div`
 
 class SearchById extends Component {
   state = {
+    titleTerm: '',
     queryElements: [
       // { type: 'Object', value: 'Human' },
       // { type: 'Relational', value: 'Hefore' },
       // { type: 'Anomality', value: 'Line crossing' },
       // { type: 'Logical', value: 'Or' },
-      // { type: 'Object', value: 'Car' }
     ]
   };
 
-  handleSelectChange(event, e, i) {
-    var value = event.target.value;
-    console.log(value, e.type);
+  updateQueryElementState = (type, value, i) => {
     this.setState(({ queryElements }) => ({
       queryElements: [
         ...queryElements.slice(0, i),
         {
-          type: e.type,
-          value: value
+          type,
+          value
         },
         ...queryElements.slice(i + 1)
       ]
     }));
+  };
+
+  handleSelectChange(event, e, i) {
+    var value = event.target.value;
+
+    this.updateQueryElementState(e.type, value, i);
 
     if (e.type === 'typeChooser') {
       switch (value) {
         case 'Logical':
-          this.setState(({ queryElements }) => ({
-            queryElements: [
-              ...queryElements.slice(0, i),
-              {
-                type: value,
-                value: value
-              },
-              ...queryElements.slice(i + 1)
-            ]
-          }));
+          this.updateQueryElementState(value, LOGICAL_VALUES[0], i);
           break;
-
         case 'Relational':
-          this.setState(({ queryElements }) => ({
-            queryElements: [
-              ...queryElements.slice(0, i),
-              {
-                type: value,
-                value: value
-              },
-              ...queryElements.slice(i + 1)
-            ]
-          }));
+          this.updateQueryElementState(value, RELATIONAL_VALUES[0], i);
           break;
-
         case 'Object':
-          this.setState(({ queryElements }) => ({
-            queryElements: [
-              ...queryElements.slice(0, i),
-              {
-                type: value,
-                value: value
-              },
-              ...queryElements.slice(i + 1)
-            ]
-          }));
+          this.updateQueryElementState(value, OBJECT_VALUES[0], i);
           break;
-
         case 'Anomality':
-          this.setState(({ queryElements }) => ({
-            queryElements: [
-              ...queryElements.slice(0, i),
-              {
-                type: value,
-                value: value
-              },
-              ...queryElements.slice(i + 1)
-            ]
-          }));
+          this.updateQueryElementState(value, ANOMALITY_VALUES[0], i);
           break;
       }
     }
@@ -217,29 +183,42 @@ class SearchById extends Component {
       ]
     });
 
+  renderVideoGrids = () => {
+    var filteredVideos = this.props.videos.filter(video =>
+      video.title.includes(this.state.titleTerm)
+    );
+    return filteredVideos.map(v => (
+      <GridVideo
+        className="grid-item"
+        title={v.title}
+        objects={v.objects}
+        anomalities={v.anomalities}
+      />
+    ));
+  };
+
   render() {
     return (
       <Container>
         <Form>
-          <Input type="text" placeHolder="Search by title" />
+          <Input
+            changed={event => this.setState({ titleTerm: event.target.value })}
+            type="text"
+            placeHolder="Search by title"
+          />
           <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
-          <div>{this.renderQueryElements()}</div>
+          {this.renderQueryElements()}
           <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
         </Form>
         <Button>Submit</Button>
-        <Grid>
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-          <GridVideo className="grid-item" />
-        </Grid>
+        <Grid>{this.renderVideoGrids()}</Grid>
       </Container>
     );
   }
 }
 
-export default SearchById;
+const mapStateToProps = state => ({
+  videos: state.videos
+});
+
+export default connect(mapStateToProps)(SearchById);

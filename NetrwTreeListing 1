@@ -1,0 +1,19 @@
+../
+via-frontend/
+| .git/
+| build/
+| node_modules/
+| public/
+| src/
+| .eslintrc
+| .gitignore
+| .prettierrc
+| .stylelintrc
+| NetrwTreeListing 1
+| README.md
+| Session.vim
+| jsconfig.json
+| nodelist
+| package-lock.json
+| package.json
+| vimSessionStart

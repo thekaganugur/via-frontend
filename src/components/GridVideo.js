@@ -56,7 +56,7 @@ const GridVideo = styled.div`
   }
 `;
 
-const gridVideo = ({ className }) => (
+const gridVideo = ({ className, title, objects, anomalities }) => (
   <GridVideo className={className}>
     <Link to="/search/byidandnobj/asd">
       <div className="thumbnail">
@@ -66,9 +66,9 @@ const gridVideo = ({ className }) => (
         <FontAwesomeIcon icon="play" size="2x" />
       </div>
       <div className="metadata">
-        <h3>Sintel - Sample</h3>
-        <div>Car, Man, Bycle</div>
-        <div>Line crossing, Something</div>
+        <h3>{title}</h3>
+        <div>{objects}</div>
+        <div>{anomalities}</div>
       </div>
     </Link>
   </GridVideo>
