@@ -110,7 +110,7 @@ class signup extends Component {
               type="password"
               placeHolder="Password"
             />
-            <Link className="signupButton" to="/search/byidandnobj">
+            <Link className="signupButton" to="/search">
               Submit
             </Link>
           </form>

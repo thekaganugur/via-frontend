@@ -13,7 +13,7 @@ const Container = styled.div`
   }
 `;
 
-const searchByEx = props => {
+const SearchByExample = () => {
   return (
     <Container>
       <p id="explainer">Upload an photo to search by photo sample.</p>
@@ -22,4 +22,4 @@ const searchByEx = props => {
   );
 };
 
-export default searchByEx;
+export default SearchByExample;

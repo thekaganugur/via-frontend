@@ -1,5 +1,4 @@
-// trackingCanvas will stay after drawing, update it with incoming data.
-// or clear it after delay?
+// import axios from 'axios';
 
 export default function() {
   var canvas = document.getElementById('trackingCanvas'),
@@ -30,6 +29,9 @@ export default function() {
         rect.height
       }`
     );
+    //POST REQUEST HERE
+    // axios.post()
+    setTimeout(() => ctx.clearRect(0, 0, canvas.width, canvas.height), 400);
   }
   function mouseMove(e) {
     var bounds = e.target.getBoundingClientRect();

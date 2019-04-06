@@ -12,9 +12,9 @@ class App extends Component {
       <div>
         <GlobalStyle />
         <Switch>
-          <Route path="/search/byidandnobj/:id" component={VideoPage} />
-          <Route path="/search/byidandnobj" component={MainPage} />
           <Route path="/search/byexample" component={MainPage} />
+          <Route path="/search" component={MainPage} />
+          <Route path="/video/:id" component={VideoPage} />
           <Route path="/" component={LandingPage} />
         </Switch>
       </div>

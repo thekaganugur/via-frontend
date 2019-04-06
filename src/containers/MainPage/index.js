@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid, Cell } from 'styled-css-grid';
 
 import Navigation from '../../components/Navigation';
-import SearchByEx from './SearchByEx';
-import SearchById from './SearchById';
+import SearchVideo from './SearchVideo';
+import SearchVideoByEx from './SearchVideoByEx';
 
 const mainPage = props => {
   console.log(props);
@@ -18,10 +18,10 @@ const mainPage = props => {
       </Cell>
       <Cell />
       <Cell>
-        {props.match.path === '/search/byidandnobj' ? (
-          <SearchById {...props} />
+        {props.match.path === '/search' ? (
+          <SearchVideo {...props} />
         ) : (
-          <SearchByEx {...props} />
+          <SearchVideoByEx {...props} />
         )}
       </Cell>
       <Cell />

@@ -104,7 +104,7 @@ class login extends Component {
               type="password"
               placeHolder="Password"
             />
-            <Link className="loginButton" to="/search/byidandnobj">
+            <Link className="loginButton" to="/search">
               Submit
             </Link>
           </form>
