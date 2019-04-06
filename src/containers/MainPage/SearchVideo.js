@@ -44,8 +44,8 @@ const Form = styled.form`
   input {
     width: 450px;
     margin-bottom: 1rem;
-    page-break-after: always; /* CSS 2.1 syntax */
-    break-after: always; /* New syntax */
+    page-break-after: always;
+    break-after: always;
   }
 
   button {
@@ -104,12 +104,7 @@ const Grid = styled.div`
 class SearchById extends Component {
   state = {
     titleTerm: '',
-    queryElements: [
-      // { type: 'Object', value: 'Human' },
-      // { type: 'Relational', value: 'Hefore' },
-      // { type: 'Anomality', value: 'Line crossing' },
-      // { type: 'Logical', value: 'Or' },
-    ]
+    queryElements: []
   };
 
   updateQueryElementState = (type, value, i) => {
@@ -144,6 +139,8 @@ class SearchById extends Component {
         case 'Anomality':
           this.updateQueryElementState(value, ANOMALITY_VALUES[0], i);
           break;
+        default:
+          break;
       }
     }
   }
@@ -172,6 +169,8 @@ class SearchById extends Component {
         return ANOMALITY_VALUES.map(val => <option>{val}</option>);
       case 'typeChooser':
         return TYPE_CHOOSER_VALUES.map(val => <option>{val}</option>);
+      default:
+        break;
     }
   };
 

@@ -134,7 +134,7 @@ class VideoPage extends Component {
   componentDidUpdate() {
     const { renderedBoxes } = this.state;
 
-    this.props.boundingBoxes.forEach((obj, i) => {
+    this.props.boundingBoxes.forEach(obj => {
       if (
         this.state.player &&
         obj.time === parseFloat(this.state.player.currentTime.toFixed(1))
@@ -162,7 +162,7 @@ class VideoPage extends Component {
     });
   }
 
-  handleStateChange(state, prevState) {
+  handleStateChange(state) {
     // copy player state to this component's state
     this.setState({
       player: state
