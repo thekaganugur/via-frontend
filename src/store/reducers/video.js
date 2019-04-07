@@ -1,8 +1,3 @@
-// !!
-// Implementation of video may change libary uses Redux natively
-// https://video-react.js.org/components/player/#getState
-// !!
-
 import { INIT_VIDEO } from '../actions/actionTypes';
 
 const initialState = {

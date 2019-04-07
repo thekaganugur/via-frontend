@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
@@ -8,6 +9,7 @@ import GridVideo from '../../components/GridVideo';
 import { media } from '../../styles';
 import ButtonPlus from '../../components/Styled/ButtonPlus';
 import Button from '../../components/Styled/Button';
+import { fetchVideos } from '../../store/actions/index';
 
 const LOGICAL_VALUES = ['Or', 'And'];
 const RELATIONAL_VALUES = ['Before', 'During', 'After'];
@@ -101,11 +103,15 @@ const Grid = styled.div`
   }
 `;
 
-class SearchById extends Component {
+class SearchVideo extends Component {
   state = {
     titleTerm: '',
     queryElements: []
   };
+
+  componentDidMount() {
+    this.props.fetchVideos();
+  }
 
   updateQueryElementState = (type, value, i) => {
     this.setState(({ queryElements }) => ({
@@ -220,4 +226,14 @@ const mapStateToProps = state => ({
   videos: state.videos
 });
 
-export default connect(mapStateToProps)(SearchById);
+const mapDispatchToProps = dispatch => ({
+  fetchVideos: bindActionCreators(fetchVideos, dispatch)
+  //dispatch: basicly means call a function, dispatch is the only way to trigger a state change.
+  //bindActionCreators: when you want to pass some action creators down
+  //to a component that isn't aware of Redux
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchVideo);

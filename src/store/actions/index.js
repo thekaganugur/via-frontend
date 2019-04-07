@@ -1,4 +1,15 @@
+import axios from 'axios';
 import * as actionTypes from './actionTypes';
+
+const ROOT_URL = 'http://localhost:3001/videos'; //TODO
+
+export function fetchVideos() {
+  const request = axios.get(`${ROOT_URL}`);
+  return {
+    type: actionTypes.FETCH_VIDEOS,
+    payload: request
+  };
+}
 
 export const updateBoundingBoxes = boundingBoxMeta => {
   //  boundingBoxMeta.forEach(obj) {}
