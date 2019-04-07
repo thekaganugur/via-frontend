@@ -5,12 +5,14 @@ import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledSelect = styled.select`
   border: 1px solid ${props => props.borderColor};
-  padding: 0.5rem 0.7rem;
+  padding: 1rem 1.8rem;
   color: inherit;
-  font: inherit;
-  border-radius: 5px;
+  font: 1.6em;
+  border-radius: 4px;
   transition: border 0.4s;
   background-color: inherit;
+  text-align: center;
+  appearance: none;
 
   &:focus {
     outline: none;

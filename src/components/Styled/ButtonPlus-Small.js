@@ -3,17 +3,13 @@ import styled from 'styled-components';
 import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledButton = styled.button`
-  border: 2px solid ${secondaryColorLight};
+  border: 0px;
   background-color: transparent;
   font-size: 15px;
-  height: 2.5em;
-  width: 2.5em;
+  height: 1.5em;
+  width: 1.5em;
   border-radius: 999px;
   position: relative;
-
-  &:hover {
-    border: 2px solid ${secondaryColor};
-  }
 
   &:after,
   &:before {
@@ -24,6 +20,8 @@ const StyledButton = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    opacity: 0.4;
+    transition: all 0.4s;
   }
 
   &:before {
@@ -39,6 +37,7 @@ const StyledButton = styled.button`
   &:hover:after,
   &:hover:before {
     background-color: ${secondaryColor};
+    opacity: 1;
   }
 `;
 

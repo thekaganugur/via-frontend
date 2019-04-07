@@ -6,7 +6,7 @@ import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
 import GridVideo from '../../components/GridVideo';
 import { media } from '../../styles';
-import ButtonPlus from '../../components/Styled/ButtonPlus';
+import ButtonPlus from '../../components/Styled/ButtonPlus-Small';
 import Button from '../../components/Styled/Button';
 import { fetchVideos } from '../../store/actions/index';
 
@@ -42,19 +42,43 @@ const Form = styled.form`
   padding: 1rem;
   width: 100%;
 
+  .queryElements {
+    position: relative;
+  }
+
+  .queryElements:not(:last-of-type) {
+    margin-right: 1rem;
+  }
+
+  .delete {
+    font-size: 0.8em;
+    padding: 0 1.8rem;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    top: -60%;
+    transform: translate(-50%, +50%);
+  }
+
+  .plus-left {
+    position: absolute;
+    left: 1px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .plus-right {
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
   input {
     width: 450px;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     page-break-after: always;
     break-after: always;
-  }
-
-  button {
-    margin: 0 2rem;
-  }
-
-  select:not(:last-child) {
-    margin-right: 1rem;
   }
 
   ${media.phone`
@@ -105,7 +129,12 @@ const Grid = styled.div`
 class SearchVideo extends Component {
   state = {
     titleTerm: '',
-    queryElements: []
+    queryElements: [
+      {
+        type: 'typeChooser',
+        value: 'Choose'
+      }
+    ]
   };
 
   componentDidMount() {
@@ -153,46 +182,95 @@ class SearchVideo extends Component {
   renderQueryElements = () =>
     this.state.queryElements.map((e, i) => {
       return (
-        <Select
-          value={e.value}
-          changed={event => this.handleSelectChange(event, e, i)}
-        >
-          {this.renderQueryElementOptions(e.type, e.value)}
-        </Select>
+        <div data-key={i} key={i} className="queryElements">
+          <Button
+            type="button"
+            clicked={e => {
+              console.log(e.target.parentElement.getAttribute('data-key'));
+              e.target.parentElement.getAttribute('data-key');
+              this.setState({
+                queryElements: [
+                  ...this.state.queryElements.slice(0, i),
+                  ...this.state.queryElements.slice(i + 1)
+                ]
+              });
+            }}
+            className="delete"
+          >
+            x
+          </Button>
+          <ButtonPlus
+            className="plus-left"
+            type="button"
+            clicked={e =>
+              this.handlePlusButton(
+                e.target.parentElement.getAttribute('data-key'),
+                'left'
+              )
+            }
+          />
+          <Select
+            value={e.value}
+            changed={event => this.handleSelectChange(event, e, i)}
+          >
+            {this.renderQueryElementOptions(e.type, e.value)}
+          </Select>
+          <ButtonPlus
+            className="plus-right"
+            type="button"
+            clicked={() => this.handlePlusButton()}
+          />
+        </div>
       );
     });
 
   renderQueryElementOptions = type => {
+    let k = -1;
     switch (type) {
       case 'Logical':
-        return LOGICAL_VALUES.map(val => <option>{val}</option>);
+        return LOGICAL_VALUES.map(val => <option key={k++}>{val}</option>);
       case 'Relational':
-        return RELATIONAL_VALUES.map(val => <option>{val}</option>);
+        return RELATIONAL_VALUES.map(val => <option key={k++}>{val}</option>);
       case 'Object':
-        return OBJECT_VALUES.map(val => <option>{val}</option>);
+        return OBJECT_VALUES.map(val => <option key={k++}>{val}</option>);
       case 'Anomality':
-        return ANOMALITY_VALUES.map(val => <option>{val}</option>);
+        return ANOMALITY_VALUES.map(val => <option key={k++}>{val}</option>);
       case 'typeChooser':
-        return TYPE_CHOOSER_VALUES.map(val => <option>{val}</option>);
+        return TYPE_CHOOSER_VALUES.map(val => <option key={k++}>{val}</option>);
       default:
         break;
     }
   };
 
-  handlePlusButton = () =>
-    this.setState({
-      queryElements: [
-        ...this.state.queryElements,
-        { type: 'typeChooser', value: TYPE_CHOOSER_VALUES[0] }
-      ]
-    });
+  handlePlusButton = (i, buttonAlignment) => {
+    if (buttonAlignment === 'left') {
+      this.setState(({ queryElements }) => ({
+        queryElements: [
+          ...queryElements.slice(0, i),
+          {
+            type: 'typeChooser',
+            value: 'Choose'
+          },
+          ...queryElements.slice(i)
+        ]
+      }));
+    } else {
+      this.setState({
+        queryElements: [
+          ...this.state.queryElements,
+          { type: 'typeChooser', value: TYPE_CHOOSER_VALUES[0] }
+        ]
+      });
+    }
+  };
 
   renderVideoGrids = () => {
     var filteredVideos = this.props.videos.filter(video =>
       video.title.includes(this.state.titleTerm)
     );
-    return filteredVideos.map(v => (
+    return filteredVideos.map((v, i) => (
       <GridVideo
+        key={i}
         className="grid-item"
         title={v.title}
         objects={v.objects}
@@ -210,9 +288,7 @@ class SearchVideo extends Component {
             type="text"
             placeHolder="Search by title"
           />
-          <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
           {this.renderQueryElements()}
-          <ButtonPlus type="button" clicked={() => this.handlePlusButton()} />
         </Form>
         <Button>Submit</Button>
         <Grid>{this.renderVideoGrids()}</Grid>

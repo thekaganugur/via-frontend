@@ -298,11 +298,4 @@ const mapStateToProps = state => ({
   //Start Tracking Coordinates
 });
 
-const mapDispatchToProps = dispatch => ({
-  //updateBoundingBox:
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VideoPage);
+export default connect(mapStateToProps)(VideoPage);
