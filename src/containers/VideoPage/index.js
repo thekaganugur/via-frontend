@@ -11,6 +11,7 @@ import {
 import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
+import drawLine from './drawLine';
 import FileSelect from '../../components/FileSelect';
 import ToggleSwitch from '../../components/Styled/ToggleSwitch';
 import Navigation from '../../components/Navigation';
@@ -243,6 +244,12 @@ class VideoPage extends Component {
               clicked={() => drawTrackingRect()}
             >
               Start tracking
+            </Button>
+            <Button
+              className="funcContainer-tracking"
+              clicked={() => drawLine()}
+            >
+              Draw line
             </Button>
             <div className="funcContainer-searchByExample--text">
               Search by example:

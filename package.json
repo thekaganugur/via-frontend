@@ -40,7 +40,8 @@
     "stylelint": "^9.9.0",
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.5.1"
+    "stylelint-processor-styled-components": "^1.5.1",
+    "typescript-styled-plugin": "^0.14.0"
   },
   "browserslist": [
     ">0.2%",
