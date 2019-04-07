@@ -44,8 +44,9 @@ export default function() {
   }
 
   function draw() {
-    ctx.setLineDash([6]);
-    ctx.strokeStyle = 'red';
+    ctx.setLineDash([4]);
+    ctx.strokeStyle = 'Cyan';
+    ctx.lineWidth = '3';
     ctx.strokeRect(rect.startLeftX, rect.startTopY, rect.width, rect.height);
   }
 

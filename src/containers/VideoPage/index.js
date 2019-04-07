@@ -119,11 +119,12 @@ class VideoPage extends Component {
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = 'red';
-    ctx.fillStyle = 'red';
+    ctx.strokeStyle = 'yellow';
+    ctx.fillStyle = 'yellow';
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
-    //this.drawBox(false);
+    ctx.lineWidth = '3';
+    // this.drawBox(false);
 
     this.refs.player.actions.toggleFullscreen = () => {
       console.log('prevent full screen video');
@@ -141,19 +142,19 @@ class VideoPage extends Component {
       ) {
         //this.drawBox(obj, true); /*Render and clear no matter what*/
 
-        // Look if to be rendered object is already rendered on the screen if so we are going to clear it.
+        // Look if to be rendered object is already rendered on the screen if
+        // so we are going to clear it.
         let renderedBoxIndex = renderedBoxes.findIndex(
           last => last.text === obj.text
         );
 
-        // If box is rendered before
-        // Meaning it is in the renderedBoxes[]
+        // If box is rendered before Meaning it is in the renderedBoxes[]
         if (renderedBoxIndex !== -1) {
           renderedBoxes.splice(renderedBoxIndex, 1);
           this.drawBox(obj, true);
         }
-        // If box is not rendered before
-        // Meaning it is not in the renderedBoxes[]
+        // If box is not rendered before Meaning it is not in the
+        // renderedBoxes[]
         else {
           renderedBoxes.push(obj);
           this.drawBox(obj, false);
