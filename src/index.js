@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -26,11 +26,17 @@ library.add(
   faAngleDoubleDown,
   faPlay
 );
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <BrowserRouter basename="/via-frontend/">
-    <Provider store={createStoreWithMiddleware(rootReducer)}>
+    <Provider store={store}>
       <App />
     </Provider>
   </BrowserRouter>,

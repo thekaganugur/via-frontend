@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
@@ -227,10 +226,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchVideos: bindActionCreators(fetchVideos, dispatch)
-  //dispatch: basicly means call a function, dispatch is the only way to trigger a state change.
-  //bindActionCreators: when you want to pass some action creators down
-  //to a component that isn't aware of Redux
+  fetchVideos: () => dispatch(fetchVideos())
 });
 
 export default connect(

@@ -6,7 +6,6 @@ import SearchVideo from './SearchVideo';
 import SearchVideoByEx from './SearchVideoByEx';
 
 const mainPage = props => {
-  console.log(props);
   return (
     <Grid
       columns="minmax(0 , 1fr) minmax(30rem, 120rem) minmax(0 , 1fr)"
