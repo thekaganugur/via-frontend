@@ -6,7 +6,7 @@ import Input from '../../components/Styled/Input';
 import Select from '../../components/Styled/Select';
 import GridVideo from '../../components/GridVideo';
 import { media } from '../../styles';
-import ButtonPlus from '../../components/Styled/ButtonPlus-Small';
+import ButtonPlus from '../../components/Styled/ButtonPlus';
 import Button from '../../components/Styled/Button';
 import { fetchVideos } from '../../store/actions/index';
 
@@ -162,7 +162,7 @@ class SearchVideo extends Component {
     }));
   };
 
-  handleSelectChange(event, e, i) {
+  handleSelectChange = (event, e, i) => {
     var value = event.target.value;
 
     this.updateQueryElementState(e.type, value, i);
@@ -185,7 +185,10 @@ class SearchVideo extends Component {
           break;
       }
     }
-  }
+  };
+
+  getQueryElementIndex = event =>
+    event.target.parentElement.getAttribute('data-key');
 
   renderQueryElements = () =>
     this.state.queryElements.map((e, i) => {
@@ -194,8 +197,8 @@ class SearchVideo extends Component {
           <Button
             type="button"
             clicked={e => {
-              console.log(e.target.parentElement.getAttribute('data-key'));
-              e.target.parentElement.getAttribute('data-key');
+              console.log(this.getQueryElementIndex(e));
+              this.getQueryElementIndex(e);
               this.setState({
                 queryElements: [
                   ...this.state.queryElements.slice(0, i),
@@ -209,13 +212,11 @@ class SearchVideo extends Component {
             x
           </Button>
           <ButtonPlus
+            small
             className="plus-left"
             type="button"
             clicked={e =>
-              this.handlePlusButton(
-                e.target.parentElement.getAttribute('data-key'),
-                'left'
-              )
+              this.handlePlusButton(this.getQueryElementIndex(e), 'left')
             }
           />
           <Select
@@ -225,6 +226,7 @@ class SearchVideo extends Component {
             {this.renderQueryElementOptions(e.type, e.value)}
           </Select>
           <ButtonPlus
+            small
             className="plus-right"
             type="button"
             clicked={() => this.handlePlusButton()}

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledButton = styled.button`
@@ -40,10 +40,36 @@ const StyledButton = styled.button`
   &:hover:before {
     background-color: ${secondaryColor};
   }
+
+  ${props =>
+    props.small &&
+    css`
+      border: 0px;
+      height: 1.5em;
+      width: 1.5em;
+      &:after,
+      &:before {
+        opacity: 0.5;
+        transition: all 0.4s;
+      }
+      &:hover:after,
+      &:hover:before {
+        background-color: ${secondaryColor};
+        opacity: 1;
+      }
+      &:hover {
+        border: 0;
+      }
+    `}
 `;
 
-const button = ({ className, clicked, children, type }) => (
-  <StyledButton className={className} onClick={clicked} type={type}>
+const button = ({ className, clicked, children, type, small }) => (
+  <StyledButton
+    className={className}
+    onClick={clicked}
+    type={type}
+    small={small}
+  >
     {children}
   </StyledButton>
 );
