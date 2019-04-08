@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
   border: none;
@@ -8,16 +8,31 @@ const StyledButton = styled.button`
   padding: 0.8rem 2rem;
   border-radius: 5px;
   background-color: #268bd2;
-  transition: background-color 0.4s;
+  transition: all 0.4s;
   cursor: pointer;
 
   &:hover {
     background-color: #3e9bdc;
   }
+  ${props =>
+    props.deletion &&
+    css`
+      background: #ff4063;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+        background: #ff4063;
+      }
+    `}
 `;
 
-const button = ({ className, clicked, children, type }) => (
-  <StyledButton className={className} onClick={clicked} type={type}>
+const button = ({ className, clicked, children, type, deletion }) => (
+  <StyledButton
+    className={className}
+    onClick={clicked}
+    type={type}
+    deletion={deletion}
+  >
     {children}
   </StyledButton>
 );

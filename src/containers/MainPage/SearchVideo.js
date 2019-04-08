@@ -97,7 +97,15 @@ const Form = styled.form`
     }
 
     select {
-      margin: 0 0 1rem 0;
+      width: 100%
+    }
+
+    .queryElements {
+      margin: 0 0 1.9rem 0;
+    }
+
+    .queryElements:not(:last-of-type) {
+      margin-right: 0rem;
     }
   `};
 `;
@@ -196,6 +204,7 @@ class SearchVideo extends Component {
               });
             }}
             className="delete"
+            deletion
           >
             x
           </Button>

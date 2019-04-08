@@ -20,7 +20,7 @@ const StyledButton = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.4;
+    opacity: 0.5;
     transition: all 0.4s;
   }
 
