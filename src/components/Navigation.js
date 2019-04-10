@@ -62,7 +62,7 @@ const navigation = () => (
       Search video
     </NavLink>
     <NavLink to="/search/byexample" className="vidSearch last">
-      Search by example
+      Query by example
     </NavLink>
     <NavLink to="/" className="signOut">
       <span>Sing Out</span>

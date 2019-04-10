@@ -42,18 +42,18 @@ const Form = styled.form`
   padding: 1rem;
   width: 100%;
 
-  .queryElements {
+  .queryElement {
     position: relative;
   }
 
-  .queryElements:not(:last-of-type) {
+  .queryElement:not(:last-of-type) {
     margin-right: 1rem;
   }
 
   .delete {
-    font-size: 0.8em;
-    padding: 0 1.8rem;
-    border-radius: 20px;
+    font-size: 0.9em;
+    padding: 0 1.5rem;
+    border-radius: 100px;
     position: absolute;
     left: 50%;
     top: -60%;
@@ -100,11 +100,11 @@ const Form = styled.form`
       width: 100%
     }
 
-    .queryElements {
+    .queryElement {
       margin: 0 0 1.9rem 0;
     }
 
-    .queryElements:not(:last-of-type) {
+    .queryElement:not(:last-of-type) {
       margin-right: 0rem;
     }
   `};
@@ -193,7 +193,7 @@ class SearchVideo extends Component {
   renderQueryElements = () =>
     this.state.queryElements.map((e, i) => {
       return (
-        <div data-key={i} key={i} className="queryElements">
+        <div data-key={i} key={i} className="queryElement">
           <Button
             type="button"
             clicked={e => {
@@ -229,7 +229,7 @@ class SearchVideo extends Component {
             small
             className="plus-right"
             type="button"
-            clicked={() => this.handlePlusButton()}
+            clicked={e => this.handlePlusButton(this.getQueryElementIndex(e))}
           />
         </div>
       );
@@ -255,23 +255,29 @@ class SearchVideo extends Component {
 
   handlePlusButton = (i, buttonAlignment) => {
     if (buttonAlignment === 'left') {
+      console.log('left');
       this.setState(({ queryElements }) => ({
         queryElements: [
           ...queryElements.slice(0, i),
           {
             type: 'typeChooser',
-            value: 'Choose'
+            value: TYPE_CHOOSER_VALUES[0]
           },
           ...queryElements.slice(i)
         ]
       }));
     } else {
-      this.setState({
+      i++;
+      this.setState(({ queryElements }) => ({
         queryElements: [
-          ...this.state.queryElements,
-          { type: 'typeChooser', value: TYPE_CHOOSER_VALUES[0] }
+          ...queryElements.slice(0, i),
+          {
+            type: 'typeChooser',
+            value: TYPE_CHOOSER_VALUES[0]
+          },
+          ...queryElements.slice(i)
         ]
-      });
+      }));
     }
   };
 

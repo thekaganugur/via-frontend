@@ -5,7 +5,7 @@ import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledSelect = styled.select`
   border: 1px solid ${props => props.borderColor};
-  padding: 1rem 1.8rem;
+  padding: 1.1rem 1.9rem;
   color: inherit;
   font: 1.6em;
   border-radius: 4px;
