@@ -4,6 +4,19 @@ import { Grid, Cell } from 'styled-css-grid';
 import Navigation from '../../components/Navigation';
 import SearchVideo from './SearchVideo';
 import SearchVideoByEx from './SearchVideoByEx';
+import UploadVideo from './UploadVideo';
+
+const ConditionalRender = props => {
+  switch (props.props.match.path) {
+    case '/search/byexample':
+      return <SearchVideoByEx {...props} />;
+    case '/search':
+      return <SearchVideo {...props} />;
+    case '/uploadVideo':
+      return <UploadVideo {...props} />;
+    default:
+  }
+};
 
 const mainPage = props => {
   return (
@@ -16,13 +29,8 @@ const mainPage = props => {
         <Navigation />
       </Cell>
       <Cell />
-      <Cell>
-        {props.match.path === '/search' ? (
-          <SearchVideo {...props} />
-        ) : (
-          <SearchVideoByEx {...props} />
-        )}
-      </Cell>
+      <ConditionalRender props={props} />
+      <Cell />
       <Cell />
     </Grid>
   );

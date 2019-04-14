@@ -35,7 +35,7 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <BrowserRouter basename="/via-frontend/">
+  <BrowserRouter>
     <Provider store={store}>
       <App />
     </Provider>

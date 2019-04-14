@@ -13,8 +13,8 @@ const Container = styled.section`
   .dropArea {
     display: flex;
     justify-content: center;
-    width: 35rem;
-    height: 10rem;
+    width: 29rem;
+    height: 9rem;
     padding: 1rem;
     border: 2px ${primaryColorLight} solid;
     border-radius: 10px;
@@ -67,7 +67,8 @@ class fileSelect extends React.Component {
             <div {...getRootProps()} className="dropArea">
               <input {...getInputProps()} />
               <p>
-                Drop files here, or click to select files
+                Drop files or click and select files
+                <br />
                 <FontAwesomeIcon id="icon_hand" icon="hand-pointer" />
               </p>
             </div>

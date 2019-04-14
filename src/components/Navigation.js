@@ -13,6 +13,12 @@ const Navigation = styled.nav`
   height: 100%;
   color: #fff;
   padding: 0 0 0 1.5rem;
+  text-align: center;
+
+  ${media.phone`
+      padding: 0 0 0 1rem;
+      font-size: 0.9em;
+  `};
 
   .header {
     font-size: 1.3em;
@@ -20,7 +26,8 @@ const Navigation = styled.nav`
     text-transform: uppercase;
     margin-right: 4rem;
     user-select: none;
-    ${media.phone`
+    ${media.tablet`
+      font-size: 1.2em;
       margin-right: 1rem;
     `};
   }
@@ -51,6 +58,10 @@ const Navigation = styled.nav`
   .signOut {
     span {
       margin-right: 0.5rem;
+      ${media.tablet`
+        width: 0;
+        visibility: hidden;
+      `};
     }
   }
 `;
@@ -58,11 +69,10 @@ const Navigation = styled.nav`
 const navigation = () => (
   <Navigation>
     <p className="header">Via.</p>
-    <NavLink to="/search" className="vidSearch">
-      Search video
-    </NavLink>
-    <NavLink to="/search/byexample" className="vidSearch last">
-      Query by example
+    <NavLink to="/search">Search video</NavLink>
+    <NavLink to="/search/byexample">Query by example</NavLink>
+    <NavLink to="/uploadVideo" className="last">
+      Upload video
     </NavLink>
     <NavLink to="/" className="signOut">
       <span>Sing Out</span>

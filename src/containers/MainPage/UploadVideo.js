@@ -13,13 +13,13 @@ const Container = styled.div`
   }
 `;
 
-const searchByExample = () => {
+const uploadVideo = () => {
   return (
     <Container>
-      <p id="explainer">Upload an photo to search by photo sample.</p>
+      <p id="explainer">Upload video</p>
       <FileSelect />
     </Container>
   );
 };
 
-export default searchByExample;
+export default uploadVideo;
