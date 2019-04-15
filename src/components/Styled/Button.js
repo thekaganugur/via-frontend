@@ -26,14 +26,10 @@ const StyledButton = styled.button`
     `}
 `;
 
-const button = ({ className, clicked, children, type, deletion }) => (
-  <StyledButton
-    className={className}
-    onClick={clicked}
-    type={type}
-    deletion={deletion}
-  >
+const button = ({ className, clicked, children, deletion }) => (
+  <StyledButton className={className} onClick={clicked} deletion={deletion}>
     {children}
   </StyledButton>
 );
+
 export default button;

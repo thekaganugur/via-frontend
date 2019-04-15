@@ -12,7 +12,6 @@ import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
-import FileSelect from '../../components/FileSelect';
 import ToggleSwitch from '../../components/Styled/ToggleSwitch';
 import Navigation from '../../components/Navigation';
 
@@ -20,11 +19,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  nav {
-    width: 100%;
-    height: 4.5rem;
-  }
 
   h1 {
     font-size: 1.4em;
@@ -264,7 +258,7 @@ class VideoPage extends Component {
               checked={this.state.isSearchByExample}
             />
           </span>
-          {this.state.isSearchByExample ? <FileSelect /> : null}
+          {this.state.isSearchByExample ? <input type="file" /> : null}
           <div className="lists">
             <div className="listContainer">
               <h2>Anomalies</h2>

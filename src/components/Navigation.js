@@ -10,7 +10,8 @@ const Navigation = styled.nav`
   background-color: ${primaryColor};
   display: flex;
   align-items: center;
-  height: 100%;
+  width: 100%;
+  height: 5.2rem;
   color: #fff;
   padding: 0 0 0 1.5rem;
   text-align: center;
@@ -24,7 +25,7 @@ const Navigation = styled.nav`
     font-size: 1.3em;
     letter-spacing: 0.4rem;
     text-transform: uppercase;
-    margin-right: 4rem;
+    margin-right: 1.6rem;
     user-select: none;
     ${media.tablet`
       font-size: 1.2em;

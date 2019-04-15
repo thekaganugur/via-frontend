@@ -1,35 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { secondaryColor, secondaryColorLight } from '../../styles';
+import { secondaryColorLight } from '../../styles';
 
 const StyledSelect = styled.select`
-  border: 1px solid ${props => props.borderColor};
+  border: 1px solid ${secondaryColorLight};
   padding: 1.1rem 1.9rem;
   color: inherit;
-  font: 1.6em;
-  border-radius: 4px;
-  transition: border 0.4s;
   background-color: inherit;
+  font: 1.6em;
+  border-radius: 5px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   text-align: center;
   appearance: none;
 
   &:focus {
-    outline: none;
-    border: 1px solid ${props => props.focusColor};
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 `;
 
 const input = props => {
-  const { name, borderColor, focusColor, children, value, changed } = props;
+  const { name, children, value, changed } = props;
   return (
-    <StyledSelect
-      value={value}
-      onChange={changed}
-      name={name}
-      borderColor={borderColor || secondaryColorLight}
-      focusColor={focusColor || secondaryColor}
-    >
+    <StyledSelect value={value} onChange={changed} name={name}>
       {children}
     </StyledSelect>
   );

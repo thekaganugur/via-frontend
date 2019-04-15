@@ -35,7 +35,7 @@ const Footer = styled.footer`
   }
 `;
 
-/** rel="noopener noreferrer" -> Is for security */
+/** rel="noopener noreferrer" Is for security */
 const footer = () => {
   const gitIcon = <FontAwesomeIcon icon={['fab', 'github']} />;
   const baseGitUrl = 'https://github.com/';
@@ -66,7 +66,8 @@ const footer = () => {
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`${baseGitUrl}Zeromika`}>
+            href={`${baseGitUrl}Zeromika`}
+          >
             {gitIcon} Göksen Umut Güler
           </a>
         </li>
@@ -74,7 +75,8 @@ const footer = () => {
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`${baseGitUrl}kgnugur`}>
+            href={`${baseGitUrl}kgnugur`}
+          >
             {gitIcon} Mehmet Kağan Uğur
           </a>
         </li>
@@ -82,7 +84,8 @@ const footer = () => {
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href={`${baseGitUrl}hamit-zor`}>
+            href={`${baseGitUrl}hamit-zor`}
+          >
             {gitIcon} Hamit Zor
           </a>
         </li>

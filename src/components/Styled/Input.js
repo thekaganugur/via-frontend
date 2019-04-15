@@ -1,40 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { secondaryColor, secondaryColorLight } from '../../styles';
+import { secondaryColorLight } from '../../styles';
 
 const StyledInput = styled.input`
-  border: 1px solid ${props => props.borderColor};
+  border: 1px solid ${secondaryColorLight};
   padding: 0.5rem 0.7rem;
   color: inherit;
+  background-color: #fff;
   font: inherit;
   border-radius: 5px;
-  transition: border 0.4s;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &:focus {
-    outline: none;
-    border: 1px solid ${props => props.focusColor};
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 `;
 
 const input = props => {
-  const {
-    changed,
-    value,
-    type,
-    placeHolder,
-    borderColor,
-    focusColor,
-    children
-  } = props;
+  const { changed, placeHolder, children } = props;
   return (
-    <StyledInput
-      onChange={changed}
-      value={value}
-      type={type}
-      placeholder={placeHolder}
-      borderColor={borderColor || secondaryColorLight}
-      focusColor={focusColor || secondaryColor}>
+    <StyledInput onChange={changed} placeholder={placeHolder}>
       {children}
     </StyledInput>
   );

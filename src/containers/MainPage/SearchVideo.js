@@ -34,7 +34,7 @@ const Container = styled.div`
   }
 `;
 
-const Form = styled.form`
+const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   justify-items: center;
@@ -212,7 +212,6 @@ class SearchVideo extends Component {
             x
           </Button>
           <ButtonPlus
-            small
             className="plus-left"
             type="button"
             clicked={e =>
@@ -226,7 +225,6 @@ class SearchVideo extends Component {
             {this.renderQueryElementOptions(e.type, e.value)}
           </Select>
           <ButtonPlus
-            small
             className="plus-right"
             type="button"
             clicked={e => this.handlePlusButton(this.getQueryElementIndex(e))}
@@ -299,14 +297,14 @@ class SearchVideo extends Component {
   render() {
     return (
       <Container>
-        <Form>
+        <FormContainer>
           <Input
             changed={event => this.setState({ titleTerm: event.target.value })}
             type="text"
             placeHolder="Search by title"
           />
           {this.renderQueryElements()}
-        </Form>
+        </FormContainer>
         <Button>Submit</Button>
         <Grid>{this.renderVideoGrids()}</Grid>
       </Container>

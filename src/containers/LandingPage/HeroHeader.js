@@ -12,7 +12,7 @@ const Header = styled.header`
     ),
     url(${cameraImage});
   width: auto;
-  height: 100%;
+  height: 95vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

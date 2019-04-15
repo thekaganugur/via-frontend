@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { media } from './index';
 
 export const GlobalStyle = createGlobalStyle`
   :root {
@@ -36,6 +37,16 @@ export const GlobalStyle = createGlobalStyle`
     background: #fafafa;
     min-height: 100vh;
   }
+
+  .width-wrapper {
+    /* max-width: 950px; */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    ${media.desktop`padding: 2rem 3rem`}
+    ${media.phone`padding: 2rem`}
+  }
+
 
   @media only screen and (max-width: 75em) {
     .container {

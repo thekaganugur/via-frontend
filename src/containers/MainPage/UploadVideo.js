@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import FileSelect from '../../components/FileSelect.js';
 
 const Container = styled.div`
   padding: 4rem 0 2rem 0;
@@ -17,7 +16,7 @@ const uploadVideo = () => {
   return (
     <Container>
       <p id="explainer">Upload video</p>
-      <FileSelect />
+      <input type="file" multiple />
     </Container>
   );
 };

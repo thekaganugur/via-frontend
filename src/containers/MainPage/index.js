@@ -1,7 +1,6 @@
 import React from 'react';
-import { Grid, Cell } from 'styled-css-grid';
 
-import Navigation from '../../components/Navigation';
+import Layout from '../../components/Layout';
 import SearchVideo from './SearchVideo';
 import SearchVideoByEx from './SearchVideoByEx';
 import UploadVideo from './UploadVideo';
@@ -20,19 +19,9 @@ const ConditionalRender = props => {
 
 const mainPage = props => {
   return (
-    <Grid
-      columns="minmax(0 , 1fr) minmax(30rem, 120rem) minmax(0 , 1fr)"
-      rows=" minmax(4.5rem ,auto) 1fr minmax(45px,auto)"
-      gap="0"
-    >
-      <Cell width={3}>
-        <Navigation />
-      </Cell>
-      <Cell />
+    <Layout>
       <ConditionalRender props={props} />
-      <Cell />
-      <Cell />
-    </Grid>
+    </Layout>
   );
 };
 export default mainPage;

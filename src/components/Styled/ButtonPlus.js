@@ -1,19 +1,13 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { secondaryColor, secondaryColorLight } from '../../styles';
 
 const StyledButton = styled.button`
-  border: 2px solid ${secondaryColorLight};
+  border: 0px;
   background-color: transparent;
+  height: 1.4em;
+  width: 1.4em;
   font-size: 15px;
-  height: 2.5em;
-  width: 2.5em;
-  border-radius: 999px;
-  position: relative;
-
-  &:hover {
-    border: 2px solid ${secondaryColor};
-  }
 
   &:after,
   &:before {
@@ -24,6 +18,8 @@ const StyledButton = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    opacity: 0.5;
+    transition: all 0.4s;
   }
 
   &:before {
@@ -36,41 +32,21 @@ const StyledButton = styled.button`
     width: 1em;
   }
 
+  &:hover {
+    border: 0;
+  }
+
   &:hover:after,
   &:hover:before {
     background-color: ${secondaryColor};
+    opacity: 1;
   }
-
-  ${props =>
-    props.small &&
-    css`
-      border: 0px;
-      height: 1.5em;
-      width: 1.5em;
-      &:after,
-      &:before {
-        opacity: 0.5;
-        transition: all 0.4s;
-      }
-      &:hover:after,
-      &:hover:before {
-        background-color: ${secondaryColor};
-        opacity: 1;
-      }
-      &:hover {
-        border: 0;
-      }
-    `}
 `;
 
-const button = ({ className, clicked, children, type, small }) => (
-  <StyledButton
-    className={className}
-    onClick={clicked}
-    type={type}
-    small={small}
-  >
+const button = ({ className, clicked, children }) => (
+  <StyledButton className={className} onClick={clicked}>
     {children}
   </StyledButton>
 );
+
 export default button;
