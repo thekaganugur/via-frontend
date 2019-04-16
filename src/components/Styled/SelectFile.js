@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { secondaryColorLight } from '../../styles';
+
 const Container = styled.div`
   .inputfile {
     width: 0.1px;
@@ -14,22 +16,21 @@ const Container = styled.div`
 
   .inputfile + label {
     display: inline-block;
-    border: none;
-    font: inherit;
-    color: #fff;
-    padding: 0.6rem 1rem;
-    border-radius: 5px;
-    background-color: #268bd2;
-    transition: all 0.4s;
     cursor: pointer;
-  }
 
-  .inputfile:focus + label,
-  .inputfile + label:hover {
-    background-color: #3e9bdc;
+    border: 1px solid ${secondaryColorLight};
+    padding: 1rem 2rem;
+    color: inherit;
+    background-color: #fff;
+    font: inherit;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 
   .inputfile:focus + label {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     outline: 1px dotted #000;
   }
 
@@ -46,7 +47,17 @@ const Container = styled.div`
 `;
 
 const input = React.forwardRef((props, ref) => {
-  const { className, children, changed, fileName, fileCount, multiple } = props;
+  const {
+    className,
+    children,
+    changed,
+    file,
+    fileCount,
+    multiple,
+    dragEntered,
+    dragOvered,
+    droped
+  } = props;
 
   const RenderLabel = () => {
     switch (fileCount) {
@@ -59,7 +70,7 @@ const input = React.forwardRef((props, ref) => {
       case 1:
         return (
           <label htmlFor="file">
-            <FontAwesomeIcon icon="file-upload" /> {fileName}
+            <FontAwesomeIcon icon="file-upload" /> {file.name}
           </label>
         );
       default:
@@ -72,7 +83,12 @@ const input = React.forwardRef((props, ref) => {
   };
 
   return (
-    <Container className={className}>
+    <Container
+      className={className}
+      onDragEnter={dragEntered}
+      onDragOver={dragOvered}
+      onDrop={droped}
+    >
       <input
         onChange={changed}
         ref={ref}
