@@ -12,7 +12,8 @@ import {
   faSignOutAlt,
   faAngleDoubleDown,
   faHandPointer,
-  faPlay
+  faPlay,
+  faFileUpload
 } from '@fortawesome/free-solid-svg-icons';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
@@ -24,7 +25,8 @@ library.add(
   faGlasses,
   faSignOutAlt,
   faAngleDoubleDown,
-  faPlay
+  faPlay,
+  faFileUpload
 );
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
