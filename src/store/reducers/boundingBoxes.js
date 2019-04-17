@@ -1,4 +1,4 @@
-import { UPDATE_BOUNDINGBOXES } from '../actions/actionTypes';
+import { INIT_BOUNDINGBOXES } from '../actions/actionTypes';
 
 const initialState = [
   {
@@ -61,7 +61,7 @@ const initialState = [
 
 const boundingBoxes = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_BOUNDINGBOXES:
+    case INIT_BOUNDINGBOXES:
       return action.payload;
     default:
       return state;

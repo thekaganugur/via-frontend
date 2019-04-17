@@ -281,13 +281,14 @@ class SearchVideo extends Component {
 
   renderVideoGrids = () => {
     var filteredVideos = this.props.videos.filter(video =>
-      video.title.includes(this.state.titleTerm)
+      video.Title.includes(this.state.titleTerm)
     );
     return filteredVideos.map((v, i) => (
       <GridVideo
         key={i}
         className="grid-item"
-        title={v.title}
+        id={v.VideoId}
+        title={v.Title}
         objects={v.objects}
         anomalities={v.anomalities}
       />

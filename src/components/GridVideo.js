@@ -56,10 +56,9 @@ const GridVideo = styled.div`
   }
 `;
 
-const gridVideo = ({ className, title, objects, anomalities }) => (
-  // TODO change id by unique
+const gridVideo = ({ className, title, objects, anomalities, id }) => (
   <GridVideo className={className}>
-    <Link to="/video/uniqueid">
+    <Link to={`/video/${id}`}>
       <div className="thumbnail">
         <div className="filter" />
         <img alt="thumbnail" src={Thumbnail} />

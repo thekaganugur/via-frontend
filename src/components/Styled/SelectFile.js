@@ -64,7 +64,7 @@ const input = React.forwardRef((props, ref) => {
       case 0:
         return (
           <label htmlFor="file">
-            <FontAwesomeIcon icon="file-upload" /> Select file
+            <FontAwesomeIcon icon="file-upload" /> Select or drag file
           </label>
         );
       case 1:

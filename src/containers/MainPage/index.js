@@ -1,26 +1,19 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import Layout from '../../components/Layout';
 import SearchVideo from './SearchVideo';
 import SearchVideoByEx from './SearchVideoByEx';
 import UploadVideo from './UploadVideo';
 
-const ConditionalRender = props => {
-  switch (props.props.match.path) {
-    case '/search/byexample':
-      return <SearchVideoByEx {...props} />;
-    case '/search':
-      return <SearchVideo {...props} />;
-    case '/uploadVideo':
-      return <UploadVideo {...props} />;
-    default:
-  }
-};
-
-const mainPage = props => {
+const mainPage = () => {
   return (
     <Layout>
-      <ConditionalRender props={props} />
+      <Switch>
+        <Route path={'/search/byexample'} component={SearchVideoByEx} />
+        <Route path={'/search'} component={SearchVideo} />
+        <Route path={'/uploadVideo'} component={UploadVideo} />
+      </Switch>
     </Layout>
   );
 };
