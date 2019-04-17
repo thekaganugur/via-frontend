@@ -3,12 +3,13 @@ import * as actionTypes from './actionTypes';
 
 export const fetchVideo = () => {
   return dispatch => {
+    //TODO change 1 with unique id
     axios
-      .get(`/video`)
+      .get(`/video/1`)
       .then(res =>
         dispatch({
-          type: actionTypes.FETCH_VIDEOS,
-          payload: res
+          type: actionTypes.FETCH_VIDEO,
+          payload: res.data
         })
       )
       .catch(res =>

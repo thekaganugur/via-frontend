@@ -56,13 +56,13 @@ const GridVideo = styled.div`
   }
 `;
 
-const gridVideo = ({ className, title, objects, anomalities, id }) => (
+const gridVideo = ({ className, title, objects, anomalities, id, time }) => (
   <GridVideo className={className}>
     <Link to={`/video/${id}`}>
       <div className="thumbnail">
         <div className="filter" />
         <img alt="thumbnail" src={Thumbnail} />
-        <span>2:02</span>
+        <span>{time}</span>
         <FontAwesomeIcon icon="play" size="2x" />
       </div>
       <div className="metadata">

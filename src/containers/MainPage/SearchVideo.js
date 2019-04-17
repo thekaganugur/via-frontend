@@ -289,6 +289,7 @@ class SearchVideo extends Component {
         className="grid-item"
         id={v.VideoId}
         title={v.Title}
+        time={v.Length}
         objects={v.objects}
         anomalities={v.anomalities}
       />

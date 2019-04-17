@@ -14,6 +14,7 @@ import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
 import ToggleSwitch from '../../components/Styled/ToggleSwitch';
 import Navigation from '../../components/Navigation';
+import { fetchVideo } from '../../store/actions/index';
 
 const Container = styled.div`
   display: flex;
@@ -112,6 +113,8 @@ class VideoPage extends Component {
   };
 
   componentDidMount() {
+    this.props.fetchVideo();
+
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     ctx.strokeStyle = 'yellow';
@@ -205,27 +208,27 @@ class VideoPage extends Component {
     return (
       <Container>
         <Navigation />
-        <h1>{this.props.vTitle}</h1>
+        <h1>{this.props.title}</h1>
         <div className="main">
           <div className="videoContainer">
             <canvas
               id="trackingCanvas"
-              width={this.props.vWidth}
-              height={this.props.vHeight}
+              width={this.props.width}
+              height={this.props.height}
             />
             <canvas
               ref="canvas"
-              width={this.props.vWidth}
-              height={this.props.vHeight}
+              width={this.props.width}
+              height={this.props.height}
             />
             <Player
               ref="player"
               autoPlay={true}
               fluid={false}
-              width={this.props.vWidth}
-              height={this.props.vHeight}
+              width={this.props.width}
+              height={this.props.height}
             >
-              <source src={this.props.vSrc} />
+              <source src={this.props.path} />
               <BigPlayButton position="center" />
               <ControlBar>
                 <FullscreenToggle disabled />
@@ -280,16 +283,20 @@ class VideoPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  detectedAnomalies: state.detectedAnomalies,
-  detectedObjects: state.detectedObjects,
-  //canvas
-  boundingBoxes: state.boundingBoxes,
-  //video
-  vTitle: state.video.videoTitle,
-  vSrc: state.video.currentSrc,
-  vWidth: state.video.width,
-  vHeight: state.video.height
-  //Start Tracking Coordinates
+  detectedAnomalies: state.video.detectedAnomalies,
+  detectedObjects: state.video.detectedObjects,
+  boundingBoxes: state.video.boundingBoxes,
+  title: state.video.metaData.title,
+  path: state.video.metaData.path,
+  width: state.video.metaData.width,
+  height: state.video.metaData.height
 });
 
-export default connect(mapStateToProps)(VideoPage);
+const mapDispatchToProps = dispatch => ({
+  fetchVideo: () => dispatch(fetchVideo())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VideoPage);
