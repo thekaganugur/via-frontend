@@ -1,9 +1,4 @@
-import {
-  FETCH_VIDEO,
-  INIT_BOUNDINGBOXES,
-  INIT_DETECTED_ANOMALIES,
-  INIT_DETECTED_OBJECTS
-} from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 import boundingBoxesReducer from './boundingBoxes';
 import detectedAnomaliesReduces from './detectedAnomalies';
@@ -99,13 +94,18 @@ const initialState = {
 
 const video = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_VIDEO:
+    case actionTypes.FETCH_VIDEO_START:
       return metaData(initialState, action);
-    case INIT_BOUNDINGBOXES:
+    case actionTypes.FETCH_VIDEO_SUCCESS:
+      return metaData(initialState, action);
+    case actionTypes.FETCH_VIDEO_ERROR:
+      return metaData(initialState, action);
+    // **
+    case actionTypes.INIT_BOUNDINGBOXES:
       return boundingBoxesReducer(initialState, action);
-    case INIT_DETECTED_ANOMALIES:
+    case actionTypes.INIT_DETECTED_ANOMALIES:
       return detectedAnomaliesReduces(initialState, action);
-    case INIT_DETECTED_OBJECTS:
+    case actionTypes.INIT_DETECTED_OBJECTS:
       return detectedObjectsReducer(initialState, action);
     default:
       return state;

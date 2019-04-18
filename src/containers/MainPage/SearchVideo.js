@@ -9,6 +9,7 @@ import { media } from '../../styles';
 import ButtonPlus from '../../components/Styled/ButtonPlus';
 import Button from '../../components/Styled/Button';
 import { fetchVideos } from '../../store/actions/index';
+import Spinner from '../../components/Styled/Spinner';
 
 const LOGICAL_VALUES = ['Or', 'And'];
 const RELATIONAL_VALUES = ['Before', 'During', 'After'];
@@ -280,7 +281,7 @@ class SearchVideo extends Component {
   };
 
   renderVideoGrids = () => {
-    var filteredVideos = this.props.videos.filter(video =>
+    var filteredVideos = this.props.videos.list.filter(video =>
       video.Title.includes(this.state.titleTerm)
     );
     return filteredVideos.map((v, i) => (
@@ -297,6 +298,12 @@ class SearchVideo extends Component {
   };
 
   render() {
+    let videos = <Spinner />;
+    if (!this.props.videos.loading) {
+      videos = this.renderVideoGrids();
+      console.log(this.props.videos);
+    }
+
     return (
       <Container>
         <FormContainer>
@@ -308,7 +315,7 @@ class SearchVideo extends Component {
           {this.renderQueryElements()}
         </FormContainer>
         <Button>Submit</Button>
-        <Grid>{this.renderVideoGrids()}</Grid>
+        <Grid>{videos}</Grid>
       </Container>
     );
   }
