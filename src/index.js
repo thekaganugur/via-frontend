@@ -11,7 +11,6 @@ import {
   faGlasses,
   faSignOutAlt,
   faAngleDoubleDown,
-  faHandPointer,
   faPlay,
   faFileUpload
 } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +20,6 @@ import App from './App';
 import rootReducer from './store/reducers';
 
 library.add(
-  faHandPointer,
   faGithub,
   faGlasses,
   faSignOutAlt,
@@ -31,10 +29,9 @@ library.add(
 );
 
 axios.defaults.baseURL = 'http://localhost:3000';
-// axios.defaults.baseURL = 'http://35.237.100.198:3000';
+// axios.defaults.baseURL = 'http://34.74.68.244:3000';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk))

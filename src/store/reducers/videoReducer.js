@@ -74,10 +74,6 @@ const initialState = {
     {
       name: 'detectedAnomaly-1',
       time: 2
-    },
-    {
-      name: 'detectedAnomaly-1',
-      time: 10
     }
   ],
   detectedObjects: [
@@ -95,7 +91,8 @@ const initialState = {
 const video = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_VIDEO_START:
-      return metaData(initialState, action);
+      return state;
+    // return metaData(initialState, action);
     case actionTypes.FETCH_VIDEO_SUCCESS:
       return metaData(initialState, action);
     case actionTypes.FETCH_VIDEO_ERROR:

@@ -3,10 +3,10 @@ const metaData = (state, action) => {
   return {
     ...state,
     metaData: {
-      title: action.payload.Title,
-      path: action.payload.Path,
-      width: action.payload.Width,
-      height: action.payload.Height
+      title: action.payload.title,
+      path: action.payload.path,
+      width: action.payload.width,
+      height: action.payload.height
     }
   };
 };

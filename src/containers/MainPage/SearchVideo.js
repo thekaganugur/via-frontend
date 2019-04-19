@@ -281,16 +281,16 @@ class SearchVideo extends Component {
   };
 
   renderVideoGrids = () => {
-    var filteredVideos = this.props.videos.list.filter(video =>
-      video.Title.includes(this.state.titleTerm)
+    var filteredVideos = this.props.videos.list.data.filter(video =>
+      video.title.includes(this.state.titleTerm)
     );
     return filteredVideos.map((v, i) => (
       <GridVideo
         key={i}
         className="grid-item"
-        id={v.VideoId}
-        title={v.Title}
-        time={v.Length}
+        id={v.video_id}
+        title={v.title}
+        time={v.length}
         objects={v.objects}
         anomalities={v.anomalities}
       />
@@ -299,7 +299,10 @@ class SearchVideo extends Component {
 
   render() {
     let videos = <Spinner />;
-    if (!this.props.videos.loading) {
+
+    if (this.props.videos.error) {
+      videos = <div>{this.props.videos.error.message}</div>;
+    } else if (!this.props.videos.loading) {
       videos = this.renderVideoGrids();
       console.log(this.props.videos);
     }
@@ -308,9 +311,8 @@ class SearchVideo extends Component {
       <Container>
         <FormContainer>
           <Input
-            changed={event => this.setState({ titleTerm: event.target.value })}
-            type="text"
             placeHolder="Search by title"
+            changed={event => this.setState({ titleTerm: event.target.value })}
           />
           {this.renderQueryElements()}
         </FormContainer>

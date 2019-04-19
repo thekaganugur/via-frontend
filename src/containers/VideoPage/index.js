@@ -12,9 +12,10 @@ import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
-import ToggleSwitch from '../../components/Styled/ToggleSwitch';
 import Navigation from '../../components/Navigation';
 import { fetchVideo } from '../../store/actions/index';
+import Modal from '../../components/Modal';
+import SearchByExample from '../MainPage/SearchVideoByEx';
 
 const Container = styled.div`
   display: flex;
@@ -113,7 +114,7 @@ class VideoPage extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchVideo();
+    this.props.fetchVideo(this.props.match.params.id);
 
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
@@ -248,20 +249,16 @@ class VideoPage extends Component {
             >
               Draw line
             </Button>
-            <div className="funcContainer-searchByExample--text">
-              Search by example:
-            </div>
-            <ToggleSwitch
-              className="funcContainer-searchByExample"
-              changed={() =>
-                this.setState({
-                  isSearchByExample: !this.state.isSearchByExample
-                })
-              }
-              checked={this.state.isSearchByExample}
-            />
+            <Button clicked={() => this.setState({ isSearchByExample: true })}>
+              Query By Example
+            </Button>
           </span>
-          {this.state.isSearchByExample ? <input type="file" /> : null}
+          <Modal
+            show={this.state.isSearchByExample}
+            handleClose={() => this.setState({ isSearchByExample: false })}
+          >
+            <SearchByExample />
+          </Modal>
           <div className="lists">
             <div className="listContainer">
               <h2>Anomalies</h2>
@@ -293,7 +290,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchVideo: () => dispatch(fetchVideo())
+  fetchVideo: id => dispatch(fetchVideo(id))
 });
 
 export default connect(

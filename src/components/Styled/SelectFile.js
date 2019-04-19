@@ -19,7 +19,7 @@ const Container = styled.div`
     cursor: pointer;
 
     border: 1px solid ${secondaryColorLight};
-    padding: 1rem 2rem;
+    padding: 1.2rem 2rem;
     color: inherit;
     background-color: #fff;
     font: inherit;
@@ -51,8 +51,7 @@ const input = React.forwardRef((props, ref) => {
     className,
     children,
     changed,
-    file,
-    fileCount,
+    files,
     multiple,
     dragEntered,
     dragOvered,
@@ -60,7 +59,7 @@ const input = React.forwardRef((props, ref) => {
   } = props;
 
   const RenderLabel = () => {
-    switch (fileCount) {
+    switch (files.length) {
       case 0:
         return (
           <label htmlFor="file">
@@ -70,13 +69,13 @@ const input = React.forwardRef((props, ref) => {
       case 1:
         return (
           <label htmlFor="file">
-            <FontAwesomeIcon icon="file-upload" /> {file.name}
+            <FontAwesomeIcon icon="file-upload" /> {files[0].name}
           </label>
         );
       default:
         return (
           <label htmlFor="file">
-            <FontAwesomeIcon icon="file-upload" /> {fileCount} files selected
+            <FontAwesomeIcon icon="file-upload" /> {files.length} files selected
           </label>
         );
     }

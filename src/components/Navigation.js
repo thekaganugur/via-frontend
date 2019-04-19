@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 
-import { primaryColor, primaryColorDark } from '../styles';
+import { primaryColor, primaryColorDark, primaryColorLight } from '../styles';
 import { media } from '../styles';
 
 const Navigation = styled.nav`
@@ -20,6 +20,10 @@ const Navigation = styled.nav`
       padding: 0 0 0 1rem;
       font-size: 0.9em;
   `};
+
+  .active {
+    background-color: ${primaryColorLight};
+  }
 
   .header {
     font-size: 1.3em;
@@ -70,12 +74,14 @@ const Navigation = styled.nav`
 const navigation = () => (
   <Navigation>
     <p className="header">Via.</p>
-    <NavLink to="/search">Search video</NavLink>
+    <NavLink to="/search" exact activeClassName="active">
+      Search video
+    </NavLink>
     <NavLink to="/search/byexample">Query by example</NavLink>
     <NavLink to="/uploadVideo" className="last">
       Upload video
     </NavLink>
-    <NavLink to="/" className="signOut">
+    <NavLink to="/" exact className="signOut">
       <span>Sing Out</span>
       <FontAwesomeIcon icon="sign-out-alt" />
     </NavLink>

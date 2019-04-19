@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import SelectFile from '../../components/Styled/SelectFile';
 import Button from '../../components/Styled/Button';
+import Input from '../../components/Styled/Input';
 
 const Form = styled.form`
   padding: 4rem 0 2rem 0;
@@ -14,8 +15,8 @@ const Form = styled.form`
 
 class UploadVideo extends React.Component {
   state = {
-    file: null,
-    fileCount: 0
+    title: '',
+    files: []
   };
   constructor(props) {
     super(props);
@@ -25,7 +26,8 @@ class UploadVideo extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('video', this.state.file);
+    formData.append('title', this.state.title);
+    formData.append('video', this.state.files);
     axios
       .post('/video/upload', formData)
       .then(response => {
@@ -37,8 +39,7 @@ class UploadVideo extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ fileCount: e.target.files.length });
-    this.setState({ file: e.target.files[0] });
+    this.setState({ files: e.target.files });
   }
 
   handleDragOver(e) {
@@ -58,18 +59,19 @@ class UploadVideo extends React.Component {
     const dt = e.dataTransfer;
     const files = dt.files;
 
-    //CHECK FOR MULTIPLE FILE RESTRICTION
-    this.setState({ fileCount: files.length });
-    this.setState({ file: files[0] });
+    this.setState({ files: [files[0]] });
   }
 
   render() {
     return (
       <Form onSubmit={e => this.handleSubmit(e)} enctype="multipart/form-data">
+        <Input
+          placeHolder="Title"
+          changed={event => this.setState({ title: event.target.value })}
+        />
         <SelectFile
           ref={this.fileInput}
-          file={this.state.file}
-          fileCount={this.state.fileCount}
+          files={this.state.files}
           changed={e => this.handleChange(e)}
           dragEntered={e => this.handleDragEnter(e)}
           dragOvered={e => this.handleDragOver(e)}

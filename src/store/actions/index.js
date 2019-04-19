@@ -1,14 +1,13 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-export const fetchVideo = () => {
+export const fetchVideo = id => {
   return dispatch => {
-    //TODO change 1 with unique id
     dispatch({
       type: actionTypes.FETCH_VIDEO_START
     });
     axios
-      .get(`/video/1`)
+      .get(`/video/${id}`)
       .then(res =>
         dispatch({
           type: actionTypes.FETCH_VIDEO_SUCCESS,

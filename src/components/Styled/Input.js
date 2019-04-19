@@ -5,12 +5,13 @@ import { secondaryColorLight } from '../../styles';
 
 const StyledInput = styled.input`
   border: 1px solid ${secondaryColorLight};
-  padding: 0.5rem 0.7rem;
+  padding: 0.4rem 1rem;
   color: inherit;
   background-color: #fff;
   font: inherit;
   border-radius: 5px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin: 1rem;
 
   &:focus {
     border-color: #80bdff;
