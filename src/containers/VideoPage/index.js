@@ -8,11 +8,11 @@ import {
   FullscreenToggle
 } from 'video-react';
 
+import Layout from '../../components/Layout';
 import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
-import Navigation from '../../components/Navigation';
 import { fetchVideo } from '../../store/actions/index';
 import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
@@ -28,7 +28,6 @@ const Container = styled.div`
   }
 
   .main {
-    max-width: 100rem;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -54,13 +53,6 @@ const Container = styled.div`
       &-tracking {
         margin-right: 3rem;
       }
-      &-searchByExample--text {
-        margin-right: 1rem;
-      }
-    }
-
-    .dropArea {
-      margin-top: 3rem;
     }
 
     .lists {
@@ -207,74 +199,77 @@ class VideoPage extends Component {
 
   render() {
     return (
-      <Container>
-        <Navigation />
-        <h1>{this.props.title}</h1>
-        <div className="main">
-          <div className="videoContainer">
-            <canvas
-              id="trackingCanvas"
-              width={this.props.width}
-              height={this.props.height}
-            />
-            <canvas
-              ref="canvas"
-              width={this.props.width}
-              height={this.props.height}
-            />
-            <Player
-              ref="player"
-              autoPlay={true}
-              fluid={false}
-              width={this.props.width}
-              height={this.props.height}
-            >
-              <source src={this.props.path} />
-              <BigPlayButton position="center" />
-              <ControlBar>
-                <FullscreenToggle disabled />
-              </ControlBar>
-            </Player>
-          </div>
-          <span className="funcContainer">
-            <Button
-              className="funcContainer-tracking"
-              clicked={() => drawTrackingRect()}
-            >
-              Start tracking
-            </Button>
-            <Button
-              className="funcContainer-tracking"
-              clicked={() => drawLine()}
-            >
-              Draw line
-            </Button>
-            <Button clicked={() => this.setState({ isSearchByExample: true })}>
-              Query By Example
-            </Button>
-          </span>
-          <Modal
-            show={this.state.isSearchByExample}
-            handleClose={() => this.setState({ isSearchByExample: false })}
-          >
-            <SearchByExample />
-          </Modal>
-          <div className="lists">
-            <div className="listContainer">
-              <h2>Anomalies</h2>
-              <ul className="list">
-                {this.renderList(this.props.detectedAnomalies)}
-              </ul>
+      <Layout>
+        <Container>
+          <h1>{this.props.title}</h1>
+          <div className="main">
+            <div className="videoContainer">
+              <canvas
+                id="trackingCanvas"
+                width={this.props.width}
+                height={this.props.height}
+              />
+              <canvas
+                ref="canvas"
+                width={this.props.width}
+                height={this.props.height}
+              />
+              <Player
+                ref="player"
+                autoPlay={true}
+                fluid={false}
+                width={this.props.width}
+                height={this.props.height}
+              >
+                <source src={this.props.path} />
+                <BigPlayButton position="center" />
+                <ControlBar>
+                  <FullscreenToggle disabled />
+                </ControlBar>
+              </Player>
             </div>
-            <div className="listContainer">
-              <h2>Objects</h2>
-              <ul className="list">
-                {this.renderList(this.props.detectedObjects)}
-              </ul>
+            <span className="funcContainer">
+              <Button
+                className="funcContainer-tracking"
+                clicked={() => drawTrackingRect()}
+              >
+                Start tracking
+              </Button>
+              <Button
+                className="funcContainer-tracking"
+                clicked={() => drawLine()}
+              >
+                Draw line
+              </Button>
+              <Button
+                clicked={() => this.setState({ isSearchByExample: true })}
+              >
+                Query By Example
+              </Button>
+            </span>
+            <Modal
+              show={this.state.isSearchByExample}
+              handleClose={() => this.setState({ isSearchByExample: false })}
+            >
+              <SearchByExample />
+            </Modal>
+            <div className="lists">
+              <div className="listContainer">
+                <h2>Anomalies</h2>
+                <ul className="list">
+                  {this.renderList(this.props.detectedAnomalies)}
+                </ul>
+              </div>
+              <div className="listContainer">
+                <h2>Objects</h2>
+                <ul className="list">
+                  {this.renderList(this.props.detectedObjects)}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </Layout>
     );
   }
 }
