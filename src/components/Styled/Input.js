@@ -20,10 +20,16 @@ const StyledInput = styled.input`
   }
 `;
 
-const input = props => {
-  const { changed, placeHolder, children } = props;
+const input = ({ value, changed, placeHolder, children, type, min, step }) => {
   return (
-    <StyledInput onChange={changed} placeholder={placeHolder}>
+    <StyledInput
+      type={type}
+      onChange={changed}
+      placeholder={placeHolder}
+      min={min}
+      step={step}
+      value={value}
+    >
       {children}
     </StyledInput>
   );
