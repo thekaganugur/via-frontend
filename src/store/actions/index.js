@@ -33,7 +33,7 @@ export const fetchVideos = () => {
       .then(res =>
         dispatch({
           type: actionTypes.FETCH_VIDEOS_SUCCESS,
-          payload: res
+          payload: res.data
         })
       )
       .catch(err =>

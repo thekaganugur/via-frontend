@@ -117,22 +117,6 @@ const Grid = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-
-  .grid-item {
-    margin: 0 2rem 2rem 0;
-
-    ${media.phone`
-      &:not(:last-child) {
-        border-bottom: 1px solid #ccc;
-      }
-      padding: 1rem 0.5rem;
-      margin: 0 0 1rem 0;
-    `};
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 `;
 
 class SearchVideo extends Component {
@@ -281,13 +265,12 @@ class SearchVideo extends Component {
   };
 
   renderVideoGrids = () => {
-    var filteredVideos = this.props.videos.list.data.filter(video =>
+    var filteredVideos = this.props.videos.list.filter(video =>
       video.title.includes(this.state.titleTerm)
     );
     return filteredVideos.map((v, i) => (
       <GridVideo
         key={i}
-        className="grid-item"
         id={v.video_id}
         title={v.title}
         time={v.length}

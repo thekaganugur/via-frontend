@@ -7,6 +7,22 @@ import { media } from '../styles';
 
 const GridVideo = styled.div`
   font-size: 0.9em;
+  margin: 0 2rem 2rem 0;
+  &:last-child {
+    margin: 0 0 2rem 0;
+  }
+
+  ${media.phone`
+      &:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
+      padding: 1rem 0.5rem;
+      margin: 0 0 1rem 0;
+    `};
+
+  &:hover {
+    cursor: pointer;
+  }
 
   h3 {
     font-family: 'Open Sans', sans-serif;
