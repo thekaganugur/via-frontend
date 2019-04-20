@@ -28,8 +28,8 @@ library.add(
   faFileUpload
 );
 
-axios.defaults.baseURL = 'http://localhost:3000';
-// axios.defaults.baseURL = 'http://34.74.68.244:3000';
+// axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://34.74.68.244:3000';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

@@ -251,7 +251,7 @@ class VideoPage extends Component {
               show={this.state.isSearchByExample}
               handleClose={() => this.setState({ isSearchByExample: false })}
             >
-              <SearchByExample />
+              <SearchByExample id={this.props.match.params.id} />
             </Modal>
             <div className="lists">
               <div className="listContainer">
