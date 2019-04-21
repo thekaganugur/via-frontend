@@ -63,4 +63,13 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 600;
     margin-bottom: 1em;
   }
+  h1 {
+    font-size: 1.4em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1.1em;
+  }
 `;

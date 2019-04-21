@@ -23,11 +23,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  h1 {
-    font-size: 1.4em;
-    font-weight: 600;
-  }
-
   .main {
     width: 100%;
     display: flex;
