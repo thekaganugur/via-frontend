@@ -8,7 +8,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.4.2",
     "@fortawesome/react-fontawesome": "^0.1.3",
     "axios": "^0.18.0",
-    "gh-pages": "^2.0.1",
     "i": "^0.3.6",
     "npm": "^6.4.1",
     "rc-progress": "^2.3.0",
@@ -27,8 +26,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "lint:css": "stylelint './src/**/*.js'"
   },
   "devDependencies": {

@@ -37,13 +37,35 @@ const Container = styled.div`
   .search-title {
     width: 450px;
     margin-bottom: 2rem;
+    ${media.phone`
+      width: 100%;
+      margin: 0 0 2rem 0;
+    `}
+  }
+
+  button {
+    margin: 0 0 1rem 0;
+    align-self: center;
   }
 
   .query-elements {
     display: flex;
+    ${media.phone`
+      flex-flow: nowrap;
+      flex-direction: column;
+      width: 100%;
+
+      select {
+        width: 100%;
+      }
+    `}
 
     .query-element {
       position: relative;
+      ${media.phone`
+        margin: 0 0 1.9rem 0;
+        width: 100%;
+      `}
 
       .delete {
         position: absolute;
@@ -69,39 +91,12 @@ const Container = styled.div`
         transform: translate(0, -50%);
       }
     }
-  }
-
-  .query-element:not(:last-of-type) {
-    margin-right: 1rem;
-  }
-
-  ${media.phone`
-    flex-flow: nowrap;
-    flex-direction: column;
-    width: 95%;
-
-    .search-title {
-      width: 100%;
-      margin: 0 0 2rem 0;
-    }
-
-    button {
-      margin: 0 0 1rem 0;
-      align-self:center;
-    }
-
-    select {
-      width: 100%
-    }
-
-    .query-element {
-      margin: 0 0 1.9rem 0;
-    }
 
     .query-element:not(:last-of-type) {
-      margin-right: 0rem;
+      margin-right: 1rem;
+      ${media.phone`margin-right: 0rem;`}
     }
-  `};
+  }
 `;
 
 const Grid = styled.div`
