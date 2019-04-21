@@ -7,15 +7,13 @@ import metaData from './metaData';
 
 const initialState = {
   metaData: {
-    title: 'Sample Video',
-    path: 'https://media.w3.org/2010/05/sintel/trailer_hd.mp4',
-    width: 800,
-    height: 600
+    title: 'Undefined Video',
+    path: ''
   },
   boundingBoxes: [
     {
       left_x: 182,
-      top_y: 293,
+      top_y: 223,
       width: 67,
       height: 91,
       text: 'Object',
@@ -23,11 +21,11 @@ const initialState = {
     },
     {
       left_x: 282,
-      top_y: 393,
+      top_y: 193,
       width: 67,
       height: 91,
       text: 'Diffrent Object',
-      time: 1
+      time: 2
     },
     {
       left_x: 289,
@@ -35,10 +33,10 @@ const initialState = {
       width: 67,
       height: 91,
       text: 'Diffrent Object',
-      time: 1.5
+      time: 2.5
     },
     {
-      left_x: 385,
+      left_x: 325,
       top_y: 297,
       width: 67,
       height: 91,
@@ -54,7 +52,7 @@ const initialState = {
       time: 2
     },
     {
-      left_x: 499,
+      left_x: 349,
       top_y: 299,
       width: 67,
       height: 91,

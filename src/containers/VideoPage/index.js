@@ -16,6 +16,7 @@ import drawLine from './drawLine';
 import { fetchVideo } from '../../store/actions/index';
 import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
+import List from '../../components/Styled/List';
 
 const Container = styled.div`
   display: flex;
@@ -58,42 +59,8 @@ const Container = styled.div`
     .lists {
       display: flex;
       justify-content: space-between;
-      width: 100%;
+      width: 40%;
       padding: 4rem 0;
-
-      .listContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 40%;
-
-        .list {
-          width: 100%;
-          height: 30rem;
-          overflow: hidden;
-          overflow-y: scroll;
-
-          &-item {
-            height: 2.5em;
-            padding: 0.2rem 0.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            &:not(:last-of-type) {
-              border-bottom: 1px solid #e0e0e0;
-            }
-
-            &-name {
-              cursor: pointer;
-            }
-
-            button {
-              padding: 0.2rem 0.8rem;
-            }
-          }
-        }
-      }
     }
   }
 `;
@@ -101,6 +68,7 @@ const Container = styled.div`
 class VideoPage extends Component {
   state = {
     isSearchByExample: false,
+    videoInit: false,
     renderedBoxes: [],
     time: 0
   };
@@ -108,13 +76,13 @@ class VideoPage extends Component {
   componentDidMount() {
     this.props.fetchVideo(this.props.match.params.id);
 
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = 'yellow';
-    ctx.fillStyle = 'yellow';
-    ctx.font = '20px Arial';
-    ctx.textAlign = 'center';
-    ctx.lineWidth = '3';
+    // const canvas = this.refs.canvas;
+    // const ctx = canvas.getContext('2d');
+    // ctx.strokeStyle = 'yellow';
+    // ctx.fillStyle = 'yellow';
+    // ctx.font = '20px Arial';
+    // ctx.textAlign = 'center';
+    // ctx.lineWidth = '3';
     // this.drawBox(false);
 
     this.refs.player.actions.toggleFullscreen = () => {
@@ -124,31 +92,42 @@ class VideoPage extends Component {
   }
 
   componentDidUpdate() {
-    const { renderedBoxes } = this.state;
+    if (this.props.path && !this.state.videoInit) {
+      this.setState({ videoInit: true });
+      const canvas = this.refs.canvas;
+      const ctx = canvas.getContext('2d');
+      ctx.strokeStyle = 'yellow';
+      ctx.fillStyle = 'yellow';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.lineWidth = '3';
+    }
 
-    this.props.boundingBoxes.forEach(obj => {
+    const renderedBoxes = this.props.boundingBoxes;
+
+    this.props.boundingBoxes.forEach(bBox => {
       if (
         this.state.player &&
-        obj.time === parseFloat(this.state.player.currentTime.toFixed(1))
+        bBox.time === parseFloat(this.state.player.currentTime.toFixed(1))
       ) {
-        //this.drawBox(obj, true); /*Render and clear no matter what*/
+        //this.drawBox(bBox, true); /*Render and clear no matter what*/
 
         // Look if to be rendered object is already rendered on the screen if
         // so we are going to clear it.
         let renderedBoxIndex = renderedBoxes.findIndex(
-          last => last.text === obj.text
+          last => last.text === bBox.text
         );
 
         // If box is rendered before Meaning it is in the renderedBoxes[]
         if (renderedBoxIndex !== -1) {
           renderedBoxes.splice(renderedBoxIndex, 1);
-          this.drawBox(obj, true);
+          this.drawBox(bBox, true);
         }
         // If box is not rendered before Meaning it is not in the
         // renderedBoxes[]
         else {
-          renderedBoxes.push(obj);
-          this.drawBox(obj, false);
+          renderedBoxes.push(bBox);
+          this.drawBox(bBox, false);
         }
       }
     });
@@ -161,7 +140,7 @@ class VideoPage extends Component {
     });
   }
 
-  drawBox(obj, isClear) {
+  drawBox(bBox, isClear) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
 
@@ -169,32 +148,13 @@ class VideoPage extends Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    ctx.strokeRect(obj.left_x, obj.top_y, obj.width, obj.height);
-    ctx.fillText(obj.text, obj.left_x + obj.width / 2, obj.top_y - 5);
+    ctx.strokeRect(bBox.left_x, bBox.top_y, bBox.width, bBox.height);
+    ctx.fillText(bBox.text, bBox.left_x + bBox.width / 2, bBox.top_y - 5);
   }
 
-  renderList(listType) {
-    return listType.map((listItem, i) => (
-      <li key={i} className="list-item">
-        <div
-          className="list-item-name"
-          onClick={() => {
-            this.refs.player.seek(listItem.time);
-            this.refs.player.play();
-          }}
-        >
-          {listItem.name}
-        </div>
-        <Button
-          clicked={() => {
-            this.refs.player.seek(listItem.time);
-            this.refs.player.play();
-          }}
-        >
-          Time: {listItem.time}
-        </Button>
-      </li>
-    ));
+  handleListClick(time) {
+    this.refs.player.seek(time);
+    this.refs.player.play();
   }
 
   render() {
@@ -221,7 +181,9 @@ class VideoPage extends Component {
                 width={this.props.width}
                 height={this.props.height}
               >
-                <source src={this.props.path} />
+                <source
+                  src={'http://34.74.68.244:3000/static/video/demo.mp4'}
+                />
                 <BigPlayButton position="center" />
                 <ControlBar>
                   <FullscreenToggle disabled />
@@ -254,18 +216,16 @@ class VideoPage extends Component {
               <SearchByExample id={this.props.match.params.id} />
             </Modal>
             <div className="lists">
-              <div className="listContainer">
-                <h2>Anomalies</h2>
-                <ul className="list">
-                  {this.renderList(this.props.detectedAnomalies)}
-                </ul>
-              </div>
-              <div className="listContainer">
-                <h2>Objects</h2>
-                <ul className="list">
-                  {this.renderList(this.props.detectedObjects)}
-                </ul>
-              </div>
+              <List
+                title="Anomalies"
+                listType={this.props.detectedAnomalies}
+                clickedListItem={time => this.handleListClick(time)}
+              />
+              <List
+                title="Objects"
+                listType={this.props.detectedObjects}
+                clickedListItem={time => this.handleListClick(time)}
+              />
             </div>
           </div>
         </Container>
