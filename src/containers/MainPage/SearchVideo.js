@@ -33,53 +33,46 @@ const Container = styled.div`
     color: inherit;
     text-decoration: none;
   }
-`;
 
-const FormContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  flex-flow: row wrap;
-  padding: 1rem;
-  width: 100%;
-
-  .queryElement {
-    position: relative;
-  }
-
-  .queryElement:not(:last-of-type) {
-    margin-right: 1rem;
-  }
-
-  .delete {
-    font-size: 0.9em;
-    padding: 0 1.5rem;
-    border-radius: 100px;
-    position: absolute;
-    left: 50%;
-    top: -60%;
-    transform: translate(-50%, +50%);
-  }
-
-  .plus-left {
-    position: absolute;
-    left: 1px;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
-
-  .plus-right {
-    position: absolute;
-    right: 1px;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
-
-  input {
+  .search-title {
     width: 450px;
     margin-bottom: 2rem;
-    page-break-after: always;
-    break-after: always;
+  }
+
+  .query-elements {
+    display: flex;
+
+    .query-element {
+      position: relative;
+
+      .delete {
+        position: absolute;
+        left: 50%;
+        top: -60%;
+        transform: translate(-50%, +50%);
+        font-size: 0.9em;
+        padding: 0 1.5rem;
+        border-radius: 100px;
+      }
+
+      .plus-left {
+        position: absolute;
+        left: 1px;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+
+      .plus-right {
+        position: absolute;
+        right: 1px;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+
+  .query-element:not(:last-of-type) {
+    margin-right: 1rem;
   }
 
   ${media.phone`
@@ -87,7 +80,7 @@ const FormContainer = styled.div`
     flex-direction: column;
     width: 95%;
 
-    input {
+    .search-title {
       width: 100%;
       margin: 0 0 2rem 0;
     }
@@ -101,11 +94,11 @@ const FormContainer = styled.div`
       width: 100%
     }
 
-    .queryElement {
+    .query-element {
       margin: 0 0 1.9rem 0;
     }
 
-    .queryElement:not(:last-of-type) {
+    .query-element:not(:last-of-type) {
       margin-right: 0rem;
     }
   `};
@@ -178,7 +171,7 @@ class SearchVideo extends Component {
   renderQueryElements = () =>
     this.state.queryElements.map((e, i) => {
       return (
-        <div data-key={i} key={i} className="queryElement">
+        <div data-key={i} key={i} className="query-element">
           <Button
             type="button"
             clicked={e => {
@@ -292,13 +285,12 @@ class SearchVideo extends Component {
 
     return (
       <Container>
-        <FormContainer>
-          <Input
-            placeHolder="Search by title"
-            changed={event => this.setState({ titleTerm: event.target.value })}
-          />
-          {this.renderQueryElements()}
-        </FormContainer>
+        <Input
+          className="search-title"
+          placeHolder="Search by title"
+          changed={event => this.setState({ titleTerm: event.target.value })}
+        />
+        <div className="query-elements">{this.renderQueryElements()}</div>
         <Button>Submit</Button>
         <Grid>{videos}</Grid>
       </Container>

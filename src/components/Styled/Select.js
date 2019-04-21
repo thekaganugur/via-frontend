@@ -12,6 +12,7 @@ const StyledSelect = styled.select`
   border-radius: 5px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   text-align: center;
+  text-align-last: center;
   appearance: none;
 
   &:focus {

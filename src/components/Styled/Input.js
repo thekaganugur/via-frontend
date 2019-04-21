@@ -20,9 +20,19 @@ const StyledInput = styled.input`
   }
 `;
 
-const input = ({ value, changed, placeHolder, children, type, min, step }) => {
+const input = ({
+  className,
+  value,
+  changed,
+  placeHolder,
+  children,
+  type,
+  min,
+  step
+}) => {
   return (
     <StyledInput
+      className={className}
       type={type}
       onChange={changed}
       placeholder={placeHolder}

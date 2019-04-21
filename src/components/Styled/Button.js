@@ -20,6 +20,7 @@ const StyledButton = styled.button`
     css`
       background: #ff4063;
       opacity: 0.5;
+      margin: 0;
       &:hover {
         opacity: 1;
         background: #ff4063;
