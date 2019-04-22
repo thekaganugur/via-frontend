@@ -74,6 +74,8 @@ export const fetchQBE = formData => {
 
       startWS = new WebSocket('ws://34.74.68.244:3000');
 
+      console.log(formData);
+
       startWS.onopen = function() {
         startWS.send(
           JSON.stringify({
@@ -82,9 +84,11 @@ export const fetchQBE = formData => {
               userId: 1,
               videoId: parseInt(formData.id),
               encodedImage: reader.result,
-              min: parseInt(formData.similarity),
-              begin: parseInt(formData.from),
-              end: parseInt(formData.to)
+              min: formData.similarity
+                ? parseFloat(formData.similarity)
+                : undefined,
+              begin: formData.from ? parseInt(formData.from) : undefined,
+              end: formData.to ? parseInt(formData.to) : undefined
             }
           })
         );
@@ -117,7 +121,7 @@ export const fetchQBE = formData => {
             watchWS.onopen = function() {
               watchWS.send(
                 JSON.stringify({
-                  route: 'watch-qbe',
+                  route: 'watch-operation',
                   data: { operationId: startM.data.operationId }
                 })
               );
@@ -132,6 +136,7 @@ export const fetchQBE = formData => {
                     results.push(...watchM.data.results);
                   }
                   setQBEResult({
+                    videoId: parseInt(formData.id),
                     progress: watchM.data.progress,
                     results: results
                   });

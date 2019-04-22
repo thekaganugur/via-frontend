@@ -5,7 +5,6 @@ export default (state = {}, action) => {
     case actionTypes.FETCH_QBE_START:
       return { ...state, message: action.message };
     case actionTypes.FETCH_QBE_PROGRESS:
-      // console.log(action.payload.progress);
       return {
         ...state,
         progress: action.payload.progress,

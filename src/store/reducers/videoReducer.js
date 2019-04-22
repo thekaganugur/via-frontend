@@ -89,8 +89,13 @@ const initialState = {
 const video = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_VIDEO_START:
-      return state;
-    // return metaData(initialState, action);
+      return {
+        ...state,
+        metaData: {
+          title: initialState.title,
+          path: initialState.path
+        }
+      };
     case actionTypes.FETCH_VIDEO_SUCCESS:
       return metaData(initialState, action);
     case actionTypes.FETCH_VIDEO_ERROR:

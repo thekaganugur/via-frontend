@@ -27,7 +27,8 @@ class UploadVideo extends React.Component {
     event.preventDefault();
     const formData = new FormData();
     formData.append('title', this.state.title);
-    formData.append('video', this.state.files);
+    formData.append('video', this.state.files[0]);
+
     axios
       .post('/video/upload', formData)
       .then(response => {
@@ -58,13 +59,12 @@ class UploadVideo extends React.Component {
 
     const dt = e.dataTransfer;
     const files = dt.files;
-
     this.setState({ files: [files[0]] });
   }
 
   render() {
     return (
-      <Form onSubmit={e => this.handleSubmit(e)} enctype="multipart/form-data">
+      <Form onSubmit={e => this.handleSubmit(e)}>
         <Input
           placeHolder="Title"
           changed={event => this.setState({ title: event.target.value })}

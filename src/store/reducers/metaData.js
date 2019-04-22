@@ -4,7 +4,7 @@ const metaData = (state, action) => {
     ...state,
     metaData: {
       title: action.payload.title,
-      path: action.payload.name,
+      path: action.payload.path,
       width: action.payload.width,
       height: action.payload.height
     }

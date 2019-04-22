@@ -69,6 +69,11 @@ class VideoPage extends Component {
   };
 
   componentDidMount() {
+    this.refs.player.actions.toggleFullscreen = () => {
+      console.log('prevent full screen video');
+    };
+    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
+
     this.props.fetchVideo(this.props.match.params.id);
 
     // const canvas = this.refs.canvas;
@@ -79,11 +84,6 @@ class VideoPage extends Component {
     // ctx.textAlign = 'center';
     // ctx.lineWidth = '3';
     // this.drawBox(false);
-
-    this.refs.player.actions.toggleFullscreen = () => {
-      console.log('prevent full screen video');
-    };
-    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
   }
 
   componentDidUpdate() {
@@ -96,6 +96,7 @@ class VideoPage extends Component {
       ctx.font = '20px Arial';
       ctx.textAlign = 'center';
       ctx.lineWidth = '3';
+      this.changeSource();
     }
 
     const renderedBoxes = this.props.boundingBoxes;
@@ -103,6 +104,7 @@ class VideoPage extends Component {
     this.props.boundingBoxes.forEach(bBox => {
       if (
         this.state.player &&
+        this.state.player.currentTime &&
         bBox.time === parseFloat(this.state.player.currentTime.toFixed(1))
       ) {
         //this.drawBox(bBox, true); /*Render and clear no matter what*/
@@ -152,6 +154,19 @@ class VideoPage extends Component {
     this.refs.player.play();
   }
 
+  changeSource() {
+    this.setState({
+      source: `http://34.74.68.244:3000/static/${this.relativePath()}`
+    });
+    this.refs.player.load();
+  }
+
+  relativePath() {
+    const path = this.props.path;
+    const index = path.indexOf('/media-source/');
+    return path.substring(index + '/media-source/'.length);
+  }
+
   render() {
     return (
       <Layout>
@@ -176,9 +191,7 @@ class VideoPage extends Component {
                 width={this.props.width}
                 height={this.props.height}
               >
-                <source
-                  src={'http://34.74.68.244:3000/static/video/demo.mp4'}
-                />
+                <source src={this.state.source} />
                 <BigPlayButton position="center" />
                 <ControlBar>
                   <FullscreenToggle disabled />
