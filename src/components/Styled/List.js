@@ -1,6 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import Button from './Button';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -9,47 +8,47 @@ const Container = styled.div`
   width: 100%;
 
   .list {
-    width: 100%;
+    width: 15rem;
     height: 30rem;
     overflow: hidden;
     overflow-y: scroll;
 
     li {
+      width: 100%;
       height: 2.5em;
       padding: 0.2rem 0.4rem;
+      cursor: pointer;
+
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
 
       &:not(:last-of-type) {
         border-bottom: 1px solid #e0e0e0;
       }
 
-      &-name {
-        cursor: pointer;
-      }
-
-      button {
-        padding: 0.2rem 0.8rem;
+      &:hover {
+        background-color: red;
       }
     }
   }
 `;
-const renderList = (listType, clickedListItem) => {
-  return listType.map((listItem, i) => (
-    <li key={i} className="list-item">
-      <div onClick={() => clickedListItem(listItem.time)}>{listItem.name}</div>
-      <Button clicked={() => clickedListItem(listItem.time)}>
-        Time: {listItem.time}
-      </Button>
+
+const renderList = (listItems, clickedListItem) => {
+  return listItems.map((listItem, i) => (
+    <li
+      key={i}
+      onClick={() => clickedListItem((listItem.frameNo / 12).toFixed(1))}
+    >
+      <span>{(listItem.frameNo / 12).toFixed()}</span>
     </li>
   ));
 };
 
-const List = ({ title, listType, clickedListItem }) => (
+const List = ({ title, listItems, clickedListItem }) => (
   <Container>
     <h2>{title}</h2>
-    <ul className="list">{renderList(listType, clickedListItem)}</ul>
+    <ul className="list">{renderList(listItems, clickedListItem)}</ul>
   </Container>
 );
 

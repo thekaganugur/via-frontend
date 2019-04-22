@@ -64,7 +64,6 @@ class VideoPage extends Component {
   state = {
     isSearchByExample: false,
     videoInit: false,
-    renderedBoxes: [],
     time: 0
   };
 
@@ -145,13 +144,23 @@ class VideoPage extends Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    ctx.strokeRect(bBox.left_x, bBox.top_y, bBox.width, bBox.height);
-    ctx.fillText(bBox.text, bBox.left_x + bBox.width / 2, bBox.top_y - 5);
+    ctx.strokeRect(bBox.left, bBox.top, bBox.width, -bBox.height);
+    // ctx.fillText(bBox.text, bBox.left_x + bBox.width / 2, bBox.top_y - 5);
+  }
+
+  conditionalDrawBox(bBoxes, time) {
+    bBoxes.forEach(bBox => {
+      if (this.state.player && (bBox.frameNo / 12).toFixed(1) === time) {
+        console.log(bBox);
+        this.drawBox(bBox.boundary, true);
+      }
+    });
   }
 
   handleListClick(time) {
     this.refs.player.seek(time);
-    this.refs.player.play();
+    // this.refs.player.play();
+    this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
   }
 
   changeSource() {
@@ -225,15 +234,21 @@ class VideoPage extends Component {
             </Modal>
             <div className="lists">
               <List
-                title="Anomalies"
-                listType={this.props.detectedAnomalies}
+                title="Qbe"
+                listItems={this.props.qbeBoundingBoxes}
                 clickedListItem={time => this.handleListClick(time)}
               />
-              <List
-                title="Objects"
-                listType={this.props.detectedObjects}
-                clickedListItem={time => this.handleListClick(time)}
-              />
+
+              {/* <List */}
+              {/*   title="Anomalies" */}
+              {/*   listItems={this.props.detectedAnomalies} */}
+              {/*   clickedListItem={time => this.handleListClick(time)} */}
+              {/* /> */}
+              {/* <List */}
+              {/*   title="Objects" */}
+              {/*   listItems={this.props.detectedObjects} */}
+              {/*   clickedListItem={time => this.handleListClick(time)} */}
+              {/* /> */}
             </div>
           </div>
         </Container>
@@ -249,7 +264,9 @@ const mapStateToProps = state => ({
   title: state.video.metaData.title,
   path: state.video.metaData.path,
   width: state.video.metaData.width,
-  height: state.video.metaData.height
+  height: state.video.metaData.height,
+
+  qbeBoundingBoxes: state.qbe.results
 });
 
 const mapDispatchToProps = dispatch => ({

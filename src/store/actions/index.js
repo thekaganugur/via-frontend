@@ -61,8 +61,8 @@ export const fetchQBE = formData => {
       });
     };
 
-    const setQBEMessage = (type, message) => {
-      dispatch({ type, message });
+    const setQBEMessage = (type, message, videoId) => {
+      dispatch({ type, message, videoId });
     };
 
     let startWS = undefined;
@@ -111,7 +111,11 @@ export const fetchQBE = formData => {
             console.log(startM);
             break;
           case codes.COMPLETED_SUCCESSFULLY:
-            setQBEMessage(actionTypes.FETCH_QBE_SUCCESS, 'Completed');
+            setQBEMessage(
+              actionTypes.FETCH_QBE_SUCCESS,
+              'Completed',
+              formData.id
+            );
             break;
           case codes.OK:
             watchWS && watchWS.close();
@@ -148,7 +152,8 @@ export const fetchQBE = formData => {
             watchWS.onclose = function() {
               setQBEMessage(
                 actionTypes.FETCH_QBE_CLOSED,
-                'Watch Connection is closed'
+                'Watch Connection is closed',
+                formData.id
               );
             };
             break;
@@ -158,7 +163,11 @@ export const fetchQBE = formData => {
         }
       };
       startWS.onclose = function() {
-        setQBEMessage(actionTypes.FETCH_QBE_CLOSED, 'Connection is closed');
+        setQBEMessage(
+          actionTypes.FETCH_QBE_CLOSED,
+          'Connection is closed',
+          formData.id
+        );
       };
     };
 
