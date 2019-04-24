@@ -144,7 +144,8 @@ class VideoPage extends Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    ctx.strokeRect(bBox.left, bBox.top, bBox.width, -bBox.height);
+    ctx.strokeRect(bBox.left, bBox.top, bBox.width, bBox.height);
+    // ctx.strokeRect(0, 20, 50, 100);
     // ctx.fillText(bBox.text, bBox.left_x + bBox.width / 2, bBox.top_y - 5);
   }
 

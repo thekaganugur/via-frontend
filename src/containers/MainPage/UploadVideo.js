@@ -30,7 +30,7 @@ class UploadVideo extends React.Component {
     formData.append('video', this.state.files[0]);
 
     axios
-      .post('/video/upload', formData)
+      .post('/video', formData)
       .then(response => {
         console.log(response);
       })

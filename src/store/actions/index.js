@@ -9,7 +9,7 @@ export const fetchVideo = id => {
       .then(res =>
         dispatch({
           type: actionTypes.FETCH_VIDEO_SUCCESS,
-          payload: res.data
+          payload: res.data.data.video
         })
       )
       .catch(err =>
@@ -29,7 +29,7 @@ export const fetchVideos = () => {
       .then(res =>
         dispatch({
           type: actionTypes.FETCH_VIDEOS_SUCCESS,
-          payload: res.data
+          payload: res.data.data.videos
         })
       )
       .catch(err =>
