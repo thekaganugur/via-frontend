@@ -27,7 +27,7 @@ class UploadVideo extends React.Component {
     event.preventDefault();
     const formData = new FormData();
     formData.append('title', this.state.title);
-    formData.append('video', this.state.files[0]);
+    formData.append('videoFile', this.state.files[0]);
 
     axios
       .post('/video', formData)
