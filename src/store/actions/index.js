@@ -61,18 +61,151 @@ export const fetchAnomalies = id => {
   };
 };
 
+export const fetchAnomaly = (anomaly, videoId) => {
+  const codes = {
+    STARTED: 10,
+    INTERNAL_SERVER_ERROR: 1,
+    TERMINATED_BY_USER: 20,
+    COMPLETED_SUCCESSFULLY: 0,
+    PROGRESS: 4,
+    BAD_REQUEST: 5,
+    OK: 6
+  };
+
+  return dispatch => {
+    dispatch({ type: actionTypes.FETCH_ANOMALY_START, message: 'Started' });
+
+    const setanomalyResult = result => {
+      dispatch({
+        type: actionTypes.FETCH_ANOMALY_PROGRESS,
+        payload: result
+      });
+    };
+
+    const setanomalyMessage = (type, message, videoId) => {
+      dispatch({ type, message, videoId });
+    };
+
+    let startWS = undefined;
+    let results = [];
+
+    startWS && startWS.close();
+
+    startWS = new WebSocket('ws://34.74.68.244:3000');
+
+    startWS.onopen = function() {
+      startWS.send(
+        JSON.stringify({
+          route: 'start-anomaly',
+          data: {
+            videoId: parseInt(videoId),
+            line_coord1_x: anomaly.line_coord1_x
+              ? parseFloat(anomaly.line_coord1_x)
+              : undefined,
+            line_coord1_y: anomaly.line_coord1_y
+              ? parseFloat(anomaly.line_coord1_x)
+              : undefined,
+            line_coord2_x: anomaly.line_coord2_x
+              ? parseInt(anomaly.line_coord1_x)
+              : undefined,
+            line_coord2_y: anomaly.line_coord2_y
+              ? parseInt(anomaly.line_coord2_y)
+              : undefined
+          }
+        })
+      );
+    };
+
+    startWS.onmessage = function(evt) {
+      let watchWS = undefined;
+      const startM = JSON.parse(evt.data);
+
+      // anomaly.terminate.onclick = async () => {
+      //   await (await fetch(
+      //     `${endPoint}/query/terminate-operation/${startM.data.operationId}`
+      //   )).json();
+      // };
+
+      const startStatus = startM.status;
+
+      switch (startStatus) {
+        case codes.INTERNAL_SERVER_ERROR:
+          console.log(startM);
+          break;
+        case codes.COMPLETED_SUCCESSFULLY:
+          setanomalyMessage(
+            actionTypes.FETCH_QBE_SUCCESS,
+            'Completed',
+            videoId
+          );
+          break;
+        case codes.OK:
+          watchWS && watchWS.close();
+
+          watchWS = new WebSocket('ws://34.74.68.244:3000');
+
+          watchWS.onopen = function() {
+            watchWS.send(
+              JSON.stringify({
+                route: 'anomaly-watch-operation',
+                data: { operationId: startM.data.operationId }
+              })
+            );
+          };
+
+          watchWS.onmessage = async function(evt) {
+            const watchM = JSON.parse(evt.data);
+            const watchStatus = watchM.status;
+            // setanomalyResult(watchM);
+            switch (watchStatus) {
+              case codes.PROGRESS:
+                setanomalyResult({
+                  videoId: parseInt(videoId),
+                  progress: watchM.data.progress,
+                  results: results
+                });
+                break;
+              default:
+                console.log(watchM);
+            }
+          };
+          watchWS.onclose = function() {
+            setanomalyMessage(
+              actionTypes.FETCH_QBE_CLOSED,
+              'Watch Connection is closed',
+              videoId
+            );
+          };
+          break;
+        default:
+          console.log(startM);
+          break;
+      }
+      /* eslint-enable */
+    };
+    startWS.onclose = function() {
+      setanomalyMessage(
+        actionTypes.FETCH_QBE_CLOSED,
+        'Connection is closed',
+        videoId
+      );
+    };
+  };
+};
+
 export const fetchQBE = formData => {
+  const codes = {
+    STARTED: 10,
+    INTERNAL_SERVER_ERROR: 1,
+    TERMINATED_BY_USER: 20,
+    COMPLETED_SUCCESSFULLY: 0,
+    PROGRESS: 4,
+    BAD_REQUEST: 5,
+    OK: 6
+  };
+
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_QBE_START, message: 'Started' });
-    const codes = {
-      STARTED: 10,
-      INTERNAL_SERVER_ERROR: 1,
-      TERMINATED_BY_USER: 20,
-      COMPLETED_SUCCESSFULLY: 0,
-      PROGRESS: 4,
-      BAD_REQUEST: 5,
-      OK: 6
-    };
 
     const setQBEResult = result => {
       dispatch({

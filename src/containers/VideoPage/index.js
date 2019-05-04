@@ -6,7 +6,11 @@ import Layout from '../../components/Layout';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
-import { fetchVideo, fetchAnomalies } from '../../store/actions/index';
+import {
+  fetchVideo,
+  fetchAnomalies,
+  fetchAnomaly
+} from '../../store/actions/index';
 import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
 import List from '../../components/Styled/List';
@@ -146,7 +150,12 @@ class VideoPage extends Component {
               </Button>
               <Button
                 className="funcContainer-tracking"
-                clicked={() => drawLine()}
+                clicked={() =>
+                  drawLine().then(val => {
+                    console.log(val);
+                    this.props.fetchAnomaly(val, 1);
+                  })
+                }
               >
                 Draw line
               </Button>
@@ -205,7 +214,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchVideo: id => dispatch(fetchVideo(id)),
-  fetchAnomalies: id => dispatch(fetchAnomalies(id))
+  fetchAnomalies: id => dispatch(fetchAnomalies(id)),
+  fetchAnomaly: (anomaly, id) => dispatch(fetchAnomaly(anomaly, id))
 });
 
 export default connect(

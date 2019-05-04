@@ -108,6 +108,21 @@ const video = (state = initialState, action) => {
         detectedAnomalies: action.payload
       };
 
+    case actionTypes.FETCH_ANOMALY_START:
+      return { ...state, message: action.message };
+    case actionTypes.FETCH_ANOMALY_PROGRESS:
+      return {
+        ...state,
+        progress: action.payload.progress,
+        results: action.payload.results
+      };
+    case actionTypes.FETCH_ANOMALY_SUCCESS:
+      return { ...state, message: action.message };
+    case actionTypes.FETCH_ANOMALY_CLOSED:
+      return { ...state, message: action.message };
+    case actionTypes.FETCH_ANOMALY_ERROR:
+      return { ...state, error: action.payload };
+
     // ** //
     // case actionTypes.INIT_BOUNDINGBOXES:
     //   return boundingBoxesReducer(initialState, action);
