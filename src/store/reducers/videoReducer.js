@@ -1,8 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
-
-import boundingBoxesReducer from './boundingBoxes';
-import detectedAnomaliesReduces from './detectedAnomalies';
-import detectedObjectsReducer from './detectedObjects';
+// import detectedAnomaliesReduces from './detectedAnomalies';
+// import detectedObjectsReducer from './detectedObjects';
 import metaData from './metaData';
 
 const initialState = {
@@ -10,9 +8,9 @@ const initialState = {
     title: 'Undefined Video',
     path: ''
   },
-  boundingBoxes: [],
+  detectedAnomalies: [],
   detectedObjects: []
-  // boundingBoxes: [
+  // detectedObjects: [
   //   {
   //     left_x: 182,
   //     top_y: 223,
@@ -90,25 +88,31 @@ const initialState = {
 
 const video = (state = initialState, action) => {
   switch (action.type) {
+    //VIDEO
     case actionTypes.FETCH_VIDEO_START:
       return {
-        ...state,
-        metaData: {
-          title: initialState.title,
-          path: initialState.path
-        }
+        ...state
       };
     case actionTypes.FETCH_VIDEO_SUCCESS:
       return metaData(initialState, action);
     case actionTypes.FETCH_VIDEO_ERROR:
       return metaData(initialState, action);
-    // **
-    case actionTypes.INIT_BOUNDINGBOXES:
-      return boundingBoxesReducer(initialState, action);
-    case actionTypes.INIT_DETECTED_ANOMALIES:
-      return detectedAnomaliesReduces(initialState, action);
-    case actionTypes.INIT_DETECTED_OBJECTS:
-      return detectedObjectsReducer(initialState, action);
+    //ANOMALY
+    case actionTypes.FETCH_ANOMALIES_START:
+      return {
+        ...state
+      };
+    case actionTypes.FETCH_ANOMALIES_SUCCESS:
+      return {
+        ...state,
+        detectedAnomalies: action.payload
+      };
+
+    // ** //
+    // case actionTypes.INIT_BOUNDINGBOXES:
+    //   return boundingBoxesReducer(initialState, action);
+    // case actionTypes.INIT_DETECTED_OBJECTS:
+    //   return detectedObjectsReducer(initialState, action);
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import Layout from '../../components/Layout';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
-import { fetchVideo } from '../../store/actions/index';
+import { fetchVideo, fetchAnomalies } from '../../store/actions/index';
 import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
 import List from '../../components/Styled/List';
@@ -61,6 +61,7 @@ class VideoPage extends Component {
 
   componentDidMount() {
     this.props.fetchVideo(this.props.match.params.id);
+    this.props.fetchAnomalies(this.props.match.params.id);
   }
 
   componentDidUpdate() {
@@ -167,6 +168,11 @@ class VideoPage extends Component {
                 listItems={this.props.qbeBoundingBoxes}
                 clickedListItem={time => this.handleListClick(time)}
               />
+              <List
+                title="Detected Anomalies"
+                listItems={this.props.detectedAnomalies}
+                clickedListItem={time => this.handleListClick(time)}
+              />
 
               {/* <List */}
               {/*   title="Anomalies" */}
@@ -187,19 +193,19 @@ class VideoPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  detectedAnomalies: state.video.detectedAnomalies,
   detectedObjects: state.video.detectedObjects,
-  boundingBoxes: state.video.boundingBoxes,
+
+  detectedAnomalies: state.video.detectedAnomalies,
+  qbeBoundingBoxes: state.qbe.results,
   title: state.video.metaData.title,
   path: state.video.metaData.path,
   width: state.video.metaData.width,
-  height: state.video.metaData.height,
-
-  qbeBoundingBoxes: state.qbe.results
+  height: state.video.metaData.height
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchVideo: id => dispatch(fetchVideo(id))
+  fetchVideo: id => dispatch(fetchVideo(id)),
+  fetchAnomalies: id => dispatch(fetchAnomalies(id))
 });
 
 export default connect(

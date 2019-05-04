@@ -41,6 +41,26 @@ export const fetchVideos = () => {
   };
 };
 
+export const fetchAnomalies = id => {
+  return dispatch => {
+    dispatch({ type: actionTypes.FETCH_ANOMALIES_START });
+    axios
+      .get(`/anomaly/${id}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.FETCH_ANOMALIES_SUCCESS,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.FETCH_ANOMALIES_ERROR,
+          payload: err
+        })
+      );
+  };
+};
+
 export const fetchQBE = formData => {
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_QBE_START, message: 'Started' });

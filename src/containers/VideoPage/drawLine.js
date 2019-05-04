@@ -18,8 +18,6 @@ export default function() {
     var bounds = e.target.getBoundingClientRect();
     line.startLeftX = e.clientX - bounds.left;
     line.startTopY = e.clientY - bounds.top;
-    ctx.beginPath();
-    ctx.moveTo(line.startLeftX, line.startTopY);
     drag = true;
   }
 
@@ -32,9 +30,12 @@ export default function() {
     console.log(`startX:${line.startLeftX} startY:${line.startTopY}`);
     console.log(`X:${line.X} Y:${line.Y}`);
   }
+
   function mouseMove(e) {
     var bounds = e.target.getBoundingClientRect();
     if (drag) {
+      ctx.beginPath();
+      ctx.moveTo(line.startLeftX, line.startTopY);
       line.X = e.clientX - bounds.left;
       line.Y = e.clientY - bounds.top;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
