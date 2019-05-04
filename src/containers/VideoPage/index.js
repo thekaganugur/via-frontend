@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import {
-  Player,
-  BigPlayButton,
-  ControlBar,
-  FullscreenToggle
-} from 'video-react';
 
 import Layout from '../../components/Layout';
-import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
@@ -63,26 +56,11 @@ const Container = styled.div`
 class VideoPage extends Component {
   state = {
     isSearchByExample: false,
-    videoInit: false,
-    time: 0
+    videoInit: false
   };
 
   componentDidMount() {
-    this.refs.player.actions.toggleFullscreen = () => {
-      console.log('prevent full screen video');
-    };
-    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
-
     this.props.fetchVideo(this.props.match.params.id);
-
-    // const canvas = this.refs.canvas;
-    // const ctx = canvas.getContext('2d');
-    // ctx.strokeStyle = 'yellow';
-    // ctx.fillStyle = 'yellow';
-    // ctx.font = '20px Arial';
-    // ctx.textAlign = 'center';
-    // ctx.lineWidth = '3';
-    // this.drawBox(false);
   }
 
   componentDidUpdate() {
@@ -97,70 +75,26 @@ class VideoPage extends Component {
       ctx.lineWidth = '3';
       this.changeSource();
     }
-
-    const renderedBoxes = this.props.boundingBoxes;
-
-    this.props.boundingBoxes.forEach(bBox => {
-      if (
-        this.state.player &&
-        this.state.player.currentTime &&
-        bBox.time === parseFloat(this.state.player.currentTime.toFixed(1))
-      ) {
-        //this.drawBox(bBox, true); /*Render and clear no matter what*/
-
-        // Look if to be rendered object is already rendered on the screen if
-        // so we are going to clear it.
-        let renderedBoxIndex = renderedBoxes.findIndex(
-          last => last.text === bBox.text
-        );
-
-        // If box is rendered before Meaning it is in the renderedBoxes[]
-        if (renderedBoxIndex !== -1) {
-          renderedBoxes.splice(renderedBoxIndex, 1);
-          this.drawBox(bBox, true);
-        }
-        // If box is not rendered before Meaning it is not in the
-        // renderedBoxes[]
-        else {
-          renderedBoxes.push(bBox);
-          this.drawBox(bBox, false);
-        }
-      }
-    });
   }
 
-  handleStateChange(state) {
-    // copy player state to this component's state
-    this.setState({
-      player: state
-    });
-  }
-
-  drawBox(bBox, isClear) {
+  drawBox(bBox) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-
-    if (isClear) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeRect(bBox.left, bBox.top, bBox.width, bBox.height);
-    // ctx.strokeRect(0, 20, 50, 100);
-    // ctx.fillText(bBox.text, bBox.left_x + bBox.width / 2, bBox.top_y - 5);
   }
 
   conditionalDrawBox(bBoxes, time) {
     bBoxes.forEach(bBox => {
-      if (this.state.player && (bBox.frameNo / 12).toFixed(1) === time) {
+      if ((bBox.frameNo / 12).toFixed(1) === time) {
         console.log(bBox);
-        this.drawBox(bBox.boundary, true);
+        this.drawBox(bBox.boundary);
       }
     });
   }
 
   handleListClick(time) {
-    this.refs.player.seek(time);
-    // this.refs.player.play();
+    this.refs.player.currentTime = time;
     this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
   }
 
@@ -168,7 +102,6 @@ class VideoPage extends Component {
     this.setState({
       source: `http://34.74.68.244:3000/static/${this.relativePath()}`
     });
-    this.refs.player.load();
   }
 
   relativePath() {
@@ -194,19 +127,14 @@ class VideoPage extends Component {
                 width={this.props.width}
                 height={this.props.height}
               />
-              <Player
+              <video
+                controls
                 ref="player"
-                autoPlay={true}
-                fluid={false}
+                autoPlay
                 width={this.props.width}
                 height={this.props.height}
-              >
-                <source src={this.state.source} />
-                <BigPlayButton position="center" />
-                <ControlBar>
-                  <FullscreenToggle disabled />
-                </ControlBar>
-              </Player>
+                src={this.state.source}
+              />
             </div>
             <span className="funcContainer">
               <Button
