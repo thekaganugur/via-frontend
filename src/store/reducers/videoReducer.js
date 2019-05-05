@@ -8,7 +8,9 @@ const initialState = {
     title: 'Undefined Video',
     path: ''
   },
-  detectedAnomalies: [],
+  detectedAnomalies: {
+    results: []
+  },
   detectedObjects: []
   // detectedObjects: [
   //   {
@@ -105,23 +107,52 @@ const video = (state = initialState, action) => {
     case actionTypes.FETCH_ANOMALIES_SUCCESS:
       return {
         ...state,
-        detectedAnomalies: action.payload
+        detectedAnomalies: {
+          ...state.detectedAnomalies,
+          results: action.payload
+        }
       };
 
     case actionTypes.FETCH_ANOMALY_START:
-      return { ...state, message: action.message };
+      return {
+        ...state,
+        detectedAnomalies: {
+          ...state.detectedAnomalies,
+          message: action.message
+        }
+      };
     case actionTypes.FETCH_ANOMALY_PROGRESS:
       return {
         ...state,
-        progress: action.payload.progress,
-        results: action.payload.results
+        detectedAnomalies: {
+          ...state.detectedAnomalies,
+          progress: action.payload.progress
+        }
       };
     case actionTypes.FETCH_ANOMALY_SUCCESS:
-      return { ...state, message: action.message };
+      return {
+        ...state,
+        detectedAnomalies: {
+          ...state.detectedAnomalies,
+          message: action.message
+        }
+      };
     case actionTypes.FETCH_ANOMALY_CLOSED:
-      return { ...state, message: action.message };
+      return {
+        ...state,
+        detectedAnomalies: {
+          ...state.detectedAnomalies,
+          message: action.message
+        }
+      };
     case actionTypes.FETCH_ANOMALY_ERROR:
-      return { ...state, error: action.payload };
+      return {
+        ...state,
+        detectedAnomalies: {
+          ...state.detectedAnomalies,
+          error: action.payload
+        }
+      };
 
     // ** //
     // case actionTypes.INIT_BOUNDINGBOXES:

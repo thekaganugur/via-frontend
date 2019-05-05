@@ -45,7 +45,7 @@ export const fetchAnomalies = id => {
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_ANOMALIES_START });
     axios
-      .get(`/anomaly/${id}`)
+      .get(`/anomaly/linecrossing/${id}`)
       .then(res =>
         dispatch({
           type: actionTypes.FETCH_ANOMALIES_SUCCESS,

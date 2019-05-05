@@ -38,7 +38,7 @@ const renderList = (listItems, clickedListItem) => {
   return listItems.map((listItem, i) => (
     <li
       key={i}
-      onClick={() => clickedListItem((listItem.frameNo / 12).toFixed(1))}
+      onClick={() => clickedListItem((listItem.frameNo / 12).toFixed())}
     >
       <span>{(listItem.frameNo / 12).toFixed()}</span>
     </li>
@@ -47,7 +47,7 @@ const renderList = (listItems, clickedListItem) => {
 
 const List = ({ title, listItems, clickedListItem }) => (
   <Container>
-    <h2>{title}</h2>
+    <h3>{title}</h3>
     <ul className="list">{renderList(listItems, clickedListItem)}</ul>
   </Container>
 );

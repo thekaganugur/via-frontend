@@ -59,8 +59,10 @@ const Container = styled.div`
 
 class VideoPage extends Component {
   state = {
+    videoInit: false,
     isSearchByExample: false,
-    videoInit: false
+    qbeLive: false,
+    anomalyLive: true
   };
 
   componentDidMount() {
@@ -80,6 +82,15 @@ class VideoPage extends Component {
       ctx.lineWidth = '3';
       this.changeSource();
     }
+
+    const time = this.refs.player.currentTime;
+    console.log(time);
+
+    if (this.state.videoInit && this.state.anomalyLive) {
+      const time = this.refs.player.currentTime;
+      console.log(time);
+      this.conditionalDrawBox(this.props.detectedAnomalies.results, time);
+    }
   }
 
   drawBox(bBox) {
@@ -87,20 +98,31 @@ class VideoPage extends Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeRect(bBox.left, bBox.top, bBox.width, bBox.height);
+
+    const player = this.refs.player;
+    //Clear after 1s if playing vid
+    if (!player.paused && !player.ended && player.readyState > 2) {
+      setTimeout(() => ctx.clearRect(0, 0, canvas.width, canvas.height), 1000);
+    }
   }
 
   conditionalDrawBox(bBoxes, time) {
+    console.log('asdasd');
     bBoxes.forEach(bBox => {
-      if ((bBox.frameNo / 12).toFixed(1) === time) {
+      if ((bBox.frameNo / 12).toFixed() === time) {
         console.log(bBox);
-        this.drawBox(bBox.boundary);
+        if (bBox.boundary) {
+          this.drawBox(bBox.boundary);
+        } else {
+          this.drawBox(bBox);
+        }
       }
     });
   }
 
-  handleListClick(time) {
+  handleListClick(bBoxes, time) {
     this.refs.player.currentTime = time;
-    this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
+    this.conditionalDrawBox(bBoxes, time);
   }
 
   changeSource() {
@@ -152,8 +174,7 @@ class VideoPage extends Component {
                 className="funcContainer-tracking"
                 clicked={() =>
                   drawLine().then(val => {
-                    console.log(val);
-                    this.props.fetchAnomaly(val, 1);
+                    this.props.fetchAnomaly(val, this.props.match.params.id);
                   })
                 }
               >
@@ -175,12 +196,19 @@ class VideoPage extends Component {
               <List
                 title="Qbe"
                 listItems={this.props.qbeBoundingBoxes}
-                clickedListItem={time => this.handleListClick(time)}
+                clickedListItem={time =>
+                  this.handleListClick(this.props.qbeBoundingBoxes, time)
+                }
               />
               <List
                 title="Detected Anomalies"
-                listItems={this.props.detectedAnomalies}
-                clickedListItem={time => this.handleListClick(time)}
+                listItems={this.props.detectedAnomalies.results}
+                clickedListItem={time =>
+                  this.handleListClick(
+                    this.props.detectedAnomalies.results,
+                    time
+                  )
+                }
               />
 
               {/* <List */}
