@@ -25,6 +25,10 @@ const input = ({ percent, strokeWidth, strokeColor, message }) => {
     );
   }
 
+  if (percent === 100) {
+    progressLine = <div />;
+  }
+
   return progressLine;
 };
 

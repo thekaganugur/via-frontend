@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import {
+  Player,
+  BigPlayButton,
+  ControlBar,
+  FullscreenToggle
+} from 'video-react';
 
 import Layout from '../../components/Layout';
+import '../../../node_modules/video-react/dist/video-react.css';
 import Button from '../../components/Styled/Button';
 import drawTrackingRect from './drawTrackingRect';
 import drawLine from './drawLine';
@@ -14,6 +21,7 @@ import {
 import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
 import List from '../../components/Styled/List';
+import ProgressLine from '../../components/Styled/ProgressLine';
 
 const Container = styled.div`
   display: flex;
@@ -61,11 +69,16 @@ class VideoPage extends Component {
   state = {
     videoInit: false,
     isSearchByExample: false,
-    qbeLive: false,
-    anomalyLive: true
+    qbeLive: true,
+    anomalyLive: false
   };
 
   componentDidMount() {
+    this.refs.player.actions.toggleFullscreen = () => {
+      console.log('prevent full screen video');
+    };
+    this.refs.player.subscribeToStateChange(this.handleStateChange.bind(this));
+
     this.props.fetchVideo(this.props.match.params.id);
     this.props.fetchAnomalies(this.props.match.params.id);
   }
@@ -83,14 +96,17 @@ class VideoPage extends Component {
       this.changeSource();
     }
 
-    const time = this.refs.player.currentTime;
-    console.log(time);
-
-    if (this.state.videoInit && this.state.anomalyLive) {
-      const time = this.refs.player.currentTime;
-      console.log(time);
-      this.conditionalDrawBox(this.props.detectedAnomalies.results, time);
+    if (this.state.videoInit && this.state.qbeLive) {
+      const time = this.state.player.currentTime;
+      this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
     }
+  }
+
+  handleStateChange(state) {
+    // copy player state to this component's state
+    this.setState({
+      player: state
+    });
   }
 
   drawBox(bBox) {
@@ -98,19 +114,11 @@ class VideoPage extends Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeRect(bBox.left, bBox.top, bBox.width, bBox.height);
-
-    const player = this.refs.player;
-    //Clear after 1s if playing vid
-    if (!player.paused && !player.ended && player.readyState > 2) {
-      setTimeout(() => ctx.clearRect(0, 0, canvas.width, canvas.height), 1000);
-    }
   }
 
   conditionalDrawBox(bBoxes, time) {
-    console.log('asdasd');
     bBoxes.forEach(bBox => {
-      if ((bBox.frameNo / 12).toFixed() === time) {
-        console.log(bBox);
+      if ((bBox.frameNo / 12).toFixed() === time.toFixed()) {
         if (bBox.boundary) {
           this.drawBox(bBox.boundary);
         } else {
@@ -121,7 +129,7 @@ class VideoPage extends Component {
   }
 
   handleListClick(bBoxes, time) {
-    this.refs.player.currentTime = time;
+    this.refs.player.seek(time);
     this.conditionalDrawBox(bBoxes, time);
   }
 
@@ -129,6 +137,7 @@ class VideoPage extends Component {
     this.setState({
       source: `http://34.74.68.244:3000/static/${this.relativePath()}`
     });
+    this.refs.player.load();
   }
 
   relativePath() {
@@ -138,6 +147,13 @@ class VideoPage extends Component {
   }
 
   render() {
+    const renderProgress = (
+      <ProgressLine
+        percent={this.props.detectedAnomalies.progress}
+        message={'Detecting Anomalies'}
+      />
+    );
+
     return (
       <Layout>
         <Container>
@@ -154,15 +170,21 @@ class VideoPage extends Component {
                 width={this.props.width}
                 height={this.props.height}
               />
-              <video
-                controls
+              <Player
                 ref="player"
-                autoPlay
+                autoPlay={true}
+                fluid={false}
                 width={this.props.width}
                 height={this.props.height}
-                src={this.state.source}
-              />
+              >
+                <source src={this.state.source} />
+                <BigPlayButton position="center" />
+                <ControlBar>
+                  <FullscreenToggle disabled />
+                </ControlBar>
+              </Player>
             </div>
+            {renderProgress}
             <span className="funcContainer">
               <Button
                 className="funcContainer-tracking"
@@ -210,17 +232,6 @@ class VideoPage extends Component {
                   )
                 }
               />
-
-              {/* <List */}
-              {/*   title="Anomalies" */}
-              {/*   listItems={this.props.detectedAnomalies} */}
-              {/*   clickedListItem={time => this.handleListClick(time)} */}
-              {/* /> */}
-              {/* <List */}
-              {/*   title="Objects" */}
-              {/*   listItems={this.props.detectedObjects} */}
-              {/*   clickedListItem={time => this.handleListClick(time)} */}
-              {/* /> */}
             </div>
           </div>
         </Container>

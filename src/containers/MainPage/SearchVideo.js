@@ -50,6 +50,7 @@ const Container = styled.div`
 
   .query-elements {
     display: flex;
+    margin-bottom: 1rem;
     ${media.phone`
       flex-flow: nowrap;
       flex-direction: column;

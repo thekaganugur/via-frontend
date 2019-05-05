@@ -18,6 +18,7 @@ const Container = styled.div`
       height: 2.5em;
       padding: 0.2rem 0.4rem;
       cursor: pointer;
+      transition: all 0.4s;
 
       display: flex;
       align-items: center;
@@ -28,7 +29,7 @@ const Container = styled.div`
       }
 
       &:hover {
-        background-color: red;
+        background-color: #f2f2f2;
       }
     }
   }
@@ -36,10 +37,7 @@ const Container = styled.div`
 
 const renderList = (listItems, clickedListItem) => {
   return listItems.map((listItem, i) => (
-    <li
-      key={i}
-      onClick={() => clickedListItem((listItem.frameNo / 12).toFixed())}
-    >
+    <li key={i} onClick={() => clickedListItem(listItem.frameNo / 12)}>
       <span>{(listItem.frameNo / 12).toFixed()}</span>
     </li>
   ));
