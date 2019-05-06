@@ -157,7 +157,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
           };
 
           watchWS.onmessage = async function(evt) {
-            console.log(evt.data);
+            // console.log(evt.data);
             const watchM = JSON.parse(evt.data);
             const watchStatus = watchM.status;
             // setanomalyResult(watchM);
@@ -175,7 +175,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
           };
           watchWS.onclose = function() {
             setanomalyMessage(
-              actionTypes.FETCH_QBE_CLOSED,
+              actionTypes.FETCH_ANOMALY_CLOSED,
               'Watch Connection is closed',
               videoId
             );
@@ -188,7 +188,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
     };
     startWS.onclose = function() {
       setanomalyMessage(
-        actionTypes.FETCH_QBE_CLOSED,
+        actionTypes.FETCH_ANOMALY_CLOSED,
         'Connection is closed',
         videoId
       );
