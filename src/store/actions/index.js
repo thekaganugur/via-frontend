@@ -134,10 +134,13 @@ export const fetchAnomaly = (anomaly, videoId) => {
           break;
         case codes.COMPLETED_SUCCESSFULLY:
           setanomalyMessage(
-            actionTypes.FETCH_QBE_SUCCESS,
+            actionTypes.FETCH_ANOMALY_SUCCESS,
             'Completed',
             videoId
           );
+          axios.get(`anomaly/linecrossing/${videoId}`).then(res => {
+            console.log(res.data);
+          });
           break;
         case codes.OK:
           watchWS && watchWS.close();
@@ -154,6 +157,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
           };
 
           watchWS.onmessage = async function(evt) {
+            console.log(evt.data);
             const watchM = JSON.parse(evt.data);
             const watchStatus = watchM.status;
             // setanomalyResult(watchM);
@@ -181,7 +185,6 @@ export const fetchAnomaly = (anomaly, videoId) => {
           console.log(startM);
           break;
       }
-      /* eslint-enable */
     };
     startWS.onclose = function() {
       setanomalyMessage(
