@@ -1,6 +1,8 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
+const WSURL = 'ws://104.196.71.143:3000';
+
 export const fetchVideo = id => {
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_VIDEO_START });
@@ -91,7 +93,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
 
     startWS && startWS.close();
 
-    startWS = new WebSocket('ws://34.74.68.244:3000');
+    startWS = new WebSocket(WSURL);
 
     startWS.onopen = function() {
       startWS.send(
@@ -145,7 +147,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
         case codes.OK:
           watchWS && watchWS.close();
 
-          watchWS = new WebSocket('ws://34.74.68.244:3000');
+          watchWS = new WebSocket(WSURL);
 
           watchWS.onopen = function() {
             watchWS.send(
@@ -228,7 +230,7 @@ export const fetchQBE = formData => {
     reader.onloadend = function() {
       startWS && startWS.close();
 
-      startWS = new WebSocket('ws://34.74.68.244:3000');
+      startWS = new WebSocket(WSURL);
 
       console.log(formData);
 
@@ -276,7 +278,7 @@ export const fetchQBE = formData => {
           case codes.OK:
             watchWS && watchWS.close();
 
-            watchWS = new WebSocket('ws://34.74.68.244:3000');
+            watchWS = new WebSocket(WSURL);
 
             watchWS.onopen = function() {
               watchWS.send(

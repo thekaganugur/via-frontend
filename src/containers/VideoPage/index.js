@@ -135,7 +135,7 @@ class VideoPage extends Component {
 
   changeSource() {
     this.setState({
-      source: `http://34.74.68.244:3000/static/${this.relativePath()}`
+      source: `http://104.196.71.143:3000/static/${this.relativePath()}`
     });
     this.refs.player.load();
   }
