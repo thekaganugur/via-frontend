@@ -69,8 +69,8 @@ class VideoPage extends Component {
   state = {
     videoInit: false,
     isSearchByExample: false,
-    qbeLive: true,
-    anomalyLive: false
+    liveQbe: false,
+    liveAnomaly: false
   };
 
   componentDidMount() {
@@ -96,10 +96,34 @@ class VideoPage extends Component {
       this.changeSource();
     }
 
-    if (this.state.videoInit && this.state.qbeLive) {
-      const time = this.state.player.currentTime;
-      this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
-    }
+    // if (this.state.videoInit && this.state.qbeLive) {
+    //   const time = this.state.player.currentTime;
+    //   this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
+    // }
+  }
+
+  playBBoxes(bBoxes) {
+    this.setState({ liveQbe: true });
+    this.refs.player.pause();
+    bBoxes.some((bBox, i, array) => {
+      return (i => {
+        setTimeout(() => {
+          if (!this.state.liveQbe) {
+            console.log(this.state.liveQbe);
+            return true;
+          }
+          if (i === array.length - 1) {
+            this.setState({ liveQbe: false });
+          }
+          this.refs.player.seek(bBox.frameNo / 12);
+          if (bBox.boundary) {
+            this.drawBox(bBox.boundary);
+          } else {
+            this.drawBox(bBox);
+          }
+        }, 700 * i);
+      })(i);
+    });
   }
 
   handleStateChange(state) {
@@ -221,6 +245,14 @@ class VideoPage extends Component {
                 clickedListItem={time =>
                   this.handleListClick(this.props.qbeBoundingBoxes, time)
                 }
+                isPlaying={this.state.liveQbe}
+                clickedPlay={() => {
+                  this.setState({ liveQbe: true });
+                  this.playBBoxes(this.props.qbeBoundingBoxes);
+                }}
+                clickedPause={() => {
+                  this.setState({ liveQbe: false });
+                }}
               />
               <List
                 title="Detected Anomalies"
@@ -231,6 +263,8 @@ class VideoPage extends Component {
                     time
                   )
                 }
+                clickedPlay
+                clickedPause
               />
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled.div`
   display: flex;
@@ -35,17 +36,31 @@ const Container = styled.div`
   }
 `;
 
-const renderList = (listItems, clickedListItem) => {
-  return listItems.map((listItem, i) => (
+const renderList = (listItems, clickedListItem) =>
+  listItems.map((listItem, i) => (
     <li key={i} onClick={() => clickedListItem(listItem.frameNo / 12)}>
       <span>{(listItem.frameNo / 12).toFixed()}</span>
     </li>
   ));
+
+const renderControls = (isPlaying, clickedPlay, clickedPause) => {
+  if (isPlaying) {
+    return <FontAwesomeIcon icon="pause" onClick={() => clickedPause()} />;
+  }
+  return <FontAwesomeIcon icon="play" onClick={() => clickedPlay()} />;
 };
 
-const List = ({ title, listItems, clickedListItem }) => (
+const List = ({
+  title,
+  listItems,
+  clickedListItem,
+  isPlaying,
+  clickedPlay,
+  clickedPause
+}) => (
   <Container>
     <h3>{title}</h3>
+    {renderControls(isPlaying, clickedPlay, clickedPause)}
     <ul className="list">{renderList(listItems, clickedListItem)}</ul>
   </Container>
 );
