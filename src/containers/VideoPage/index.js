@@ -16,7 +16,8 @@ import drawLine from './drawLine';
 import {
   fetchVideo,
   fetchAnomalies,
-  fetchAnomaly
+  fetchAnomaly,
+  fetchObjects
 } from '../../store/actions/index';
 import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
@@ -81,6 +82,7 @@ class VideoPage extends Component {
 
     this.props.fetchVideo(this.props.match.params.id);
     this.props.fetchAnomalies(this.props.match.params.id);
+    this.props.fetchObjects(this.props.match.params.id);
   }
 
   componentDidUpdate() {
@@ -266,6 +268,18 @@ class VideoPage extends Component {
                 clickedPlay
                 clickedPause
               />
+              <List
+                title="Detected Anomalies"
+                listItems={this.props.detectedObjects.results}
+                clickedListItem={time =>
+                  this.handleListClick(
+                    this.props.detectedObjects.results,
+                    time
+                  )
+                }
+                clickedPlay
+                clickedPause
+              />
             </div>
           </div>
         </Container>
@@ -276,7 +290,6 @@ class VideoPage extends Component {
 
 const mapStateToProps = state => ({
   detectedObjects: state.video.detectedObjects,
-
   detectedAnomalies: state.video.detectedAnomalies,
   qbeBoundingBoxes: state.qbe.results,
   title: state.video.metaData.title,
@@ -288,7 +301,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchVideo: id => dispatch(fetchVideo(id)),
   fetchAnomalies: id => dispatch(fetchAnomalies(id)),
-  fetchAnomaly: (anomaly, id) => dispatch(fetchAnomaly(anomaly, id))
+  fetchAnomaly: (anomaly, id) => dispatch(fetchAnomaly(anomaly, id)),
+  fetchObjects: id => dispatch(fetchObjects(id))
 });
 
 export default connect(

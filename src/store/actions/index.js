@@ -43,6 +43,26 @@ export const fetchVideos = () => {
   };
 };
 
+export const fetchObjects = id => {
+  return dispatch => {
+    dispatch({ type: actionTypes.FETCH_OBJECT_START });
+    axios
+      .get(`/object/${id}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.FETCH_OBJECT_SUCCESS,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.FETCH_OBJECT_ERROR,
+          payload: err
+        })
+      );
+  };
+};
+
 export const fetchAnomalies = id => {
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_ANOMALIES_START });
@@ -95,7 +115,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
 
     startWS = new WebSocket(WSURL);
 
-    startWS.onopen = function() {
+    startWS.onopen = function () {
       startWS.send(
         JSON.stringify({
           route: 'start-anomaly',
@@ -118,7 +138,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
       );
     };
 
-    startWS.onmessage = function(evt) {
+    startWS.onmessage = function (evt) {
       let watchWS = undefined;
       const startM = JSON.parse(evt.data);
 
@@ -149,7 +169,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
 
           watchWS = new WebSocket(WSURL);
 
-          watchWS.onopen = function() {
+          watchWS.onopen = function () {
             watchWS.send(
               JSON.stringify({
                 route: 'anomaly-watch-operation',
@@ -158,7 +178,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
             );
           };
 
-          watchWS.onmessage = async function(evt) {
+          watchWS.onmessage = async function (evt) {
             // console.log(evt.data);
             const watchM = JSON.parse(evt.data);
             const watchStatus = watchM.status;
@@ -175,7 +195,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
                 console.log(watchM);
             }
           };
-          watchWS.onclose = function() {
+          watchWS.onclose = function () {
             setanomalyMessage(
               actionTypes.FETCH_ANOMALY_CLOSED,
               'Watch Connection is closed',
@@ -188,7 +208,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
           break;
       }
     };
-    startWS.onclose = function() {
+    startWS.onclose = function () {
       setanomalyMessage(
         actionTypes.FETCH_ANOMALY_CLOSED,
         'Connection is closed',
@@ -227,14 +247,14 @@ export const fetchQBE = formData => {
     const results = [];
     const reader = new FileReader();
 
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       startWS && startWS.close();
 
       startWS = new WebSocket(WSURL);
 
       console.log(formData);
 
-      startWS.onopen = function() {
+      startWS.onopen = function () {
         startWS.send(
           JSON.stringify({
             route: 'start-qbe',
@@ -252,7 +272,7 @@ export const fetchQBE = formData => {
         );
       };
 
-      startWS.onmessage = function(evt) {
+      startWS.onmessage = function (evt) {
         let watchWS = undefined;
         const startM = JSON.parse(evt.data);
 
@@ -280,7 +300,7 @@ export const fetchQBE = formData => {
 
             watchWS = new WebSocket(WSURL);
 
-            watchWS.onopen = function() {
+            watchWS.onopen = function () {
               watchWS.send(
                 JSON.stringify({
                   route: 'watch-operation',
@@ -289,7 +309,7 @@ export const fetchQBE = formData => {
               );
             };
 
-            watchWS.onmessage = async function(evt) {
+            watchWS.onmessage = async function (evt) {
               const watchM = JSON.parse(evt.data);
               const watchStatus = watchM.status;
               switch (watchStatus) {
@@ -307,7 +327,7 @@ export const fetchQBE = formData => {
                   console.log(watchM);
               }
             };
-            watchWS.onclose = function() {
+            watchWS.onclose = function () {
               setQBEMessage(
                 actionTypes.FETCH_QBE_CLOSED,
                 'Watch Connection is closed',
@@ -320,7 +340,7 @@ export const fetchQBE = formData => {
             break;
         }
       };
-      startWS.onclose = function() {
+      startWS.onclose = function () {
         setQBEMessage(
           actionTypes.FETCH_QBE_CLOSED,
           'Connection is closed',
@@ -333,4 +353,4 @@ export const fetchQBE = formData => {
   };
 };
 
-export const terminateQBE = () => {};
+export const terminateQBE = () => { };

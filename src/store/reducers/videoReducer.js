@@ -11,7 +11,9 @@ const initialState = {
   detectedAnomalies: {
     results: []
   },
-  detectedObjects: []
+  detectedObjects: {
+    results: []
+  }
   // detectedObjects: [
   //   {
   //     left_x: 182,
@@ -109,6 +111,18 @@ const video = (state = initialState, action) => {
         ...state,
         detectedAnomalies: {
           ...state.detectedAnomalies,
+          results: action.payload
+        }
+      };
+    case actionTypes.FETCH_OBJECT_START:
+      return {
+        ...state
+      };
+    case actionTypes.FETCH_OBJECT_SUCCESS:
+      return {
+        ...state,
+        detectedObjects: {
+          ...state.detectedObjects,
           results: action.payload
         }
       };
