@@ -63,6 +63,7 @@ const Container = styled.div`
 
     .query-element {
       position: relative;
+      background: #fff;
       ${media.phone`
         margin: 0 0 1.9rem 0;
         width: 100%;

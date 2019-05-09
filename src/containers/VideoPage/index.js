@@ -32,7 +32,6 @@ const Container = styled.div`
   .main {
     width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
 
     .videoContainer {
@@ -50,18 +49,21 @@ const Container = styled.div`
 
     .funcContainer {
       display: flex;
+      padding: 0 6rem;
       align-items: center;
+      justify-content: space-between;
 
       &-tracking {
-        margin-right: 3rem;
+        margin: 1rem 2rem;
       }
     }
 
     .lists {
       display: flex;
       justify-content: space-between;
-      width: 40%;
-      padding: 4rem 0;
+      width: 100%;
+      margin: auto 0;
+      /* padding: 4rem 0; */
     }
   }
 `;
@@ -183,6 +185,12 @@ class VideoPage extends Component {
     return (
       <Layout>
         <Container>
+          <Modal
+            show={this.state.isSearchByExample}
+            handleClose={() => this.setState({ isSearchByExample: false })}
+          >
+            <SearchByExample id={this.props.match.params.id} />
+          </Modal>
           <h1>{this.props.title}</h1>
           <div className="main">
             <div className="videoContainer">
@@ -209,37 +217,32 @@ class VideoPage extends Component {
                   <FullscreenToggle disabled />
                 </ControlBar>
               </Player>
+              {renderProgress}
+              <span className="funcContainer">
+                <Button
+                  className="funcContainer-tracking"
+                  clicked={() => drawTrackingRect()}
+                >
+                  Start tracking
+                </Button>
+                <Button
+                  className="funcContainer-tracking"
+                  clicked={() =>
+                    drawLine().then(val => {
+                      this.props.fetchAnomaly(val, this.props.match.params.id);
+                    })
+                  }
+                >
+                  Draw line
+                </Button>
+                <Button
+                  className="funcContainer-tracking"
+                  clicked={() => this.setState({ isSearchByExample: true })}
+                >
+                  Query By Example
+                </Button>
+              </span>
             </div>
-            {renderProgress}
-            <span className="funcContainer">
-              <Button
-                className="funcContainer-tracking"
-                clicked={() => drawTrackingRect()}
-              >
-                Start tracking
-              </Button>
-              <Button
-                className="funcContainer-tracking"
-                clicked={() =>
-                  drawLine().then(val => {
-                    this.props.fetchAnomaly(val, this.props.match.params.id);
-                  })
-                }
-              >
-                Draw line
-              </Button>
-              <Button
-                clicked={() => this.setState({ isSearchByExample: true })}
-              >
-                Query By Example
-              </Button>
-            </span>
-            <Modal
-              show={this.state.isSearchByExample}
-              handleClose={() => this.setState({ isSearchByExample: false })}
-            >
-              <SearchByExample id={this.props.match.params.id} />
-            </Modal>
             <div className="lists">
               <List
                 title="Qbe"
@@ -269,13 +272,10 @@ class VideoPage extends Component {
                 clickedPause
               />
               <List
-                title="Detected Anomalies"
+                title="Detected Objects"
                 listItems={this.props.detectedObjects.results}
                 clickedListItem={time =>
-                  this.handleListClick(
-                    this.props.detectedObjects.results,
-                    time
-                  )
+                  this.handleListClick(this.props.detectedObjects.results, time)
                 }
                 clickedPlay
                 clickedPause
