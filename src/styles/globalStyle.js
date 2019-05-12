@@ -72,4 +72,12 @@ export const GlobalStyle = createGlobalStyle`
   h3 {
     font-size: 1.1em;
   }
+
+
+   @media screen {
+     @page {
+         margin: 0;
+         size: 1280px 800px;
+     }
+ }
 `;

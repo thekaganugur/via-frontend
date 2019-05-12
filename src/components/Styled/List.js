@@ -7,6 +7,17 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-left: 1.2rem;
+
+  svg {
+    color: #515151;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-size: 1em;
+    margin-bottom: 0.7rem;
+  }
 
   .list {
     width: 15rem;
@@ -36,10 +47,10 @@ const Container = styled.div`
   }
 `;
 
-const renderList = (listItems, clickedListItem) =>
+const renderList = (listItems, descriptions, clickedListItem) =>
   listItems.map((listItem, i) => (
     <li key={i} onClick={() => clickedListItem(listItem.frameNo / 12)}>
-      <span>{(listItem.frameNo / 12).toFixed()}</span>
+      <span>{(listItem.frameNo / 12).toFixed(2).replace('.', ':')}</span>
     </li>
   ));
 
@@ -53,15 +64,18 @@ const renderControls = (isPlaying, clickedPlay, clickedPause) => {
 const List = ({
   title,
   listItems,
+  descriptions,
   clickedListItem,
   isPlaying,
   clickedPlay,
   clickedPause
 }) => (
   <Container>
-    <h3>{title}</h3>
+    <h3 className="title">{title}</h3>
     {renderControls(isPlaying, clickedPlay, clickedPause)}
-    <ul className="list">{renderList(listItems, clickedListItem)}</ul>
+    <ul className="list">
+      {renderList(listItems, descriptions, clickedListItem)}
+    </ul>
   </Container>
 );
 

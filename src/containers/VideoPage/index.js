@@ -73,7 +73,8 @@ class VideoPage extends Component {
     videoInit: false,
     isSearchByExample: false,
     liveQbe: false,
-    liveAnomaly: false
+    liveAnomaly: false,
+    liveObject: false
   };
 
   componentDidMount() {
@@ -106,28 +107,31 @@ class VideoPage extends Component {
     // }
   }
 
-  playBBoxes(bBoxes) {
-    this.setState({ liveQbe: true });
+  playBBoxes(bBoxes, list) {
+    var i = 1;
+    this.setState({ [list]: true });
     this.refs.player.pause();
-    bBoxes.some((bBox, i, array) => {
-      return (i => {
-        setTimeout(() => {
-          if (!this.state.liveQbe) {
-            console.log(this.state.liveQbe);
-            return true;
-          }
-          if (i === array.length - 1) {
-            this.setState({ liveQbe: false });
-          }
-          this.refs.player.seek(bBox.frameNo / 12);
-          if (bBox.boundary) {
-            this.drawBox(bBox.boundary);
-          } else {
-            this.drawBox(bBox);
-          }
-        }, 700 * i);
-      })(i);
-    });
+
+    const myLoop = () => {
+      setTimeout(() => {
+        i++;
+
+        if (i === bBoxes.length - 1) {
+          this.setState({ [list]: false });
+        }
+        this.refs.player.seek(bBoxes[i].frameNo / 12);
+        if (bBoxes[i].boundary) {
+          this.drawBox(bBoxes[i].boundary);
+        } else {
+          this.drawBox(bBoxes[i]);
+        }
+        if (i < bBoxes.length && this.state[list]) {
+          myLoop();
+        }
+      }, 400);
+    };
+
+    myLoop();
   }
 
   handleStateChange(state) {
@@ -191,6 +195,7 @@ class VideoPage extends Component {
           >
             <SearchByExample id={this.props.match.params.id} />
           </Modal>
+
           <h1>{this.props.title}</h1>
           <div className="main">
             <div className="videoContainer">
@@ -243,6 +248,7 @@ class VideoPage extends Component {
                 </Button>
               </span>
             </div>
+
             <div className="lists">
               <List
                 title="Qbe"
@@ -252,8 +258,7 @@ class VideoPage extends Component {
                 }
                 isPlaying={this.state.liveQbe}
                 clickedPlay={() => {
-                  this.setState({ liveQbe: true });
-                  this.playBBoxes(this.props.qbeBoundingBoxes);
+                  this.playBBoxes(this.props.qbeBoundingBoxes, 'liveQbe');
                 }}
                 clickedPause={() => {
                   this.setState({ liveQbe: false });
@@ -261,6 +266,7 @@ class VideoPage extends Component {
               />
               <List
                 title="Detected Anomalies"
+                descriptions={this.props.detectedAnomalies.results}
                 listItems={this.props.detectedAnomalies.results}
                 clickedListItem={time =>
                   this.handleListClick(
@@ -268,8 +274,16 @@ class VideoPage extends Component {
                     time
                   )
                 }
-                clickedPlay
-                clickedPause
+                isPlaying={this.state.liveAnomaly}
+                clickedPlay={() => {
+                  this.playBBoxes(
+                    this.props.detectedAnomalies.results,
+                    'liveAnomaly'
+                  );
+                }}
+                clickedPause={() => {
+                  this.setState({ liveAnomaly: false });
+                }}
               />
               <List
                 title="Detected Objects"
@@ -277,8 +291,16 @@ class VideoPage extends Component {
                 clickedListItem={time =>
                   this.handleListClick(this.props.detectedObjects.results, time)
                 }
-                clickedPlay
-                clickedPause
+                isPlaying={this.state.liveObject}
+                clickedPlay={() => {
+                  this.playBBoxes(
+                    this.props.detectedObjects.results,
+                    'liveObject'
+                  );
+                }}
+                clickedPause={() => {
+                  this.setState({ liveObject: false });
+                }}
               />
             </div>
           </div>
