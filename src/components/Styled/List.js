@@ -12,10 +12,16 @@ const Container = styled.div`
   svg {
     color: #515151;
     margin-bottom: 1rem;
+    transition: all 0.4s;
+  }
+  svg:hover {
+    cursor: pointer;
+    color: #737373;
   }
 
   .title {
     font-size: 1em;
+    text-align: center;
     margin-bottom: 0.7rem;
   }
 
@@ -24,6 +30,12 @@ const Container = styled.div`
     height: 30rem;
     overflow: hidden;
     overflow-y: scroll;
+
+    .description {
+      font-size: 0.7em;
+      color: #444;
+      margin-right: 5px;
+    }
 
     li {
       width: 100%;
@@ -47,10 +59,15 @@ const Container = styled.div`
   }
 `;
 
-const renderList = (listItems, descriptions, clickedListItem) =>
+const renderList = (listItems, clickedListItem) =>
   listItems.map((listItem, i) => (
     <li key={i} onClick={() => clickedListItem(listItem.frameNo / 12)}>
-      <span>{(listItem.frameNo / 12).toFixed(2).replace('.', ':')}</span>
+      <div className="description">
+        {listItem.related_function_name
+          ? listItem.related_function_name.substring(0, 13)
+          : null}
+      </div>
+      <div>{(listItem.frameNo / 12).toFixed(2).replace('.', ':')}</div>
     </li>
   ));
 
@@ -64,19 +81,21 @@ const renderControls = (isPlaying, clickedPlay, clickedPause) => {
 const List = ({
   title,
   listItems,
-  descriptions,
   clickedListItem,
   isPlaying,
   clickedPlay,
   clickedPause
-}) => (
-  <Container>
-    <h3 className="title">{title}</h3>
-    {renderControls(isPlaying, clickedPlay, clickedPause)}
-    <ul className="list">
-      {renderList(listItems, descriptions, clickedListItem)}
-    </ul>
-  </Container>
-);
+}) => {
+  if (listItems.length === 0) {
+    return null;
+  }
+  return (
+    <Container>
+      <h3 className="title">{title}</h3>
+      {renderControls(isPlaying, clickedPlay, clickedPause)}
+      <ul className="list">{renderList(listItems, clickedListItem)}</ul>
+    </Container>
+  );
+};
 
 export default List;

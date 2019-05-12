@@ -13,6 +13,9 @@ const initialState = {
   },
   detectedObjects: {
     results: []
+  },
+  drawLineRes: {
+    results: []
   }
   // detectedObjects: [
   //   {
@@ -165,6 +168,15 @@ const video = (state = initialState, action) => {
         detectedAnomalies: {
           ...state.detectedAnomalies,
           error: action.payload
+        }
+      };
+
+    case actionTypes.DRAW_LINE_SUCCESS:
+      return {
+        ...state,
+        drawLineRes: {
+          ...state.drawLineRes,
+          results: action.payload
         }
       };
 

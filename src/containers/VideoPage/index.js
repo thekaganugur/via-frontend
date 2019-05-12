@@ -74,7 +74,8 @@ class VideoPage extends Component {
     isSearchByExample: false,
     liveQbe: false,
     liveAnomaly: false,
-    liveObject: false
+    liveObject: false,
+    liveDrawLine: false
   };
 
   componentDidMount() {
@@ -108,9 +109,16 @@ class VideoPage extends Component {
   }
 
   playBBoxes(bBoxes, list) {
+    if (bBoxes.length === 0) {
+      return;
+    }
     var i = 1;
-    this.setState({ [list]: true });
     this.refs.player.pause();
+    this.setState({ liveQbe: false });
+    this.setState({ liveAnomaly: false });
+    this.setState({ liveObject: false });
+    this.setState({ liveDrawLine: false });
+    this.setState({ [list]: true });
 
     const myLoop = () => {
       setTimeout(() => {
@@ -266,7 +274,6 @@ class VideoPage extends Component {
               />
               <List
                 title="Detected Anomalies"
-                descriptions={this.props.detectedAnomalies.results}
                 listItems={this.props.detectedAnomalies.results}
                 clickedListItem={time =>
                   this.handleListClick(
@@ -302,6 +309,24 @@ class VideoPage extends Component {
                   this.setState({ liveObject: false });
                 }}
               />
+
+              <List
+                title="Draw line res"
+                listItems={this.props.drawLineRes.results}
+                clickedListItem={time =>
+                  this.handleListClick(this.props.drawLineRes.results, time)
+                }
+                isPlaying={this.state.liveDrawLine}
+                clickedPlay={() => {
+                  this.playBBoxes(
+                    this.props.drawLineRes.results,
+                    'liveDrawLine'
+                  );
+                }}
+                clickedPause={() => {
+                  this.setState({ liveDrawLine: false });
+                }}
+              />
             </div>
           </div>
         </Container>
@@ -313,6 +338,7 @@ class VideoPage extends Component {
 const mapStateToProps = state => ({
   detectedObjects: state.video.detectedObjects,
   detectedAnomalies: state.video.detectedAnomalies,
+  drawLineRes: state.video.drawLineRes,
   qbeBoundingBoxes: state.qbe.results,
   title: state.video.metaData.title,
   path: state.video.metaData.path,

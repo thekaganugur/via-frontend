@@ -39,8 +39,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .width-wrapper {
-    /* max-width: 950px; */
-    max-width: 1200px;
+    /* max-width: 1200px; */
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 0;
     ${media.desktop`padding: 2rem 3rem`}

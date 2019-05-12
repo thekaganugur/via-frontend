@@ -12,7 +12,7 @@ const Header = styled.header`
     ),
     url(${cameraImage});
   width: auto;
-  height: 95vh;
+  height: 96vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -40,7 +40,7 @@ const Heading = styled.h1`
 const heroHeader = () => (
   <Header>
     <Heading>Video Analytics for Security</Heading>
-    <FontAwesomeIcon className="down" icon="angle-double-down" size="2x" />
+    {/* <FontAwesomeIcon className="down" icon="angle-double-down" size="2x" /> */}
   </Header>
 );
 
