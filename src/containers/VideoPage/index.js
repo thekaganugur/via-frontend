@@ -49,7 +49,7 @@ const Container = styled.div`
 
     .funcContainer {
       display: flex;
-      padding: 0 6rem;
+      padding: 0;
       align-items: center;
       justify-content: space-between;
 
@@ -242,11 +242,12 @@ class VideoPage extends Component {
                   className="funcContainer-tracking"
                   clicked={() =>
                     drawLine().then(val => {
+                      console.log(val);
                       this.props.fetchAnomaly(val, this.props.match.params.id);
                     })
                   }
                 >
-                  Draw line
+                  Draw line for line crossing
                 </Button>
                 <Button
                   className="funcContainer-tracking"

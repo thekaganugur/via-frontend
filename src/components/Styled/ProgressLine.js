@@ -6,6 +6,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
+  svg {
+    widows: 100%;
+  }
 
   .message {
     font-size: 1.5rem;
@@ -25,9 +30,9 @@ const input = ({ percent, strokeWidth, strokeColor, message }) => {
     );
   }
 
-  if (percent === 100) {
-    progressLine = <div />;
-  }
+  // if (percent === 100) {
+  //   progressLine = <div />;
+  // }
 
   return progressLine;
 };

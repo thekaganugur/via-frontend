@@ -77,7 +77,7 @@ const navigation = () => (
     <NavLink to="/search" exact activeClassName="active">
       Search video
     </NavLink>
-    <NavLink to="/search/byexample">Query by example</NavLink>
+    {/* <NavLink to="/search/byexample">Query by example</NavLink> */}
     <NavLink to="/uploadVideo" className="last">
       Upload video
     </NavLink>

@@ -189,6 +189,7 @@ export const fetchAnomaly = (anomaly, videoId) => {
             // setanomalyResult(watchM);
             switch (watchStatus) {
               case codes.PROGRESS:
+                console.log(watchM.data.progress);
                 setanomalyResult({
                   videoId: parseInt(videoId),
                   progress: watchM.data.progress,

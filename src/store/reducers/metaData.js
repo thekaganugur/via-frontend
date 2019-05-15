@@ -1,5 +1,4 @@
 const metaData = (state, action) => {
-  console.log(action.payload);
   return {
     ...state,
     metaData: {

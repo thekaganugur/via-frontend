@@ -74,7 +74,7 @@ class SearchVideoByEx extends React.Component {
 
   render() {
     return (
-      <>
+      <div>
         <ProgressLine
           percent={this.props.qbe.progress}
           message={this.props.qbe.message}
@@ -101,7 +101,7 @@ class SearchVideoByEx extends React.Component {
               />
             </label>
             <label htmlFor="from">
-              Search from time:
+              Search start time:
               <Input
                 value={this.state.from}
                 changed={e => this.setState({ from: e.target.value })}
@@ -112,7 +112,7 @@ class SearchVideoByEx extends React.Component {
               />
             </label>
             <label htmlFor="to">
-              Search untill time:
+              Search end time:
               <Input
                 value={this.state.to}
                 changed={e => this.setState({ to: e.target.value })}
@@ -125,7 +125,7 @@ class SearchVideoByEx extends React.Component {
           </div>
           <Button type="submit">Submit</Button>
         </Form>
-      </>
+      </div>
     );
   }
 }

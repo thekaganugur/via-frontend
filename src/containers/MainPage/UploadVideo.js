@@ -30,7 +30,7 @@ class UploadVideo extends React.Component {
     formData.append('videoFile', this.state.files[0]);
 
     axios
-      .post('/video', formData)
+      .post('/video', formData, { mode: 'no-cors' })
       .then(response => {
         console.log(response);
       })
