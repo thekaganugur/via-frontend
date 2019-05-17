@@ -72,22 +72,33 @@ const GridVideo = styled.div`
   }
 `;
 
-const gridVideo = ({ className, title, objects, anomalities, id, time }) => (
-  <GridVideo className={className}>
-    <Link to={`/video/${id}`}>
-      <div className="thumbnail">
-        <div className="filter" />
-        <img alt="thumbnail" src={Thumbnail} />
-        <span>{time}</span>
-        <FontAwesomeIcon icon="play" size="2x" />
-      </div>
-      <div className="metadata">
-        <h3>{title}</h3>
-        <div>{objects}</div>
-        <div>{anomalities}</div>
-      </div>
-    </Link>
-  </GridVideo>
-);
+const gridVideo = ({
+  className,
+  title,
+  objects,
+  anomalities,
+  id,
+  time,
+  thumbnail
+}) => {
+  console.log(thumbnail);
+  return (
+    <GridVideo className={className}>
+      <Link to={`/video/${id}`}>
+        <div className="thumbnail">
+          <div className="filter" />
+          <img alt="thumbnail" src={thumbnail} />
+          <span>{time}</span>
+          <FontAwesomeIcon icon="play" size="2x" />
+        </div>
+        <div className="metadata">
+          <h3>{title}</h3>
+          <div>{objects}</div>
+          <div>{anomalities}</div>
+        </div>
+      </Link>
+    </GridVideo>
+  );
+};
 
 export default gridVideo;

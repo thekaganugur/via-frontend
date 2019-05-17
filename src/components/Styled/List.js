@@ -61,7 +61,7 @@ const Container = styled.div`
 
 const renderList = (listItems, clickedListItem) =>
   listItems.map((listItem, i) => (
-    <li key={i} onClick={() => clickedListItem(listItem.frameNo / 12)}>
+    <li key={i} onClick={() => clickedListItem(listItem.frameNo)}>
       <div className="description">
         {listItem.related_function_name
           ? listItem.related_function_name.substring(0, 13)

@@ -112,7 +112,8 @@ class VideoPage extends Component {
     if (bBoxes.length === 0) {
       return;
     }
-    var i = 1;
+    var i = bBoxes[0].frameNo;
+    var frame = bBoxes[bBoxes.length-1].frameNo
     this.refs.player.pause();
     this.setState({ liveQbe: false });
     this.setState({ liveAnomaly: false });
@@ -123,17 +124,21 @@ class VideoPage extends Component {
     const myLoop = () => {
       setTimeout(() => {
         i++;
+        const canvas = this.refs.canvas;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let drawList = bBoxes.filter((bboxdetail)=>{
+            return bboxdetail.frameNo == i;
+        })
 
-        if (i === bBoxes.length - 1) {
+        
+        if (i === frame - 1) {
           this.setState({ [list]: false });
         }
-        this.refs.player.seek(bBoxes[i].frameNo / 12);
-        if (bBoxes[i].boundary) {
-          this.drawBox(bBoxes[i].boundary);
-        } else {
-          this.drawBox(bBoxes[i]);
-        }
-        if (i < bBoxes.length && this.state[list]) {
+
+        this.refs.player.seek(i / 12);
+        drawList.forEach(box => {box.boundary ? this.drawBox(box.boundary): this.drawBox(box)})
+        if (i < frame && this.state[list]) {
           myLoop();
         }
       }, 400);
@@ -152,11 +157,14 @@ class VideoPage extends Component {
   drawBox(bBox) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeRect(bBox.left, bBox.top, bBox.width, bBox.height);
   }
 
   conditionalDrawBox(bBoxes, time) {
+    const canvas = this.refs.canvas;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     bBoxes.forEach(bBox => {
       if ((bBox.frameNo / 12).toFixed() === time.toFixed()) {
         if (bBox.boundary) {
@@ -169,8 +177,12 @@ class VideoPage extends Component {
   }
 
   handleListClick(bBoxes, time) {
-    this.refs.player.seek(time);
-    this.conditionalDrawBox(bBoxes, time);
+    let drawList = bBoxes.filter((bboxdetail)=>{
+      return bboxdetail.frameNo == time;
+  })
+  console.log(drawList)
+    this.refs.player.seek(time/12);
+    this.conditionalDrawBox(drawList, time/12);
   }
 
   changeSource() {

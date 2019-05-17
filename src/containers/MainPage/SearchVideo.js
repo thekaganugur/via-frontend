@@ -258,16 +258,19 @@ class SearchVideo extends Component {
     var filteredVideos = this.props.videos.list.filter(video =>
       video.title.includes(this.state.titleTerm)
     );
-    return filteredVideos.map((v, i) => (
-      <GridVideo
-        key={i}
-        id={v.video_id}
-        title={v.title}
-        time={v.length}
-        objects={v.objects}
-        anomalities={v.anomalities}
-      />
-    ));
+    return filteredVideos.map((v, i) => {
+      return (
+        <GridVideo
+          key={i}
+          id={v.video_id}
+          title={v.title}
+          time={v.length}
+          objects={v.objects}
+          anomalities={v.anomalities}
+          thumbnail={'/static/' + v.tumbnail}
+        />
+      );
+    });
   };
 
   render() {
@@ -277,7 +280,6 @@ class SearchVideo extends Component {
       videos = <div>{this.props.videos.error.message}</div>;
     } else if (!this.props.videos.loading) {
       videos = this.renderVideoGrids();
-      console.log(this.props.videos);
     }
 
     return (

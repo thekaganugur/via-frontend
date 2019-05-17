@@ -67,7 +67,7 @@ export const fetchAnomalies = id => {
   return dispatch => {
     dispatch({ type: actionTypes.FETCH_ANOMALIES_START });
     axios
-      .get(`/anomaly/linecrossing/${id}`)
+      .get(`/anomaly/${id}`)
       .then(res =>
         dispatch({
           type: actionTypes.FETCH_ANOMALIES_SUCCESS,
@@ -152,8 +152,6 @@ export const fetchAnomaly = (anomaly, videoId) => {
 
       switch (startStatus) {
         case codes.INTERNAL_SERVER_ERROR:
-          console.log(startM);
-          break;
         case codes.COMPLETED_SUCCESSFULLY:
           setanomalyMessage(
             actionTypes.FETCH_ANOMALY_SUCCESS,
@@ -161,7 +159,6 @@ export const fetchAnomaly = (anomaly, videoId) => {
             videoId
           );
           axios.get(`anomaly/linecrossing/${videoId}`).then(res => {
-            console.log(res.data);
             dispatch({
               type: actionTypes.DRAW_LINE_SUCCESS,
               payload: res.data
@@ -183,13 +180,11 @@ export const fetchAnomaly = (anomaly, videoId) => {
           };
 
           watchWS.onmessage = async function(evt) {
-            // console.log(evt.data);
             const watchM = JSON.parse(evt.data);
             const watchStatus = watchM.status;
             // setanomalyResult(watchM);
             switch (watchStatus) {
               case codes.PROGRESS:
-                console.log(watchM.data.progress);
                 setanomalyResult({
                   videoId: parseInt(videoId),
                   progress: watchM.data.progress,
@@ -197,7 +192,6 @@ export const fetchAnomaly = (anomaly, videoId) => {
                 });
                 break;
               default:
-                console.log(watchM);
             }
           };
           watchWS.onclose = function() {

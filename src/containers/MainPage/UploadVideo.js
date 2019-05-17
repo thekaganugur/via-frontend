@@ -5,6 +5,7 @@ import axios from 'axios';
 import SelectFile from '../../components/Styled/SelectFile';
 import Button from '../../components/Styled/Button';
 import Input from '../../components/Styled/Input';
+import Spinner from '../../components/Styled/Spinner';
 
 const Form = styled.form`
   padding: 4rem 0 2rem 0;
@@ -16,7 +17,8 @@ const Form = styled.form`
 class UploadVideo extends React.Component {
   state = {
     title: '',
-    files: []
+    files: [],
+    uploadingVideo: false
   };
   constructor(props) {
     super(props);
@@ -29,12 +31,15 @@ class UploadVideo extends React.Component {
     formData.append('title', this.state.title);
     formData.append('videoFile', this.state.files[0]);
 
+    this.setState({ uploadingVideo: true });
     axios
       .post('/video', formData, { mode: 'no-cors' })
       .then(response => {
+        this.setState({ uploadingVideo: false });
         console.log(response);
       })
       .catch(error => {
+        this.setState({ uploadingVideo: false });
         console.log(error);
       });
   }
@@ -63,6 +68,11 @@ class UploadVideo extends React.Component {
   }
 
   render() {
+    let videos;
+    if (this.state.uploadingVideo) {
+      videos = <Spinner />;
+    }
+
     return (
       <Form onSubmit={e => this.handleSubmit(e)}>
         <Input
@@ -78,6 +88,7 @@ class UploadVideo extends React.Component {
           droped={e => this.handleFileDrop(e)}
         />
         <Button type="submit">Submit</Button>
+        {videos}
       </Form>
     );
   }
