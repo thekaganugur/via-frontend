@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 export default (state = { results: [] }, action) => {
   switch (action.type) {
     case actionTypes.FETCH_QBE_START:
-      return { ...state, message: action.message };
+      return { ...state, results: [], message: action.message };
     case actionTypes.FETCH_QBE_PROGRESS:
       return {
         ...state,

@@ -5,6 +5,6 @@ import qbe from './qbe';
 
 export default combineReducers({
   video: videoReducer,
-  videos,
-  qbe
+  videos
+  // qbe
 });

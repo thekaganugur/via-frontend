@@ -96,7 +96,7 @@ class SearchVideoByEx extends React.Component {
                 changed={e => this.setState({ similarity: e.target.value })}
                 type="number"
                 min={0}
-                step={0.1}
+                step="any"
                 placeHolder=""
               />
             </label>
@@ -131,7 +131,7 @@ class SearchVideoByEx extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  qbe: state.qbe
+  qbe: state.video.qbe
 });
 
 const mapDispatchToProps = dispatch => ({

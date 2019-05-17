@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import {
-  Player,
-  BigPlayButton,
-  ControlBar,
-  FullscreenToggle
-} from 'video-react';
+import { Player, ControlBar, FullscreenToggle } from 'video-react';
 
 import Layout from '../../components/Layout';
 import '../../../node_modules/video-react/dist/video-react.css';
@@ -29,6 +24,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  select {
+    padding: 0.3rem 0.8rem;
+    margin: 0.4rem 0 1rem 0;
+  }
 
   .main {
     width: 100%;
@@ -77,7 +77,7 @@ class VideoPage extends Component {
     liveAnomaly: false,
     liveObject: false,
     liveDrawLine: false,
-    anomalySelect: 'Line Crossing Object Detected'
+    anomalySelect: 'Line Crossing'
   };
 
   componentDidMount() {
@@ -203,7 +203,7 @@ class VideoPage extends Component {
     const ctx = canvas.getContext('2d');
     ctx.setLineDash([0]);
     ctx.strokeStyle = 'yellow';
-    ctx.fillStyle = 'purple';
+    ctx.fillStyle = '#333';
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
     ctx.lineWidth = '3';
@@ -268,7 +268,14 @@ class VideoPage extends Component {
 
   filterAnomalies() {
     return this.props.detectedAnomalies.results.filter(anomaly => {
-      return anomaly.related_function_name === this.state.anomalySelect;
+      switch (this.state.anomalySelect) {
+        case 'Line Crossing':
+          return anomaly.rule_id === 2;
+        case 'Crowd Detection':
+          return anomaly.rule_id === 3;
+        case 'Activity Detection':
+          return anomaly.rule_id === 1;
+      }
     });
   }
 
@@ -311,7 +318,6 @@ class VideoPage extends Component {
                 height={this.props.height}
               >
                 <source src={this.state.source} />
-                <BigPlayButton position="center" />
                 <ControlBar>
                   <FullscreenToggle disabled />
                 </ControlBar>
@@ -343,13 +349,6 @@ class VideoPage extends Component {
                 </Button>
               </span>
             </div>
-            <Select
-              value={this.state.anomalySelect}
-              changed={e => this.setState({ anomalySelect: e.target.value })}
-            >
-              <option>Line Crossing Object Detected</option>
-              <option>Crowd Detection</option>
-            </Select>
 
             <div className="lists">
               <List
@@ -380,7 +379,36 @@ class VideoPage extends Component {
                 clickedPause={() => {
                   this.setState({ liveAnomaly: false });
                 }}
-              />
+              >
+                <Select
+                  value={this.state.anomalySelect}
+                  changed={e => {
+                    this.props.detectedAnomalies.results.map(anomaly => {
+                      switch (e.target.value) {
+                        case 'Line Crossing':
+                          if (anomaly.rule_id === 2) {
+                            this.setState({ anomalySelect: e.target.value });
+                          }
+                          break;
+                        case 'Crowd Detection':
+                          if (anomaly.rule_id === 3) {
+                            this.setState({ anomalySelect: e.target.value });
+                          }
+                          break;
+                        case 'Activity Detection':
+                          if (anomaly.rule_id === 1) {
+                            this.setState({ anomalySelect: e.target.value });
+                          }
+                          break;
+                      }
+                    });
+                  }}
+                >
+                  <option>Line Crossing</option>
+                  <option>Crowd Detection</option>
+                  <option>Activity Detection</option>
+                </Select>
+              </List>
               <List
                 title="Detected Objects"
                 listItems={this.props.detectedObjects.results}
@@ -428,7 +456,7 @@ const mapStateToProps = state => ({
   detectedObjects: state.video.detectedObjects,
   detectedAnomalies: state.video.detectedAnomalies,
   drawLineRes: state.video.drawLineRes,
-  qbeBoundingBoxes: state.qbe.results,
+  qbeBoundingBoxes: state.video.qbe.results,
   title: state.video.metaData.title,
   path: state.video.metaData.path,
   width: state.video.metaData.width,

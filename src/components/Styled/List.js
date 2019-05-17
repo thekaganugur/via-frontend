@@ -90,7 +90,8 @@ const List = ({
   clickedListItem,
   isPlaying,
   clickedPlay,
-  clickedPause
+  clickedPause,
+  children
 }) => {
   if (listItems.length === 0) {
     return null;
@@ -99,6 +100,7 @@ const List = ({
     <Container>
       <h3 className="title">{title}</h3>
       {renderControls(isPlaying, clickedPlay, clickedPause)}
+      {children}
       <ul className="list">{renderList(listItems, clickedListItem)}</ul>
     </Container>
   );

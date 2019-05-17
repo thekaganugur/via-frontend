@@ -11,6 +11,9 @@ const initialState = {
   },
   drawLineRes: {
     results: []
+  },
+  qbe: {
+    results: []
   }
 };
 
@@ -111,6 +114,49 @@ const video = (state = initialState, action) => {
         drawLineRes: {
           ...state.drawLineRes,
           results: action.payload
+        }
+      };
+
+    case actionTypes.FETCH_QBE_START:
+      return {
+        ...state,
+        qbe: {
+          ...state.qbe,
+          results: [],
+          message: action.message
+        }
+      };
+    case actionTypes.FETCH_QBE_PROGRESS:
+      return {
+        ...state,
+        qbe: {
+          ...state.qbe,
+          progress: action.payload.progress,
+          results: action.payload.results
+        }
+      };
+    case actionTypes.FETCH_QBE_SUCCESS:
+      return {
+        ...state,
+        qbe: {
+          ...state.qbe,
+          message: action.message
+        }
+      };
+    case actionTypes.FETCH_QBE_CLOSED:
+      return {
+        ...state,
+        qbe: {
+          ...state.qbe,
+          message: action.message
+        }
+      };
+    case actionTypes.FETCH_QBE_ERROR:
+      return {
+        ...state,
+        qbe: {
+          ...state.qbe,
+          error: action.payload
         }
       };
 
