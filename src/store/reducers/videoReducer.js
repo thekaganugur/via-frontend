@@ -1,13 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
-// import detectedAnomaliesReduces from './detectedAnomalies';
-// import detectedObjectsReducer from './detectedObjects';
 import metaData from './metaData';
 
 const initialState = {
-  metaData: {
-    title: 'Undefined Video',
-    path: ''
-  },
+  metaData: {},
   detectedAnomalies: {
     results: []
   },
@@ -17,80 +12,6 @@ const initialState = {
   drawLineRes: {
     results: []
   }
-  // detectedObjects: [
-  //   {
-  //     left_x: 182,
-  //     top_y: 223,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Object',
-  //     time: 1
-  //   },
-  //   {
-  //     left_x: 282,
-  //     top_y: 193,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Diffrent Object',
-  //     time: 2
-  //   },
-  //   {
-  //     left_x: 289,
-  //     top_y: 399,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Diffrent Object',
-  //     time: 2.5
-  //   },
-  //   {
-  //     left_x: 325,
-  //     top_y: 297,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Object',
-  //     time: 2
-  //   },
-  //   {
-  //     left_x: 289,
-  //     top_y: 319,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Diffrent Object',
-  //     time: 2
-  //   },
-  //   {
-  //     left_x: 349,
-  //     top_y: 299,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Object',
-  //     time: 2.5
-  //   },
-  //   {
-  //     left_x: 199,
-  //     top_y: 289,
-  //     width: 67,
-  //     height: 91,
-  //     text: 'Object',
-  //     time: 4
-  //   }
-  // ],
-  // detectedAnomalies: [
-  //   {
-  //     name: 'detectedAnomaly-1',
-  //     time: 2
-  //   }
-  // ],
-  // detectedObjects: [
-  //   {
-  //     name: 'detectedObject-1',
-  //     time: 2
-  //   },
-  //   {
-  //     name: 'detectedObject-1',
-  //     time: 8
-  //   }
-  // ]
 };
 
 const video = (state = initialState, action) => {
@@ -98,12 +19,25 @@ const video = (state = initialState, action) => {
     //VIDEO
     case actionTypes.FETCH_VIDEO_START:
       return {
-        ...state
+        ...state,
+        metaData: {
+          title: 'Undefined Video',
+          path: ''
+        },
+        detectedAnomalies: {
+          results: []
+        },
+        detectedObjects: {
+          results: []
+        },
+        drawLineRes: {
+          results: []
+        }
       };
     case actionTypes.FETCH_VIDEO_SUCCESS:
-      return metaData(initialState, action);
+      return metaData(state, action);
     case actionTypes.FETCH_VIDEO_ERROR:
-      return metaData(initialState, action);
+      return metaData(state, action);
     //ANOMALY
     case actionTypes.FETCH_ANOMALIES_START:
       return {
@@ -180,11 +114,6 @@ const video = (state = initialState, action) => {
         }
       };
 
-    // ** //
-    // case actionTypes.INIT_BOUNDINGBOXES:
-    //   return boundingBoxesReducer(initialState, action);
-    // case actionTypes.INIT_DETECTED_OBJECTS:
-    //   return detectedObjectsReducer(initialState, action);
     default:
       return state;
   }

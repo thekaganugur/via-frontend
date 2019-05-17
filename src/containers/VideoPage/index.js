@@ -113,7 +113,7 @@ class VideoPage extends Component {
       return;
     }
     var i = bBoxes[0].frameNo;
-    var frame = bBoxes[bBoxes.length-1].frameNo
+    var frame = bBoxes[bBoxes.length - 1].frameNo;
     this.refs.player.pause();
     this.setState({ liveQbe: false });
     this.setState({ liveAnomaly: false });
@@ -127,17 +127,18 @@ class VideoPage extends Component {
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let drawList = bBoxes.filter((bboxdetail)=>{
-            return bboxdetail.frameNo == i;
-        })
+        let drawList = bBoxes.filter(bboxdetail => {
+          return bboxdetail.frameNo === i;
+        });
 
-        
         if (i === frame - 1) {
           this.setState({ [list]: false });
         }
 
         this.refs.player.seek(i / 12);
-        drawList.forEach(box => {box.boundary ? this.drawBox(box.boundary): this.drawBox(box)})
+        drawList.forEach(box => {
+          box.boundary ? this.drawBox(box.boundary) : this.drawBox(box);
+        });
         if (i < frame && this.state[list]) {
           myLoop();
         }
@@ -163,8 +164,8 @@ class VideoPage extends Component {
 
   conditionalDrawBox(bBoxes, time) {
     const canvas = this.refs.canvas;
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     bBoxes.forEach(bBox => {
       if ((bBox.frameNo / 12).toFixed() === time.toFixed()) {
         if (bBox.boundary) {
@@ -177,12 +178,12 @@ class VideoPage extends Component {
   }
 
   handleListClick(bBoxes, time) {
-    let drawList = bBoxes.filter((bboxdetail)=>{
-      return bboxdetail.frameNo == time;
-  })
-  console.log(drawList)
-    this.refs.player.seek(time/12);
-    this.conditionalDrawBox(drawList, time/12);
+    let drawList = bBoxes.filter(bboxdetail => {
+      return bboxdetail.frameNo === time;
+    });
+    this.refs.player.pause();
+    this.refs.player.seek(time / 12);
+    this.conditionalDrawBox(drawList, time / 12);
   }
 
   changeSource() {

@@ -60,16 +60,22 @@ const Container = styled.div`
 `;
 
 const renderList = (listItems, clickedListItem) =>
-  listItems.map((listItem, i) => (
-    <li key={i} onClick={() => clickedListItem(listItem.frameNo)}>
-      <div className="description">
-        {listItem.related_function_name
-          ? listItem.related_function_name.substring(0, 13)
-          : null}
-      </div>
-      <div>{(listItem.frameNo / 12).toFixed(2).replace('.', ':')}</div>
-    </li>
-  ));
+  listItems.map((listItem, i) => {
+    const seconds = listItem.frameNo / 12;
+    var h = Math.floor(seconds / 3600);
+    var m = Math.floor((seconds % 3600) / 60);
+    var s = Math.floor((seconds % 3600) % 60);
+    return (
+      <li key={i} onClick={() => clickedListItem(listItem.frameNo)}>
+        <div className="description">
+          {listItem.related_function_name
+            ? listItem.related_function_name.substring(0, 13)
+            : null}
+        </div>
+        <div>{`${h}:${m}:${s}`}</div>
+      </li>
+    );
+  });
 
 const renderControls = (isPlaying, clickedPlay, clickedPause) => {
   if (isPlaying) {

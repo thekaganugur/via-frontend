@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styled from 'styled-components';
 import cameraImage from '../../assets/camera-cctv-equipment-430208.jpg';

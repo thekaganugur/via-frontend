@@ -228,7 +228,6 @@ class SearchVideo extends Component {
 
   handlePlusButton = (i, buttonAlignment) => {
     if (buttonAlignment === 'left') {
-      console.log('left');
       this.setState(({ queryElements }) => ({
         queryElements: [
           ...queryElements.slice(0, i),
@@ -267,7 +266,7 @@ class SearchVideo extends Component {
           time={v.length}
           objects={v.objects}
           anomalities={v.anomalities}
-          thumbnail={'/static/' + v.tumbnail}
+          thumbnail={'http://104.196.71.143:3000/static/' + v.thumbnail}
         />
       );
     });

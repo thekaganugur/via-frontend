@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Thumbnail from '../assets/sintel1.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { media } from '../styles';
@@ -81,7 +80,6 @@ const gridVideo = ({
   time,
   thumbnail
 }) => {
-  console.log(thumbnail);
   return (
     <GridVideo className={className}>
       <Link to={`/video/${id}`}>
