@@ -23,6 +23,7 @@ import Modal from '../../components/Modal';
 import SearchByExample from '../MainPage/SearchVideoByEx';
 import List from '../../components/Styled/List';
 import ProgressLine from '../../components/Styled/ProgressLine';
+import Select from '../../components/Styled/Select';
 
 const Container = styled.div`
   display: flex;
@@ -75,7 +76,8 @@ class VideoPage extends Component {
     liveQbe: false,
     liveAnomaly: false,
     liveObject: false,
-    liveDrawLine: false
+    liveDrawLine: false,
+    anomalySelect: 'Line Crossing Object Detected'
   };
 
   componentDidMount() {
@@ -101,11 +103,6 @@ class VideoPage extends Component {
       ctx.lineWidth = '3';
       this.changeSource();
     }
-
-    // if (this.state.videoInit && this.state.qbeLive) {
-    //   const time = this.state.player.currentTime;
-    //   this.conditionalDrawBox(this.props.qbeBoundingBoxes, time);
-    // }
   }
 
   playBBoxes(bBoxes, list) {
@@ -131,18 +128,64 @@ class VideoPage extends Component {
           return bboxdetail.frameNo === i;
         });
 
+        if (drawList.length === 0) {
+        }
+        console.log(i, drawList);
+
         if (i === frame - 1) {
           this.setState({ [list]: false });
         }
 
         this.refs.player.seek(i / 12);
         drawList.forEach(box => {
-          box.boundary ? this.drawBox(box.boundary) : this.drawBox(box);
+          if (box.boundary) {
+            this.drawBox(box.boundary);
+          } else {
+            this.drawBox(box);
+            if (box.params) {
+              const params = JSON.parse(box.params);
+              this.drawAnomalyLine(params[2], params[3], params[4], params[5]);
+            }
+          }
         });
+
         if (i < frame && this.state[list]) {
           myLoop();
         }
-      }, 400);
+      }, 500);
+    };
+
+    myLoop();
+  }
+
+  playBBoxesForQbe(bBoxes, list) {
+    if (bBoxes.length === 0) {
+      return;
+    }
+    var i = 0;
+    this.refs.player.pause();
+    this.setState({ liveQbe: false });
+    this.setState({ liveAnomaly: false });
+    this.setState({ liveObject: false });
+    this.setState({ liveDrawLine: false });
+    this.setState({ [list]: true });
+
+    const myLoop = () => {
+      const canvas = this.refs.canvas;
+      const ctx = canvas.getContext('2d');
+      setTimeout(() => {
+        if (i === bBoxes.length - 1) {
+          this.setState({ [list]: false });
+        }
+        this.refs.player.seek(bBoxes[i].frameNo / 12);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.drawBox(bBoxes[i].boundary);
+
+        i++;
+        if (i < bBoxes.length && this.state[list]) {
+          myLoop();
+        }
+      }, 500);
     };
 
     myLoop();
@@ -158,8 +201,28 @@ class VideoPage extends Component {
   drawBox(bBox) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setLineDash([0]);
+    ctx.strokeStyle = 'yellow';
+    ctx.fillStyle = 'purple';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    ctx.lineWidth = '3';
     ctx.strokeRect(bBox.left, bBox.top, bBox.width, bBox.height);
+    if (bBox.label) {
+      ctx.fillText(bBox.label, bBox.left + bBox.width / 2, bBox.top - 5);
+    }
+  }
+
+  drawAnomalyLine(startX, startY, lineX, lineY) {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    ctx.setLineDash([4]);
+    ctx.strokeStyle = 'Cyan';
+    ctx.lineWidth = '3';
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(lineX, lineY);
+    ctx.stroke();
   }
 
   conditionalDrawBox(bBoxes, time) {
@@ -172,6 +235,10 @@ class VideoPage extends Component {
           this.drawBox(bBox.boundary);
         } else {
           this.drawBox(bBox);
+          if (bBox.params) {
+            const params = JSON.parse(bBox.params);
+            this.drawAnomalyLine(params[2], params[3], params[4], params[5]);
+          }
         }
       }
     });
@@ -197,6 +264,12 @@ class VideoPage extends Component {
     const path = this.props.path;
     const index = path.indexOf('/media-source/');
     return path.substring(index + '/media-source/'.length);
+  }
+
+  filterAnomalies() {
+    return this.props.detectedAnomalies.results.filter(anomaly => {
+      return anomaly.related_function_name === this.state.anomalySelect;
+    });
   }
 
   render() {
@@ -270,37 +343,39 @@ class VideoPage extends Component {
                 </Button>
               </span>
             </div>
+            <Select
+              value={this.state.anomalySelect}
+              changed={e => this.setState({ anomalySelect: e.target.value })}
+            >
+              <option>Line Crossing Object Detected</option>
+              <option>Crowd Detection</option>
+            </Select>
 
             <div className="lists">
               <List
-                title="Qbe"
+                title="Query By Example"
                 listItems={this.props.qbeBoundingBoxes}
                 clickedListItem={time =>
                   this.handleListClick(this.props.qbeBoundingBoxes, time)
                 }
                 isPlaying={this.state.liveQbe}
                 clickedPlay={() => {
-                  this.playBBoxes(this.props.qbeBoundingBoxes, 'liveQbe');
+                  this.playBBoxesForQbe(this.props.qbeBoundingBoxes, 'liveQbe');
                 }}
                 clickedPause={() => {
                   this.setState({ liveQbe: false });
                 }}
               />
+
               <List
                 title="Detected Anomalies"
-                listItems={this.props.detectedAnomalies.results}
+                listItems={this.filterAnomalies()}
                 clickedListItem={time =>
-                  this.handleListClick(
-                    this.props.detectedAnomalies.results,
-                    time
-                  )
+                  this.handleListClick(this.filterAnomalies(), time)
                 }
                 isPlaying={this.state.liveAnomaly}
                 clickedPlay={() => {
-                  this.playBBoxes(
-                    this.props.detectedAnomalies.results,
-                    'liveAnomaly'
-                  );
+                  this.playBBoxes(this.filterAnomalies(), 'liveAnomaly');
                 }}
                 clickedPause={() => {
                   this.setState({ liveAnomaly: false });
@@ -325,7 +400,7 @@ class VideoPage extends Component {
               />
 
               <List
-                title="Draw line res"
+                title="Drawed line result"
                 listItems={this.props.drawLineRes.results}
                 clickedListItem={time =>
                   this.handleListClick(this.props.drawLineRes.results, time)

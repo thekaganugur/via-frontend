@@ -116,19 +116,20 @@ export const fetchAnomaly = (anomaly, videoId) => {
     startWS = new WebSocket(WSURL);
 
     startWS.onopen = function() {
+      console.log('anomaly', anomaly);
       startWS.send(
         JSON.stringify({
           route: 'start-anomaly',
           data: {
             videoId: parseInt(videoId),
             line_coord1_x: anomaly.line_coord1_x
-              ? parseFloat(anomaly.line_coord1_x)
+              ? parseInt(anomaly.line_coord1_x)
               : undefined,
             line_coord1_y: anomaly.line_coord1_y
-              ? parseFloat(anomaly.line_coord1_x)
+              ? parseInt(anomaly.line_coord1_y)
               : undefined,
             line_coord2_x: anomaly.line_coord2_x
-              ? parseInt(anomaly.line_coord1_x)
+              ? parseInt(anomaly.line_coord2_x)
               : undefined,
             line_coord2_y: anomaly.line_coord2_y
               ? parseInt(anomaly.line_coord2_y)
