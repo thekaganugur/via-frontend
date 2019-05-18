@@ -8,7 +8,7 @@ const metaData = (state, action) => {
       ...state.detectedObjects
     },
     qbe: {
-      ...state.qbe
+      results: []
     },
     metaData: {
       title: action.payload.title,

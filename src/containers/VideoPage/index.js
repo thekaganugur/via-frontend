@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Player, ControlBar, FullscreenToggle } from 'video-react';
+import {
+  Player,
+  BigPlayButton,
+  ControlBar,
+  FullscreenToggle
+} from 'video-react';
 
 import Layout from '../../components/Layout';
 import '../../../node_modules/video-react/dist/video-react.css';
@@ -317,6 +322,7 @@ class VideoPage extends Component {
                 width={this.props.width}
                 height={this.props.height}
               >
+                <BigPlayButton className="big-play-button-hide" />
                 <source src={this.state.source} />
                 <ControlBar>
                   <FullscreenToggle disabled />
