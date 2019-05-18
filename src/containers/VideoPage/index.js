@@ -99,14 +99,13 @@ class VideoPage extends Component {
   componentDidUpdate() {
     if (this.props.path && !this.state.videoInit) {
       this.setState({ videoInit: true });
+      this.changeSource();
+    }
+
+    if (this.state.videoInit && !this.state.player.paused) {
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext('2d');
-      ctx.strokeStyle = 'yellow';
-      ctx.fillStyle = 'yellow';
-      ctx.font = '20px Arial';
-      ctx.textAlign = 'center';
-      ctx.lineWidth = '3';
-      this.changeSource();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   }
 
